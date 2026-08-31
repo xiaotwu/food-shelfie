@@ -65,24 +65,37 @@ jobs:
           path: build/Shelfie-unsigned.zip
           retention-days: 30
 
-  release:
-    name: Create Release
-    needs: archive
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Create release
+      - name: Create Release with app bundle
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
           name: Shelfie ${{ github.event.inputs.tag || github.ref_name }}
           draft: false
           prerelease: false
+          files: build/Shelfie-unsigned.zip
           body: |
+            ## What's included
+
+            - Unsigned iOS app bundle (`Shelfie-unsigned.zip`)
+            - Requires iOS 17 or later
+
+            ## Installation
+
+            This asset is **unsigned**. To run on a physical device:
+            1. Download the zip and extract `Shelfie.app`
+            2. Re-sign it with your own development certificate using Xcode or `codesign`
+            3. Install via Xcode Devices & Simulators or Apple Configurator
+
+            ## Build locally
+
+            ```bash
+            git clone git@github.com:xiaotwu/food-shelfie.git
+            cd food-shelfie
+            xcodegen generate
+            open Shelfie.xcodeproj
+            ```
+
+            See the README for full setup instructions.
             ## What's included
 
             - Unsigned iOS build (see Actions artifact)
