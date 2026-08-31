@@ -1,7 +1,7 @@
 import Foundation
 
 enum AppGroup {
-    static let identifier = "group.com.xiaotwu.shelfie"
+    static let identifier = "group.com.xiaotwu.shelfie" // 必须与 entitlements 和 Apple Developer Portal 中的 App Group 完全一致,且使用反向域名格式
     static let storeFileName = "Shelfie.sqlite"
     static let imagesDirectoryName = "FoodImages"
     static let snapshotFileName = "widget-snapshot.json"

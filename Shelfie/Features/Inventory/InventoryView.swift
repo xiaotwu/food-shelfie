@@ -26,15 +26,8 @@ struct InventoryView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationTitle(locale.text("shelf.title"))
-                .navigationBarTitleDisplayMode(.large)
+                .navigationBarTitleDisplayMode(.inline)
                 .toolbar { toolbar }
-                .safeAreaInset(edge: .bottom, alignment: .trailing) {
-                    if !isSelectMode {
-                        actionIsland
-                            .transition(.scale.combined(with: .opacity))
-                    }
-                }
                 .animation(Motion.snappy, value: isSelectMode)
                 .navigationDestination(isPresented: $showSearch) {
                     SearchView()
@@ -203,6 +196,34 @@ struct InventoryView: View {
                 }
             }
         } else {
+            ToolbarItem(placement: .topBarLeading) {
+                Menu {
+                    Button {
+                        showScanner = true
+                    } label: {
+                        Label(locale.text("scanner.title"), systemImage: "barcode.viewfinder")
+                    }
+                    Button {
+                        editingFood = nil
+                        prefill = nil
+                        showEntry = true
+                    } label: {
+                        Label(locale.text("shelf.empty.action"), systemImage: "plus")
+                    }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.title3.weight(.semibold))
+                }
+                .menuStyle(.borderlessButton)
+                .menuIndicator(.hidden)
+                .background(.ultraThinMaterial, in: Capsule())
+                .overlay {
+                    Capsule()
+                        .strokeBorder(.white.opacity(0.18), lineWidth: 0.5)
+                }
+                .shadow(color: .black.opacity(0.08), radius: 6, y: 3)
+                .accessibilityLabel(locale.text("shelf.actions"))
+            }
             ToolbarItem(placement: .primaryAction) {
                 Button {
                     showSearch = true
@@ -224,40 +245,6 @@ struct InventoryView: View {
                 }
             }
         }
-    }
-
-    /// 底部悬浮条右侧的整合按钮：点击弹出扫码/添加选项。
-    /// 该按钮与 TabView 的底部浮岛在同一视觉水平线上。
-    private var actionIsland: some View {
-        Menu {
-            Button {
-                showScanner = true
-            } label: {
-                Label(locale.text("scanner.title"), systemImage: "barcode.viewfinder")
-            }
-            Button {
-                editingFood = nil
-                prefill = nil
-                showEntry = true
-            } label: {
-                Label(locale.text("shelf.empty.action"), systemImage: "plus")
-            }
-        } label: {
-            Image(systemName: "plus")
-                .font(.body.weight(.semibold))
-                .frame(width: 52, height: 44)
-                .foregroundStyle(.primary)
-        }
-        .menuStyle(.borderlessButton)
-        .background(.ultraThinMaterial, in: Capsule())
-        .overlay {
-            Capsule()
-                .strokeBorder(.white.opacity(0.18), lineWidth: 0.5)
-        }
-        // 与 TabView 图标浮岛保持同一水平线
-        .padding(.trailing, 16)
-        .padding(.bottom, 16)
-        .accessibilityLabel(locale.text("shelf.actions"))
     }
 
     private var activeFoods: [FoodItemRecord] {

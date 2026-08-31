@@ -4,13 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en-US</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>en-US</string>
-		<string>zh-Hans</string>
-		<string>zh-CN</string>
-	</array>
 	<key>CFBundleDisplayName</key>
 	<string>Shelfie</string>
 	<key>CFBundleExecutable</key>
@@ -19,6 +12,13 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>en-US</string>
+		<string>zh-Hans</string>
+		<string>zh-CN</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>Shelfie</string>
 	<key>CFBundlePackageType</key>
@@ -31,10 +31,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Shelfie uses the camera to scan barcodes and read expiry dates on food packaging.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Shelfie uses your photo library to attach food photos and scan dates from existing pictures.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Shelfie can lock your inventory behind Face ID.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Shelfie uses your photo library to attach food photos and scan dates from existing pictures.</string>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
