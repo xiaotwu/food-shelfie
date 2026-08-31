@@ -1,0 +1,98 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0)'
+        required: true
+        default: 'v1.0'
+
+jobs:
+  archive:
+    name: Archive
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Generate project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Archive unsigned build
+        run: |
+          xcodebuild \
+            -project Shelfie.xcodeproj \
+            -scheme Shelfie \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$PWD/build/Shelfie.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            clean archive
+          echo "Archive contents:"
+          ls -la "$PWD/build/Shelfie.xcarchive/"
+
+      - name: Package unsigned app
+        run: |
+          APP_PATH="build/Shelfie.xcarchive/Products/Applications/Shelfie.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "Archive structure:"
+            find build -maxdepth 4 -type d
+            exit 1
+          fi
+          mkdir -p build/Payload
+          cp -r "$APP_PATH" build/Payload/Shelfie.app
+          cd build/Payload
+          zip -r "../Shelfie-unsigned.zip" Shelfie.app
+          cd "$GITHUB_WORKSPACE"
+          ls -lh build/Shelfie-unsigned.zip
+
+      - name: Upload unsigned app
+        uses: actions/upload-artifact@v4
+        with:
+          name: Shelfie-unsigned-app
+          path: build/Shelfie-unsigned.zip
+          retention-days: 30
+
+  release:
+    name: Create Release
+    needs: archive
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: Shelfie ${{ github.event.inputs.tag || github.ref_name }}
+          draft: false
+          prerelease: false
+          body: |
+            ## What's included
+
+            - Unsigned iOS build (see Actions artifact)
+            - Automatic build from Xcode Cloud / GitHub Actions
+
+            ## Installation
+
+            This artifact is unsigned. To install on a physical device:
+            1. Download and resign with your own certificate using `fastlane sigh` or Xcode
+            2. Or build locally from source (see README)
+
+            ## Source changes
+            See commit history for details.
