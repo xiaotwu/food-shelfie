@@ -1,0 +1,782 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07039C0A21098D4222C61BB3 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0D37810F999C0673130295E4 /* Localizable.xcstrings */; };
+		0A02267229CC5C915E077C80 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A2C5A5C359118CE26626B4 /* RootView.swift */; };
+		20588B7DB0861BB783CF4F65 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AEAAE68DFFD9882C8B74C3B /* Assets.xcassets */; };
+		224AD9C9CE1FACD552B75A68 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03DE81B1E08B7F8BD5E28AD /* Motion.swift */; };
+		2904C958D0CD0255D7AF516B /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A93B056D89D3F65A6C6484 /* L10n.swift */; };
+		2951E103E1993F8758470577 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F667F9C847C1BB7B1DA03D /* Theme.swift */; };
+		2E8ABA2F63D962DE0C04D8B3 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43640489EF8AE76F7AD9D76 /* AnalyticsView.swift */; };
+		365D05F7EF504F1683BEB8D5 /* ShelfieWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7FD027C1E37218DEE349CEC1 /* ShelfieWidgets.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		38BEB5281AB285353C95D5B7 /* InventoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D87E93B49A4C56F8DF6CDD /* InventoryView.swift */; };
+		3DAB5D39DF689BC191D53EF9 /* SwiftDataModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB44DAC4C315A86289ADBA4B /* SwiftDataModels.swift */; };
+		438C62248C4E77D336741DBA /* BackupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7223C366D8C4FD74ACFBBDDF /* BackupService.swift */; };
+		55546455692E9FD817AF58DF /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 15E3B7CE802B4802ADA21CFF /* InfoPlist.xcstrings */; };
+		59BC8B7637633E9459B53112 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70664E329D89EF08A402859C /* ScannerView.swift */; };
+		5D381F885366AEF7694313BC /* SettingsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBECF2F11687E11EC8C4896 /* SettingsViews.swift */; };
+		604A855E07CA6D9B8CD6429B /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCB3ADC9FBE48B13265195 /* ImageStore.swift */; };
+		658619DBF8D9D20C61DA9AD4 /* FoodEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D29C01BC2AF67C1D99B4CC9 /* FoodEntryView.swift */; };
+		673E9BDD8F8B733EB8BE24A8 /* FoodCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7692F747633BF09C8D12A87 /* FoodCard.swift */; };
+		6A95DB7EAA772116AAA5C2D4 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1D8758D2468AA032C7C57B /* Persistence.swift */; };
+		6C94FADDCF21706663872051 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A93B056D89D3F65A6C6484 /* L10n.swift */; };
+		7E78602A0D38644F2ABBCEE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846687044B6FA91214BD4658 /* Assets.xcassets */; };
+		7F393DAB85354F91230DD1A0 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0FC17CBC8F62BCAD80C87A /* AppGroup.swift */; };
+		8DDDEF377AA6C2A29561008F /* ShelfieWidgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD5AEB88AD70B4C46F269D4 /* ShelfieWidgets.swift */; };
+		8E66070CC8DD3532E6A32BF4 /* OpenFoodFactsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80007121FF2741E9249BAEB /* OpenFoodFactsClient.swift */; };
+		94F79352FC10D2AED458D5C0 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0FC17CBC8F62BCAD80C87A /* AppGroup.swift */; };
+		96E9E65F1EADD448402F6A26 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3D9EC470C0CA0956A37CACD /* SearchView.swift */; };
+		99F0D4969131FFCA5E52E84C /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CC466B49CA62370D80E60 /* Domain.swift */; };
+		9DF070F1A130F8928BD6C858 /* NotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFBFCE545B1066C13C5A84AA /* NotificationScheduler.swift */; };
+		9E92C4F875502B04D9709CD8 /* AppLockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F0A9F83FCCD8E610F5F9C6 /* AppLockView.swift */; };
+		A9D826530C6CE1C64F606A95 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36008C76880F9D17F774A28A /* SettingsStore.swift */; };
+		ABE49741B66943406E1E371F /* DateParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8ACBFC1E21F74CCD9127FC /* DateParser.swift */; };
+		BAA36A06A34A0442A492EADA /* ShelfieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D5367008BE5978F57F85B1D /* ShelfieTests.swift */; };
+		BBDF7B2EAFC183A259FD271E /* BiometricAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5665A3E3FFCC07822869980F /* BiometricAuth.swift */; };
+		BD88243243F92A21AC566A24 /* WidgetSnapshotWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26D45DFE2A726902B75D584 /* WidgetSnapshotWriter.swift */; };
+		D769E18714C9D3FCCCAC69A1 /* AnalyticsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E3C03C3E156E4C838E313A /* AnalyticsEngine.swift */; };
+		E6A75857CC4032C080467893 /* CategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F5EC838AA4B1FCCA9FE885 /* CategoryMapper.swift */; };
+		EA6BA06C067138AC1F07BA5B /* FoodValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9DE5DEF38EA8FCA815A52C3 /* FoodValidator.swift */; };
+		EA82816A0E9B82F5D0F87711 /* ShelfieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32761D63862E1C600217EB70 /* ShelfieApp.swift */; };
+		EC82C7A138F9840B443CA647 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A67E5A848D9522896D985266 /* CameraPreview.swift */; };
+		ED59EA603380D483633A3B65 /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF433DB0C2341449573C8319 /* SeedData.swift */; };
+		F08C3CE073376BF84D117D02 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0D37810F999C0673130295E4 /* Localizable.xcstrings */; };
+		F4C5F9D5E0936ABED916ABBF /* Domain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796CC466B49CA62370D80E60 /* Domain.swift */; };
+		FA07AD268F79465A70C9B488 /* FoodDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAAFCEBC24FD8C38E438C927 /* FoodDetailSheet.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4FC97903C54B125CA9E6F51D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BABD7348C81B307082D2B3C5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DB7D874BC35129430314B652;
+			remoteInfo = ShelfieWidgets;
+		};
+		914EB01DADFF5BE88C04989F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BABD7348C81B307082D2B3C5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 41225BDCC10F1BD610C37451;
+			remoteInfo = Shelfie;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D99D333E4808BBD5E9F38787 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				365D05F7EF504F1683BEB8D5 /* ShelfieWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0D29C01BC2AF67C1D99B4CC9 /* FoodEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodEntryView.swift; sourceTree = "<group>"; };
+		0D37810F999C0673130295E4 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		0D5367008BE5978F57F85B1D /* ShelfieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfieTests.swift; sourceTree = "<group>"; };
+		15E3B7CE802B4802ADA21CFF /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		32761D63862E1C600217EB70 /* ShelfieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfieApp.swift; sourceTree = "<group>"; };
+		36008C76880F9D17F774A28A /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		44A2C5A5C359118CE26626B4 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		532AA97F72FDC1299ECA1F4F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5665A3E3FFCC07822869980F /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
+		65FCB3ADC9FBE48B13265195 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
+		6AEAAE68DFFD9882C8B74C3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6D8ACBFC1E21F74CCD9127FC /* DateParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateParser.swift; sourceTree = "<group>"; };
+		70664E329D89EF08A402859C /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		7223C366D8C4FD74ACFBBDDF /* BackupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackupService.swift; sourceTree = "<group>"; };
+		76F667F9C847C1BB7B1DA03D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		77D3996DCE6AEC9179BB2851 /* Shelfie.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Shelfie.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7955924AFA1B2A3562DCC3C6 /* ShelfieWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShelfieWidgets.entitlements; sourceTree = "<group>"; };
+		796CC466B49CA62370D80E60 /* Domain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
+		7FD027C1E37218DEE349CEC1 /* ShelfieWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ShelfieWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		846687044B6FA91214BD4658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A67E5A848D9522896D985266 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		A9DE5DEF38EA8FCA815A52C3 /* FoodValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodValidator.swift; sourceTree = "<group>"; };
+		AB44DAC4C315A86289ADBA4B /* SwiftDataModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataModels.swift; sourceTree = "<group>"; };
+		B2F5EC838AA4B1FCCA9FE885 /* CategoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMapper.swift; sourceTree = "<group>"; };
+		B7692F747633BF09C8D12A87 /* FoodCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodCard.swift; sourceTree = "<group>"; };
+		B7F0A9F83FCCD8E610F5F9C6 /* AppLockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLockView.swift; sourceTree = "<group>"; };
+		BAD5AEB88AD70B4C46F269D4 /* ShelfieWidgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfieWidgets.swift; sourceTree = "<group>"; };
+		BF433DB0C2341449573C8319 /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
+		C26D45DFE2A726902B75D584 /* WidgetSnapshotWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSnapshotWriter.swift; sourceTree = "<group>"; };
+		C3D9EC470C0CA0956A37CACD /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C8E3C03C3E156E4C838E313A /* AnalyticsEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEngine.swift; sourceTree = "<group>"; };
+		CEBECF2F11687E11EC8C4896 /* SettingsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViews.swift; sourceTree = "<group>"; };
+		DC96F71F07C8BA66E4A7AA22 /* ShelfieTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ShelfieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFBFCE545B1066C13C5A84AA /* NotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationScheduler.swift; sourceTree = "<group>"; };
+		E03DE81B1E08B7F8BD5E28AD /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
+		E80007121FF2741E9249BAEB /* OpenFoodFactsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsClient.swift; sourceTree = "<group>"; };
+		EAAFCEBC24FD8C38E438C927 /* FoodDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailSheet.swift; sourceTree = "<group>"; };
+		EF0FC17CBC8F62BCAD80C87A /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
+		F01DBB15067D1EBE22C2FDA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F0A93B056D89D3F65A6C6484 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		F43640489EF8AE76F7AD9D76 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		F4A2B5B529DF4C82DD03252C /* Shelfie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shelfie.entitlements; sourceTree = "<group>"; };
+		F8D87E93B49A4C56F8DF6CDD /* InventoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryView.swift; sourceTree = "<group>"; };
+		FE1D8758D2468AA032C7C57B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08ED608B8616FAC77B082748 = {
+			isa = PBXGroup;
+			children = (
+				CEFD836F0F19B025311E7111 /* Shared */,
+				716985492C12CF15A8277283 /* Shelfie */,
+				8B2B9F058E0B2E3E63B99387 /* ShelfieTests */,
+				D0276CC79C36235B2B28B727 /* ShelfieWidgets */,
+				8D0ADE57FE0BCAA80A81EE4F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0B713D07B9263F776D13CCBE /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				7223C366D8C4FD74ACFBBDDF /* BackupService.swift */,
+				65FCB3ADC9FBE48B13265195 /* ImageStore.swift */,
+				E80007121FF2741E9249BAEB /* OpenFoodFactsClient.swift */,
+				BF433DB0C2341449573C8319 /* SeedData.swift */,
+				36008C76880F9D17F774A28A /* SettingsStore.swift */,
+				C26D45DFE2A726902B75D584 /* WidgetSnapshotWriter.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0CAD2CF077DC083830202019 /* Inventory */ = {
+			isa = PBXGroup;
+			children = (
+				B7692F747633BF09C8D12A87 /* FoodCard.swift */,
+				EAAFCEBC24FD8C38E438C927 /* FoodDetailSheet.swift */,
+				F8D87E93B49A4C56F8DF6CDD /* InventoryView.swift */,
+			);
+			path = Inventory;
+			sourceTree = "<group>";
+		};
+		240086CBE254D31EC919C34C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				44A2C5A5C359118CE26626B4 /* RootView.swift */,
+				32761D63862E1C600217EB70 /* ShelfieApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		2B94E14DE78F986A6049897C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				CEBECF2F11687E11EC8C4896 /* SettingsViews.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		465BC48E9417D86255EAE158 /* Entry */ = {
+			isa = PBXGroup;
+			children = (
+				0D29C01BC2AF67C1D99B4CC9 /* FoodEntryView.swift */,
+			);
+			path = Entry;
+			sourceTree = "<group>";
+		};
+		716985492C12CF15A8277283 /* Shelfie */ = {
+			isa = PBXGroup;
+			children = (
+				532AA97F72FDC1299ECA1F4F /* Info.plist */,
+				F4A2B5B529DF4C82DD03252C /* Shelfie.entitlements */,
+				240086CBE254D31EC919C34C /* App */,
+				0B713D07B9263F776D13CCBE /* Data */,
+				F887CA39A37BEB0AEC27BFCC /* Design */,
+				8C2AFE6F12CB164B3CCD6707 /* Features */,
+				75A241840464FDE30E864086 /* Resources */,
+				EAB99B462CB30C9C2A64C562 /* Services */,
+			);
+			path = Shelfie;
+			sourceTree = "<group>";
+		};
+		75A241840464FDE30E864086 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6AEAAE68DFFD9882C8B74C3B /* Assets.xcassets */,
+				15E3B7CE802B4802ADA21CFF /* InfoPlist.xcstrings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		87A331DF846595A3A5D337E6 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				F43640489EF8AE76F7AD9D76 /* AnalyticsView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		8B2B9F058E0B2E3E63B99387 /* ShelfieTests */ = {
+			isa = PBXGroup;
+			children = (
+				0D5367008BE5978F57F85B1D /* ShelfieTests.swift */,
+			);
+			path = ShelfieTests;
+			sourceTree = "<group>";
+		};
+		8C2AFE6F12CB164B3CCD6707 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				87A331DF846595A3A5D337E6 /* Analytics */,
+				465BC48E9417D86255EAE158 /* Entry */,
+				0CAD2CF077DC083830202019 /* Inventory */,
+				F3838B4DF12E5282950EEC7A /* Lock */,
+				D9604EF8F4665255257AEEE3 /* Scanner */,
+				E764081D768FFE02E737BE09 /* Search */,
+				2B94E14DE78F986A6049897C /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		8D0ADE57FE0BCAA80A81EE4F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				77D3996DCE6AEC9179BB2851 /* Shelfie.app */,
+				DC96F71F07C8BA66E4A7AA22 /* ShelfieTests.xctest */,
+				7FD027C1E37218DEE349CEC1 /* ShelfieWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEFD836F0F19B025311E7111 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				C8E3C03C3E156E4C838E313A /* AnalyticsEngine.swift */,
+				EF0FC17CBC8F62BCAD80C87A /* AppGroup.swift */,
+				6D8ACBFC1E21F74CCD9127FC /* DateParser.swift */,
+				796CC466B49CA62370D80E60 /* Domain.swift */,
+				A9DE5DEF38EA8FCA815A52C3 /* FoodValidator.swift */,
+				F0A93B056D89D3F65A6C6484 /* L10n.swift */,
+				0D37810F999C0673130295E4 /* Localizable.xcstrings */,
+				FE1D8758D2468AA032C7C57B /* Persistence.swift */,
+				AB44DAC4C315A86289ADBA4B /* SwiftDataModels.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D0276CC79C36235B2B28B727 /* ShelfieWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				846687044B6FA91214BD4658 /* Assets.xcassets */,
+				F01DBB15067D1EBE22C2FDA8 /* Info.plist */,
+				7955924AFA1B2A3562DCC3C6 /* ShelfieWidgets.entitlements */,
+				BAD5AEB88AD70B4C46F269D4 /* ShelfieWidgets.swift */,
+			);
+			path = ShelfieWidgets;
+			sourceTree = "<group>";
+		};
+		D9604EF8F4665255257AEEE3 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				A67E5A848D9522896D985266 /* CameraPreview.swift */,
+				70664E329D89EF08A402859C /* ScannerView.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
+		E764081D768FFE02E737BE09 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				C3D9EC470C0CA0956A37CACD /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		EAB99B462CB30C9C2A64C562 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5665A3E3FFCC07822869980F /* BiometricAuth.swift */,
+				B2F5EC838AA4B1FCCA9FE885 /* CategoryMapper.swift */,
+				DFBFCE545B1066C13C5A84AA /* NotificationScheduler.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3838B4DF12E5282950EEC7A /* Lock */ = {
+			isa = PBXGroup;
+			children = (
+				B7F0A9F83FCCD8E610F5F9C6 /* AppLockView.swift */,
+			);
+			path = Lock;
+			sourceTree = "<group>";
+		};
+		F887CA39A37BEB0AEC27BFCC /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				E03DE81B1E08B7F8BD5E28AD /* Motion.swift */,
+				76F667F9C847C1BB7B1DA03D /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3CE0CDFDBBABB4186116DD8B /* ShelfieTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2862B972E2772FE5A0164AF3 /* Build configuration list for PBXNativeTarget "ShelfieTests" */;
+			buildPhases = (
+				EC5675AEDDFC95ABF804A0CF /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				02102217B70A1A2ADEE2922A /* PBXTargetDependency */,
+			);
+			name = ShelfieTests;
+			packageProductDependencies = (
+			);
+			productName = ShelfieTests;
+			productReference = DC96F71F07C8BA66E4A7AA22 /* ShelfieTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		41225BDCC10F1BD610C37451 /* Shelfie */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 606297263EFF2C3A16807D86 /* Build configuration list for PBXNativeTarget "Shelfie" */;
+			buildPhases = (
+				F4BF1987D110D4CED8C14687 /* Sources */,
+				BC2A9F619A3FCAB221BBB2FE /* Resources */,
+				D99D333E4808BBD5E9F38787 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE920F092F5FB5BE576619C4 /* PBXTargetDependency */,
+			);
+			name = Shelfie;
+			packageProductDependencies = (
+			);
+			productName = Shelfie;
+			productReference = 77D3996DCE6AEC9179BB2851 /* Shelfie.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DB7D874BC35129430314B652 /* ShelfieWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 733D7F1C6B891FF6955A3591 /* Build configuration list for PBXNativeTarget "ShelfieWidgets" */;
+			buildPhases = (
+				5474E8D4B6FE219FA64DA44C /* Sources */,
+				00D823D5D36B09E00E5721EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShelfieWidgets;
+			packageProductDependencies = (
+			);
+			productName = ShelfieWidgets;
+			productReference = 7FD027C1E37218DEE349CEC1 /* ShelfieWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BABD7348C81B307082D2B3C5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 492121BB39AAFB213EBBDC1F /* Build configuration list for PBXProject "Shelfie" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"en-US",
+				"zh-CN",
+				"zh-Hans",
+			);
+			mainGroup = 08ED608B8616FAC77B082748;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8D0ADE57FE0BCAA80A81EE4F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				41225BDCC10F1BD610C37451 /* Shelfie */,
+				DB7D874BC35129430314B652 /* ShelfieWidgets */,
+				3CE0CDFDBBABB4186116DD8B /* ShelfieTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00D823D5D36B09E00E5721EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7E78602A0D38644F2ABBCEE3 /* Assets.xcassets in Resources */,
+				07039C0A21098D4222C61BB3 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC2A9F619A3FCAB221BBB2FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20588B7DB0861BB783CF4F65 /* Assets.xcassets in Resources */,
+				55546455692E9FD817AF58DF /* InfoPlist.xcstrings in Resources */,
+				F08C3CE073376BF84D117D02 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5474E8D4B6FE219FA64DA44C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F393DAB85354F91230DD1A0 /* AppGroup.swift in Sources */,
+				F4C5F9D5E0936ABED916ABBF /* Domain.swift in Sources */,
+				6C94FADDCF21706663872051 /* L10n.swift in Sources */,
+				8DDDEF377AA6C2A29561008F /* ShelfieWidgets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC5675AEDDFC95ABF804A0CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BAA36A06A34A0442A492EADA /* ShelfieTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4BF1987D110D4CED8C14687 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D769E18714C9D3FCCCAC69A1 /* AnalyticsEngine.swift in Sources */,
+				2E8ABA2F63D962DE0C04D8B3 /* AnalyticsView.swift in Sources */,
+				94F79352FC10D2AED458D5C0 /* AppGroup.swift in Sources */,
+				9E92C4F875502B04D9709CD8 /* AppLockView.swift in Sources */,
+				438C62248C4E77D336741DBA /* BackupService.swift in Sources */,
+				BBDF7B2EAFC183A259FD271E /* BiometricAuth.swift in Sources */,
+				EC82C7A138F9840B443CA647 /* CameraPreview.swift in Sources */,
+				E6A75857CC4032C080467893 /* CategoryMapper.swift in Sources */,
+				ABE49741B66943406E1E371F /* DateParser.swift in Sources */,
+				99F0D4969131FFCA5E52E84C /* Domain.swift in Sources */,
+				673E9BDD8F8B733EB8BE24A8 /* FoodCard.swift in Sources */,
+				FA07AD268F79465A70C9B488 /* FoodDetailSheet.swift in Sources */,
+				658619DBF8D9D20C61DA9AD4 /* FoodEntryView.swift in Sources */,
+				EA6BA06C067138AC1F07BA5B /* FoodValidator.swift in Sources */,
+				604A855E07CA6D9B8CD6429B /* ImageStore.swift in Sources */,
+				38BEB5281AB285353C95D5B7 /* InventoryView.swift in Sources */,
+				2904C958D0CD0255D7AF516B /* L10n.swift in Sources */,
+				224AD9C9CE1FACD552B75A68 /* Motion.swift in Sources */,
+				9DF070F1A130F8928BD6C858 /* NotificationScheduler.swift in Sources */,
+				8E66070CC8DD3532E6A32BF4 /* OpenFoodFactsClient.swift in Sources */,
+				6A95DB7EAA772116AAA5C2D4 /* Persistence.swift in Sources */,
+				0A02267229CC5C915E077C80 /* RootView.swift in Sources */,
+				59BC8B7637633E9459B53112 /* ScannerView.swift in Sources */,
+				96E9E65F1EADD448402F6A26 /* SearchView.swift in Sources */,
+				ED59EA603380D483633A3B65 /* SeedData.swift in Sources */,
+				A9D826530C6CE1C64F606A95 /* SettingsStore.swift in Sources */,
+				5D381F885366AEF7694313BC /* SettingsViews.swift in Sources */,
+				EA82816A0E9B82F5D0F87711 /* ShelfieApp.swift in Sources */,
+				3DAB5D39DF689BC191D53EF9 /* SwiftDataModels.swift in Sources */,
+				2951E103E1993F8758470577 /* Theme.swift in Sources */,
+				BD88243243F92A21AC566A24 /* WidgetSnapshotWriter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		02102217B70A1A2ADEE2922A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 41225BDCC10F1BD610C37451 /* Shelfie */;
+			targetProxy = 914EB01DADFF5BE88C04989F /* PBXContainerItemProxy */;
+		};
+		AE920F092F5FB5BE576619C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DB7D874BC35129430314B652 /* ShelfieWidgets */;
+			targetProxy = 4FC97903C54B125CA9E6F51D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		51C2D30F4CD3B0EDFE60A0BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Shelfie/Shelfie.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Shelfie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie;
+				SDKROOT = iphoneos;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		56A9985AA0DB19EB7B0B3210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		69671E688A736BA70122D84F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_ON_DEMAND_RESOURCES = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.10;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7108847CF2FFD6D711431990 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Shelfie/Shelfie.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Shelfie/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie;
+				SDKROOT = iphoneos;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		843CBB027D4033FE32B0B2C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShelfieWidgets/ShelfieWidgets.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShelfieWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		9FEC81CD776FF7AF827A48B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shelfie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Shelfie";
+			};
+			name = Release;
+		};
+		AE75E4E816200368B197F042 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shelfie.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Shelfie";
+			};
+			name = Debug;
+		};
+		E4E2A7ADDA024D0DD5888317 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ShelfieWidgets/ShelfieWidgets.entitlements;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ShelfieWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaotwu.shelfie.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2862B972E2772FE5A0164AF3 /* Build configuration list for PBXNativeTarget "ShelfieTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE75E4E816200368B197F042 /* Debug */,
+				9FEC81CD776FF7AF827A48B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		492121BB39AAFB213EBBDC1F /* Build configuration list for PBXProject "Shelfie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				56A9985AA0DB19EB7B0B3210 /* Debug */,
+				69671E688A736BA70122D84F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		606297263EFF2C3A16807D86 /* Build configuration list for PBXNativeTarget "Shelfie" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51C2D30F4CD3B0EDFE60A0BD /* Debug */,
+				7108847CF2FFD6D711431990 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		733D7F1C6B891FF6955A3591 /* Build configuration list for PBXNativeTarget "ShelfieWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4E2A7ADDA024D0DD5888317 /* Debug */,
+				843CBB027D4033FE32B0B2C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BABD7348C81B307082D2B3C5 /* Project object */;
+}
