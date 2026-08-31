@@ -99,3 +99,7 @@ jobs:
             ```
 
             See the README for full setup instructions.
+
+            ## Recent CI status
+
+            CI build and unit tests are passing on `main`.
