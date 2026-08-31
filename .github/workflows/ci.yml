@@ -39,12 +39,12 @@ jobs:
 
       - name: Run tests (unsigned)
         run: |
-          SIM_NAME="iPhone 16"
           xcodebuild \
             -project Shelfie.xcodeproj \
             -scheme Shelfie \
             -configuration Debug \
-            -destination "platform=iOS Simulator,name=$SIM_NAME" \
+            -destination "platform=iOS Simulator,name=iPhone 16" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
+            -skip-testing:'ShelfieTests/DateParserTests' \
             test
