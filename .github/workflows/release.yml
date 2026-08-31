@@ -15,6 +15,8 @@ jobs:
   archive:
     name: Archive
     runs-on: macos-15
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -73,6 +75,7 @@ jobs:
           draft: false
           prerelease: false
           files: build/Shelfie-unsigned.zip
+          overwrite_files: true
           body: |
             ## What's included
 
@@ -96,16 +99,3 @@ jobs:
             ```
 
             See the README for full setup instructions.
-            ## What's included
-
-            - Unsigned iOS build (see Actions artifact)
-            - Automatic build from Xcode Cloud / GitHub Actions
-
-            ## Installation
-
-            This artifact is unsigned. To install on a physical device:
-            1. Download and resign with your own certificate using `fastlane sigh` or Xcode
-            2. Or build locally from source (see README)
-
-            ## Source changes
-            See commit history for details.
