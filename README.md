@@ -58,6 +58,33 @@ Shelfie keeps track of the food in your fridge, freezer, and pantry so you stop 
 - Xcode 16 or later
 - Optional permissions: Camera (scan), Photo Library (OCR), Face ID (lock), Notifications (reminders)
 
+## Continuous Integration
+
+### GitHub Actions
+
+The repository ships two workflows:
+
+- **`.github/workflows/ci.yml`** — builds and runs unit tests on every push/PR to `main`
+- **`.github/workflows/release.yml`** — archives an unsigned build and publishes a GitHub Release when you push a tag like `v1.1`
+
+To trigger a release:
+
+```bash
+git tag -a v1.1 -m "Release v1.1"
+git push origin v1.1
+```
+
+### Xcode Cloud
+
+`ci_scripts/ci_post_clone.sh` runs `xcodegen generate` inside the Xcode Cloud environment before the build starts. To connect:
+
+1. In Xcode, open **Product > Xcode Cloud > Create Workflow**
+2. Pick the **Shelfie** scheme
+3. Link your GitHub repository when prompted
+4. The default **Archive** action will build, sign, and upload to App Store Connect automatically
+
+> **Note:** The first archive may fail if your App Groups or iCloud container are not marked as available for App Store provisioning. Xcode Cloud will usually prompt you to fix this in **Signing & Capabilities**.
+
 ## Build
 
 ```bash
