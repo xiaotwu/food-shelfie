@@ -26,7 +26,8 @@ struct InventoryView: View {
     var body: some View {
         NavigationStack {
             content
-                .navigationBarTitleDisplayMode(.inline)
+                .navigationTitle(locale.text("shelf.title"))
+                .navigationBarTitleDisplayMode(.large)
                 .toolbar { toolbar }
                 .animation(Motion.snappy, value: isSelectMode)
                 .navigationDestination(isPresented: $showSearch) {
@@ -196,7 +197,27 @@ struct InventoryView: View {
                 }
             }
         } else {
-            ToolbarItem(placement: .topBarLeading) {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showSearch = true
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                .accessibilityLabel(locale.text("shelf.search"))
+            }
+            ToolbarItem(placement: .primaryAction) {
+                Menu {
+                    Picker(locale.text("shelf.sort"), selection: $sortMode) {
+                        ForEach(InventorySortMode.allCases, id: \.self) { mode in
+                            Text(mode.title(locale: locale)).tag(mode)
+                        }
+                    }
+                    Toggle(locale.text("shelf.expiredOnly"), isOn: $showExpiredOnly)
+                } label: {
+                    Image(systemName: "line.3.horizontal.decrease.circle")
+                }
+            }
+            ToolbarItem(placement: .primaryAction) {
                 Menu {
                     Button {
                         showScanner = true
@@ -223,26 +244,6 @@ struct InventoryView: View {
                 }
                 .shadow(color: .black.opacity(0.08), radius: 6, y: 3)
                 .accessibilityLabel(locale.text("shelf.actions"))
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    showSearch = true
-                } label: {
-                    Image(systemName: "magnifyingglass")
-                }
-                .accessibilityLabel(locale.text("shelf.search"))
-            }
-            ToolbarItem(placement: .primaryAction) {
-                Menu {
-                    Picker(locale.text("shelf.sort"), selection: $sortMode) {
-                        ForEach(InventorySortMode.allCases, id: \.self) { mode in
-                            Text(mode.title(locale: locale)).tag(mode)
-                        }
-                    }
-                    Toggle(locale.text("shelf.expiredOnly"), isOn: $showExpiredOnly)
-                } label: {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                }
             }
         }
     }
