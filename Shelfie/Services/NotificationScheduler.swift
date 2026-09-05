@@ -17,7 +17,6 @@ enum NotificationScheduler {
     }
 
     static func reschedule(settings: SettingsStore, context: ModelContext) async {
-        if ProcessInfo.processInfo.arguments.contains("-ScreenshotScene") { return }
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: [dailyIdentifier, weeklyIdentifier])
         guard settings.notificationsEnabled else { return }

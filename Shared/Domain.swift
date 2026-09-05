@@ -287,7 +287,7 @@ struct FreshnessRules {
         return .fresh
     }
 
-    /// Matches Algidy: 0 at expiry, 1 at purchase, interpolating between.
+    /// 0 at expiry, 1 at purchase, interpolating between.
     static func usedProgress(purchase: Date, expiry: Date?, now: Date = .now) -> Double {
         guard let expiry else { return 0 }
         let purchaseTime = purchase.timeIntervalSince1970
