@@ -158,7 +158,6 @@ enum SeedColor: String, Codable, CaseIterable, Identifiable, Sendable {
 }
 
 enum AppLanguage: String, Codable, CaseIterable, Identifiable, Sendable {
-    case system
     case englishUS
     case chineseSimplified
 
@@ -166,16 +165,13 @@ enum AppLanguage: String, Codable, CaseIterable, Identifiable, Sendable {
 
     static func persisted(_ raw: String?) -> AppLanguage {
         switch raw {
-        case "system": .system
-        case "english", "englishUS", "en", "en-US": .englishUS
         case "chineseSimplified", "chinese", "zh", "zh-CN", "zh-Hans": .chineseSimplified
-        default: .system
+        default: .englishUS
         }
     }
 
     var locale: Locale {
         switch self {
-        case .system: .autoupdatingCurrent
         case .englishUS: .englishUS
         case .chineseSimplified: .simplifiedChinese
         }
@@ -183,7 +179,6 @@ enum AppLanguage: String, Codable, CaseIterable, Identifiable, Sendable {
 
     func title(locale: Locale) -> String {
         switch self {
-        case .system: locale.text("language.system")
         case .englishUS: locale.text("language.english")
         case .chineseSimplified: locale.text("language.chinese")
         }
@@ -219,15 +214,23 @@ enum DefaultFoodCategory: String, CaseIterable, Identifiable, Sendable {
 
     static func matching(_ name: String) -> DefaultFoodCategory? {
         let folded = name.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
-        let table: [(DefaultFoodCategory, [String])] = [
-            (.vegetables, ["vegetables", "vegetable", "蔬菜", "rau củ", "rau cu"]),
-            (.fruits, ["fruit", "fruits", "水果", "trái cây", "trai cay"]),
-            (.meat, ["meat", "肉类", "肉類", "thịt", "thit"]),
-            (.seafood, ["seafood", "海鲜", "海鮮", "hải sản", "hai san"]),
-            (.dairyEggs, ["dairy & eggs", "dairy and eggs", "dairy", "乳制品和蛋", "乳製品和蛋", "sữa & trứng", "sua"]),
-            (.others, ["other", "others", "其他", "khác", "khac"])
+        for kind in allCases {
+            if folded == kind.storedName.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current) ||
+               folded == kind.rawValue.lowercased() ||
+               folded == kind.title(locale: .englishUS).lowercased() ||
+               folded == kind.title(locale: .simplifiedChinese).lowercased() {
+                return kind
+            }
+        }
+        let englishAliases: [(DefaultFoodCategory, [String])] = [
+            (.vegetables, ["vegetables", "vegetable", "veggie", "veggies", "produce"]),
+            (.fruits, ["fruit", "fruits", "berries", "berry"]),
+            (.meat, ["meat", "poultry", "beef", "pork", "chicken"]),
+            (.seafood, ["seafood", "fish", "shellfish", "crustacean"]),
+            (.dairyEggs, ["dairy & eggs", "dairy and eggs", "dairy", "milk", "eggs", "egg"]),
+            (.others, ["other", "others", "misc", "miscellaneous"])
         ]
-        return table.first(where: { _, aliases in aliases.contains(folded) })?.0
+        return englishAliases.first(where: { _, aliases in aliases.contains(folded) })?.0
     }
 }
 
@@ -339,6 +342,7 @@ struct BackupFood: Codable, Equatable, Identifiable {
     var imageFileName: String?
     var imageBase64: String?
     var notes: String
+    var owner: String? = nil
     var status: FoodStatus
     var resolvedDate: Date?
 }

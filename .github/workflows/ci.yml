@@ -46,5 +46,4 @@ jobs:
             -destination "platform=iOS Simulator,name=iPhone 16" \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
-            -skip-testing:'ShelfieTests/DateParserTests' \
             test

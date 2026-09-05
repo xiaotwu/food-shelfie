@@ -28,3 +28,4 @@ playground.xcworkspace
 .grok/
 .cursor/
 .idea/
+.agents/

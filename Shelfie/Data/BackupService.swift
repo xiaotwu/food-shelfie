@@ -39,6 +39,7 @@ enum BackupService {
                     imageFileName: food.imageFileName,
                     imageBase64: imageData?.base64EncodedString(),
                     notes: food.notes,
+                    owner: food.owner,
                     status: food.status,
                     resolvedDate: food.resolvedDate
                 )
@@ -107,6 +108,7 @@ enum BackupService {
                 imageFileName: fileName,
                 photoData: photoData,
                 notes: food.notes,
+                owner: food.owner,
                 status: food.status,
                 resolvedDate: food.resolvedDate
             )

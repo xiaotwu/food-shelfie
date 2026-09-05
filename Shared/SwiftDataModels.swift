@@ -67,6 +67,7 @@ final class FoodItemRecord {
     var imageFileName: String?
     @Attribute(.externalStorage) var photoData: Data?
     var notes: String
+    var owner: String?
     var statusRaw: String
     var resolvedDate: Date?
     var createdAt: Date
@@ -82,6 +83,7 @@ final class FoodItemRecord {
         imageFileName: String? = nil,
         photoData: Data? = nil,
         notes: String = "",
+        owner: String? = nil,
         status: FoodStatus = .active,
         resolvedDate: Date? = nil,
         createdAt: Date = .now
@@ -97,6 +99,7 @@ final class FoodItemRecord {
         self.imageFileName = imageFileName
         self.photoData = photoData
         self.notes = notes
+        self.owner = owner
         self.statusRaw = status.rawValue
         self.resolvedDate = resolvedDate
         self.createdAt = createdAt

@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import UserNotifications
 
+@MainActor
 enum NotificationScheduler {
     static let dailyIdentifier = "shelfie.daily.expiry"
     static let weeklyIdentifier = "shelfie.weekly.report"

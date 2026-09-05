@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# Xcode Cloud 在每次构建前自动执行此脚本
+# Automatically executed by Xcode Cloud before each build
 set -e
 
 echo "--- Installing XcodeGen ---"
-# Xcode Cloud 已预装 xcodegen,跳过安装以加速构建
+# Xcode Cloud has xcodegen pre-installed; skip install if already present
 if ! command -v xcodegen &> /dev/null; then
     brew install xcodegen
 else

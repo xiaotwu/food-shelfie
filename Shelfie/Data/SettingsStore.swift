@@ -17,6 +17,7 @@ final class SettingsStore {
     var isUnlocked: Bool
     var cameraPolicyAccepted: Bool
     var iCloudSyncEnabled: Bool
+    var isTabBarHidden: Bool = false
 
     private let defaults: UserDefaults
 

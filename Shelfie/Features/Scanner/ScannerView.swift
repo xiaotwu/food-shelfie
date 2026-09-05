@@ -33,6 +33,8 @@ struct ScannerView: View {
     @State private var cameraAuthorized = false
     @State private var capturePulse = false
 
+    @Namespace private var scannerModeNamespace
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -55,6 +57,10 @@ struct ScannerView: View {
                         .controlSize(.large)
                         .padding(24)
                         .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .strokeBorder(.white.opacity(0.3), lineWidth: 0.8)
+                        }
                         .transition(.scale.combined(with: .opacity))
                 }
             }
@@ -111,18 +117,49 @@ struct ScannerView: View {
             if !status.isEmpty {
                 Text(status)
                     .font(.footnote.weight(.semibold))
-                    .padding(.horizontal, 14)
+                    .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(.black.opacity(0.45), in: Capsule())
+                    .background(.ultraThinMaterial, in: Capsule())
+                    .overlay {
+                        Capsule().strokeBorder(.white.opacity(0.3), lineWidth: 0.5)
+                    }
                     .foregroundStyle(.white)
                     .transition(.move(edge: .bottom).combined(with: .opacity))
             }
-            Picker("", selection: $mode) {
+
+            // Liquid glass mode segmented switcher
+            HStack(spacing: 6) {
                 ForEach(ScannerMode.allCases, id: \.self) { item in
-                    Text(item.title(locale: locale)).tag(item)
+                    let isSelected = mode == item
+                    Button {
+                        Motion.hapticSelection()
+                        withAnimation(Motion.liquidSpring) {
+                            mode = item
+                        }
+                    } label: {
+                        Text(item.title(locale: locale))
+                            .font(.subheadline.weight(isSelected ? .bold : .medium))
+                            .foregroundStyle(isSelected ? .white : .white.opacity(0.65))
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 9)
+                            .background {
+                                if isSelected {
+                                    Capsule()
+                                        .fill(settings.tint)
+                                        .overlay { Capsule().strokeBorder(.white.opacity(0.4), lineWidth: 0.75) }
+                                        .shadow(color: settings.tint.opacity(0.4), radius: 8, y: 3)
+                                        .matchedGeometryEffect(id: "scanner-mode-tab", in: scannerModeNamespace)
+                                }
+                            }
+                    }
+                    .buttonStyle(.plain)
                 }
             }
-            .pickerStyle(.segmented)
+            .padding(4)
+            .background(.ultraThinMaterial, in: Capsule())
+            .overlay {
+                Capsule().strokeBorder(.white.opacity(0.2), lineWidth: 0.5)
+            }
             .padding(.horizontal, 40)
 
             HStack(spacing: 28) {
@@ -130,37 +167,46 @@ struct ScannerView: View {
                     Image(systemName: "photo.on.rectangle")
                         .font(.title2)
                         .foregroundStyle(.white)
-                        .frame(width: 48, height: 48)
+                        .frame(width: 50, height: 50)
+                        .background(.ultraThinMaterial, in: Circle())
+                        .overlay {
+                            Circle().strokeBorder(.white.opacity(0.3), lineWidth: 0.5)
+                        }
                 }
+
                 Button {
                     if mode == .date {
+                        Motion.hapticImpact(.medium)
                         capturePulse.toggle()
                         camera.capturePhoto()
                     }
                 } label: {
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 72, height: 72)
-                        .overlay {
-                            Circle().stroke(.white.opacity(0.4), lineWidth: 6)
-                        }
-                        .scaleEffect(capturePulse ? 0.9 : 1)
-                        .animation(Motion.bouncy, value: capturePulse)
+                    ZStack {
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 72, height: 72)
+                        Circle()
+                            .strokeBorder(.white.opacity(0.45), lineWidth: 5)
+                            .frame(width: 82, height: 82)
+                    }
+                    .scaleEffect(capturePulse ? 0.92 : 1)
+                    .animation(Motion.bouncy, value: capturePulse)
                 }
                 .opacity(mode == .date ? 1 : 0.35)
                 .disabled(mode != .date)
 
-                Color.clear.frame(width: 48, height: 48)
+                Color.clear.frame(width: 50, height: 50)
             }
+
             Text(mode == .barcode ? locale.text("scanner.pointBarcode") : locale.text("scanner.captureDate"))
                 .font(.footnote)
-                .foregroundStyle(.white.opacity(0.8))
+                .foregroundStyle(.white.opacity(0.85))
                 .padding(.bottom, 24)
                 .animation(Motion.gentle, value: mode)
         }
         .padding()
         .background(
-            LinearGradient(colors: [.clear, .black.opacity(0.72)], startPoint: .top, endPoint: .bottom)
+            LinearGradient(colors: [.clear, .black.opacity(0.78)], startPoint: .top, endPoint: .bottom)
         )
     }
 

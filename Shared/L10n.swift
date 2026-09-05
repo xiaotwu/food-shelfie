@@ -31,13 +31,20 @@ enum L10n {
 
     private static func localizedBundle(for locale: Locale) -> Bundle {
         let main = Bundle.main
-        guard
-            let path = main.path(forResource: locale.identifier, ofType: "lproj"),
-            let bundle = Bundle(path: path)
-        else {
-            return main
+        let identifier = locale.identifier.replacingOccurrences(of: "_", with: "-")
+        let candidates: [String]
+        if identifier.lowercased().hasPrefix("zh") {
+            candidates = ["zh-Hans", "zh_CN", "zh-CN", "zh"]
+        } else {
+            candidates = ["en-US", "en", "Base"]
         }
-        return bundle
+        for candidate in candidates {
+            if let path = main.path(forResource: candidate, ofType: "lproj"),
+               let bundle = Bundle(path: path) {
+                return bundle
+            }
+        }
+        return main
     }
 }
 
@@ -61,3 +68,10 @@ extension Locale {
         return calendar
     }
 }
+
+extension Date {
+    func localizedDate(_ locale: Locale, date: Date.FormatStyle.DateStyle = .abbreviated) -> String {
+        formatted(Date.FormatStyle(date: date, time: .omitted, locale: L10n.resolved(locale)))
+    }
+}
+
