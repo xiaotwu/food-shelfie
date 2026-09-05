@@ -1,6 +1,27 @@
 import SwiftData
 import SwiftUI
 
+private enum ScreenshotLaunch {
+    static var scene: String? {
+        #if DEBUG
+        let args = ProcessInfo.processInfo.arguments
+        guard let index = args.firstIndex(of: "-ScreenshotScene"),
+              args.indices.contains(index + 1) else { return nil }
+        return args[index + 1]
+        #else
+        return nil
+        #endif
+    }
+
+    static var initialTab: AppTab {
+        switch scene {
+        case "insights": .insights
+        case "about": .settings
+        default: .shelf
+        }
+    }
+}
+
 enum AppTab: Int, CaseIterable, Identifiable {
     case shelf = 0
     case insights = 1
@@ -33,7 +54,7 @@ struct RootView: View {
     @Query private var foods: [FoodItemRecord]
     @Namespace private var tabNamespace
 
-    @State private var selectedTab: AppTab = .shelf
+    @State private var selectedTab: AppTab = ScreenshotLaunch.initialTab
 
     private var urgentOrExpiredCount: Int {
         foods.filter { $0.status == .active && ($0.freshness == .urgent || $0.freshness == .expired) }.count
@@ -51,7 +72,7 @@ struct RootView: View {
                     .tag(AppTab.insights)
                     .toolbar(.hidden, for: .tabBar)
 
-                SettingsHomeView()
+                SettingsHomeView(openAboutOnAppear: ScreenshotLaunch.scene == "about")
                     .tag(AppTab.settings)
                     .toolbar(.hidden, for: .tabBar)
             }
@@ -83,8 +104,11 @@ struct RootView: View {
             SeedData.bootstrap(context: modelContext)
             SeedData.pruneResolved(context: modelContext, afterDays: settings.autoDeleteConsumedAfterDays)
             WidgetSnapshotWriter.refresh(context: modelContext)
-            Task {
-                await NotificationScheduler.reschedule(settings: settings, context: modelContext)
+            applyScreenshotLaunchIfNeeded()
+            if ScreenshotLaunch.scene == nil {
+                Task {
+                    await NotificationScheduler.reschedule(settings: settings, context: modelContext)
+                }
             }
         }
         .onChange(of: scenePhase) { _, phase in
@@ -98,8 +122,14 @@ struct RootView: View {
             }
         }
         .onChange(of: settings.language) { _, _ in
+            guard ScreenshotLaunch.scene == nil else { return }
             Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
         }
+    }
+
+    private func applyScreenshotLaunchIfNeeded() {
+        guard ScreenshotLaunch.scene != nil else { return }
+        SeedData.ensureScreenshotHistory(context: modelContext)
     }
 
     private var floatingTabIsland: some View {

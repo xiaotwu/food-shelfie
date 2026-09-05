@@ -3,8 +3,11 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct SettingsHomeView: View {
+    var openAboutOnAppear: Bool = false
+
     @Environment(SettingsStore.self) private var settings
     @Environment(\.locale) private var locale
+    @State private var showAbout = false
 
     var body: some View {
         NavigationStack {
@@ -77,6 +80,15 @@ struct SettingsHomeView: View {
                 .floatingDockClearance()
             }
             .navigationTitle(locale.text("settings.title"))
+            .navigationDestination(isPresented: $showAbout) {
+                AboutSettingsView()
+            }
+            .onAppear {
+                guard openAboutOnAppear, !showAbout else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    showAbout = true
+                }
+            }
         }
     }
 

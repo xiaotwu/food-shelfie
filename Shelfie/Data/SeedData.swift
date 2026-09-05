@@ -66,6 +66,51 @@ enum SeedData {
         try? context.save()
     }
 
+    static func ensureScreenshotHistory(context: ModelContext) {
+        let existing = (try? context.fetch(FetchDescriptor<FoodItemRecord>())) ?? []
+        guard !existing.contains(where: { $0.status != .active }) else { return }
+
+        let categories = (try? context.fetch(FetchDescriptor<CategoryRecord>())) ?? []
+        let locations = (try? context.fetch(FetchDescriptor<LocationRecord>())) ?? []
+        let now = Date()
+        let cal = Calendar.current
+
+        func categoryId(named name: String) -> UUID? {
+            categories.first(where: { $0.name.localizedCaseInsensitiveContains(name) })?.id
+        }
+        func locationInfo(for key: String) -> (UUID?, StorageLocation) {
+            let loc = locations.first(where: { $0.builtInKey == key })
+            let fallback: StorageLocation = key == "freezer" ? .freezer : key == "pantry" ? .pantry : .fridge
+            return (loc?.id, fallback)
+        }
+
+        let resolved: [(name: String, cat: String, locKey: String, buyDays: Int, expDays: Int, owner: String, status: FoodStatus, resolvedDays: Int)] = [
+            ("Baby Spinach", "Vegetables", "fridge", -8, 1, "Alice", .consumed, -1),
+            ("Romaine Lettuce", "Vegetables", "fridge", -10, -2, "Bob", .wasted, -2),
+            ("Orange Juice", "Dairy", "fridge", -12, 3, "Alice", .consumed, -3),
+            ("Blueberries", "Fruit", "fridge", -9, -1, "Charlie", .wasted, -4),
+            ("Cheddar Cheese", "Dairy", "fridge", -14, 6, "Bob", .consumed, -5),
+            ("Avocado", "Fruit", "fridge", -6, -1, "Alice", .wasted, -6)
+        ]
+        for s in resolved {
+            let (locId, fallbackLoc) = locationInfo(for: s.locKey)
+            context.insert(
+                FoodItemRecord(
+                    name: s.name,
+                    categoryId: categoryId(named: s.cat),
+                    locationId: locId,
+                    location: fallbackLoc,
+                    purchaseDate: cal.date(byAdding: .day, value: s.buyDays, to: now) ?? now,
+                    expiryDate: cal.date(byAdding: .day, value: s.expDays, to: now),
+                    owner: s.owner,
+                    status: s.status,
+                    resolvedDate: cal.date(byAdding: .day, value: s.resolvedDays, to: now)
+                )
+            )
+        }
+        try? context.save()
+    }
+
     static func ensureDefaultCategories(context: ModelContext) {
         let existing = (try? context.fetch(FetchDescriptor<CategoryRecord>())) ?? []
         guard existing.isEmpty else { return }
