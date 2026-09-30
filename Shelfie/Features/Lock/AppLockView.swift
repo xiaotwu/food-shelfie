@@ -34,6 +34,7 @@ struct AppLockView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 108, height: 108)
+                        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
                         .scaleEffect(bounce ? 1 : 0.88)
                         .shadow(color: .black.opacity(0.12), radius: 10, y: 5)
                 }

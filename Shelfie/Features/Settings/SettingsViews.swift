@@ -479,6 +479,7 @@ struct AboutSettingsView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 76, height: 76)
+                            .clipShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
                             .shadow(color: settings.tint.opacity(0.32), radius: 14, y: 6)
                             .scaleEffect(floatingLogo ? 1.03 : 0.98)
                             .offset(y: floatingLogo ? -3 : 3)

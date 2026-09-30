@@ -256,6 +256,7 @@ struct EmptyShelfView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 76, height: 76)
+                    .clipShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
                     .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
             }
             .onAppear {
