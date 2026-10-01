@@ -1,0 +1,410 @@
+- banner:
+  - link "CloudKit Database":
+    - /url: /dashboard/home/teams/9URWGD9Q86
+    - paragraph: CloudKit Database
+  - button "Show alerts":
+  - button "Show notifications":
+    - paragraph: "2"
+  - button "Application List":
+  - button "Account Menu":
+    - paragraph: Xiaotong Wu
+    - paragraph: Xiaotong Wu
+- button "Select container":
+  - generic: iCloud.com.xiaotwu.shelfie
+- button "Development":
+  - generic: Development
+- navigation:
+  - navigation:
+    - heading "Monitor" [level=1]
+    - list:
+      - link "Telemetry":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/telemetry
+      - link "Usage":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/usage
+      - link "Logs":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/logs
+      - text: Alerts
+    - heading "Data" [level=1]
+    - list:
+      - link "Records":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/records
+      - link "Zones":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/zones
+      - link "Subscriptions":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/subscriptions
+    - heading "Schema" [level=1]
+    - list:
+      - link "Indexes – Modified":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/indexes
+        - text: Indexes
+        - generic: – Modified
+      - link "Record Types – Modified":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types
+        - text: Record Types
+        - generic: – Modified
+      - link "Security Roles":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/securityRoles
+        - text: Security Roles
+      - link "History":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/history
+    - heading "Settings" [level=1]
+    - list:
+      - link "Tokens & Keys":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/tokens
+      - link "Sharing Fallback":
+        - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/sharingFallback
+    - list:
+      - button "Act As iCloud Account…":
+        - text: Act As iCloud Account…
+      - button "Deploy Schema Changes…":
+        - text: Deploy Schema Changes…
+      - button "Import Schema…":
+        - text: Import Schema…
+      - button "Export Schema…":
+        - text: Export Schema…
+      - button "Reset Environment…":
+        - text: Reset Environment…
+      - button "Container Permissions":
+        - text: Container Permissions
+- heading "Record Types" [level=2]
+- button "New Record Type":
+- textbox "Search…"
+- link "CD_CategoryRecord 15 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/CD_CategoryRecord/fields
+  - generic "CD_CategoryRecord"
+  - generic "15 fields"
+- separator
+- link "CD_FoodItemRecord 38 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/CD_FoodItemRecord/fields
+  - generic "CD_FoodItemRecord"
+  - generic "38 fields"
+- separator
+- link "CD_LocationRecord 18 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/CD_LocationRecord/fields
+  - generic "CD_LocationRecord"
+  - generic "18 fields"
+- separator
+- link "CD_SearchHistoryRecord 12 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/CD_SearchHistoryRecord/fields
+  - generic "CD_SearchHistoryRecord"
+  - generic "12 fields"
+- separator
+- link "CD_ShoppingItemRecord 18 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/CD_ShoppingItemRecord/fields
+  - generic "CD_ShoppingItemRecord"
+  - generic "18 fields"
+- separator
+- link "Users 7 fields":
+  - /url: /dashboard/database/teams/9URWGD9Q86/containers/iCloud.com.xiaotwu.shelfie/environments/DEVELOPMENT/types/Users/fields
+  - generic "Users"
+  - generic "7 fields"
+- separator
+- separator "Resize list width"
+- main:
+  - paragraph: No Record Type Selected
+- complementary
+- contentinfo:
+  - paragraph: Copyright © 2026 Apple Inc. All rights reserved.
+  - list:
+    - link "Terms of Service":
+      - /url: https://www.apple.com/legal/internet-services/terms/site.html
+    - link "Privacy Policy":
+      - /url: https://www.apple.com/legal/privacy/en-ww/
+- dialog "Confirm Deployment":
+  - heading "Confirm Deployment" [level=2]
+  - paragraph: Review container schema changes to deploy to the Production environment.
+  - navigation:
+    - generic: Changes
+    - generic: Diff View
+  - generic: "---"
+  - generic: PRODUCTION version - 52977f70-bd11-11f1-b582-07ebae43c15f - 2026-09-30 08:55 PM
+  - generic: +++
+  - generic: DEVELOPMENT version - 47c86520-bd1e-11f1-9f56-1bbe6f83452d - 2026-09-30 10:28 PM
+  - paragraph:
+    - generic: "@@ -1,143 +1,144 @@"
+  - paragraph:
+    - generic: DEFINE SCHEMA
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE CD_CategoryRecord (
+  - paragraph:
+    - generic: CD_createdAt TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_details STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_details_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_entityName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_id STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_name STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_name_ckAsset ASSET,
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT CREATE TO "_icloud",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE CD_FoodItemRecord (
+  - paragraph:
+    - generic: CD_categoryId STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_createdAt TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_entityName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_expiryDate TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_id STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_imageFileName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_imageFileName_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_locationId STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_locationRaw STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_locationRaw_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_lowStockThreshold DOUBLE QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_name STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_name_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_normalizedName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_normalizedName_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_notes STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_notes_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_openedDate TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_openedShelfLifeDays INT64 QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_owner STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_owner_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_photoData BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_photoData_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_purchaseDate TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_quantity DOUBLE QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_resolvedDate TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_statusRaw STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_statusRaw_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_unitRaw STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_unitRaw_ckAsset ASSET,
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT CREATE TO "_icloud",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE CD_LocationRecord (
+  - paragraph:
+    - generic: CD_builtInKey STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_builtInKey_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_createdAt TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_entityName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_id STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_name STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_name_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_sortOrder INT64 QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_symbolName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_symbolName_ckAsset ASSET,
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT CREATE TO "_icloud",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE CD_SearchHistoryRecord (
+  - paragraph:
+    - generic: CD_entityName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_query STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_query_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_timestamp TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT CREATE TO "_icloud",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE CD_ShoppingItemRecord (
+  - paragraph:
+    - generic: CD_createdAt TIMESTAMP QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_entityName STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_id STRING QUERYABLE SEARCHABLE SORTABLE,
+  - insertion:
+    - generic: +
+    - generic: CD_inventoryFoodID STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_isCompleted INT64 QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt BYTES QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_moveReceipt_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_name STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_name_ckAsset ASSET,
+  - paragraph:
+    - generic: CD_quantity DOUBLE QUERYABLE SORTABLE,
+  - paragraph:
+    - generic: CD_unitRaw STRING QUERYABLE SEARCHABLE SORTABLE,
+  - paragraph:
+    - generic: CD_unitRaw_ckAsset ASSET,
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT CREATE TO "_icloud",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE Users (
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: roles LIST<INT64>,
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - button "Cancel"
+  - button "Copy To Clipboard"
+  - button "Deploy"

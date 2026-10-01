@@ -15,6 +15,8 @@ settings:
     SWIFT_EMIT_LOC_STRINGS: "YES"
     ENABLE_PREVIEWS: "YES"
     ENABLE_ON_DEMAND_RESOURCES: "NO"
+    DEVELOPMENT_TEAM: "9URWGD9Q86"
+    CODE_SIGN_STYLE: Automatic
 targets:
   Shelfie:
     type: application
@@ -63,6 +65,10 @@ targets:
     platform: iOS
     sources:
       - path: ShelfieTests
+      - path: release/qa/fixtures
+        includes:
+          - "*.json"
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.xiaotwu.shelfie.tests
@@ -71,6 +77,26 @@ targets:
         BUNDLE_LOADER: "$(TEST_HOST)"
     dependencies:
       - target: Shelfie
+  ShelfieUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: ShelfieUITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.xiaotwu.shelfie.uitests
+        GENERATE_INFOPLIST_FILE: "YES"
+        TEST_TARGET_NAME: Shelfie
+        BUNDLE_LOADER: ""
+        SWIFT_VERSION: "5.10"
+        IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+        DEVELOPMENT_TEAM: "9URWGD9Q86"
+        CODE_SIGN_STYLE: Automatic
+        PRODUCT_NAME: "$(TARGET_NAME)"
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+    dependencies:
+      - target: Shelfie
+
 schemes:
   Shelfie:
     build:
@@ -81,3 +107,12 @@ schemes:
     test:
       targets:
         - ShelfieTests
+
+  ShelfieLayout:
+    build:
+      targets:
+        Shelfie: all
+        ShelfieUITests: [test]
+    test:
+      targets:
+        - ShelfieUITests

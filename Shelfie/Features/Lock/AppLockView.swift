@@ -3,6 +3,7 @@ import SwiftUI
 struct AppLockView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.locale) private var locale
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var bounce = false
 
     var body: some View {
@@ -35,11 +36,12 @@ struct AppLockView: View {
                         .scaledToFit()
                         .frame(width: 108, height: 108)
                         .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-                        .scaleEffect(bounce ? 1 : 0.88)
+                        .scaleEffect(reduceMotion ? 1 : (bounce ? 1 : 0.88))
                         .shadow(color: .black.opacity(0.12), radius: 10, y: 5)
                 }
+                .accessibilityHidden(true)
                 .onAppear {
-                    withAnimation(Motion.bouncy) { bounce = true }
+                    withAnimation(reduceMotion ? nil : Motion.bouncy) { bounce = true }
                 }
 
                 VStack(spacing: 10) {
@@ -61,6 +63,7 @@ struct AppLockView: View {
                     HStack(spacing: 8) {
                         Image(systemName: "faceid")
                             .font(.title3.weight(.semibold))
+                            .accessibilityHidden(true)
                         Text(locale.text("lock.unlock"))
                             .font(.headline)
                     }
@@ -81,6 +84,12 @@ struct AppLockView: View {
             }
             .padding(24)
         }
+        .transaction { transaction in
+            if reduceMotion {
+                transaction.animation = nil
+                transaction.disablesAnimations = true
+            }
+        }
         .task { await authenticate() }
     }
 
@@ -88,7 +97,7 @@ struct AppLockView: View {
     private func authenticate() async {
         if await BiometricAuth.unlock(reason: locale.text("lock.reason")) {
             Motion.hapticNotification(.success)
-            withAnimation(Motion.liquidSpring) {
+            withAnimation(reduceMotion ? nil : Motion.liquidSpring) {
                 settings.isUnlocked = true
             }
         }

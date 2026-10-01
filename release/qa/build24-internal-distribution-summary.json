@@ -1,0 +1,27 @@
+{
+  "observedAtUTC": "2026-10-01T00:10:41.263Z",
+  "appID": "6806936881",
+  "version": "1.2",
+  "build": 24,
+  "buildID": "cbf8585a-a53c-4fa8-b30d-844b33d80514",
+  "groups": [
+    {
+      "name": "internal-group",
+      "type": "Internal",
+      "status": "Testing",
+      "expiresInDays": 90,
+      "testerCount": 1
+    },
+    {
+      "name": "phone-test",
+      "type": "Internal",
+      "status": "Testing",
+      "expiresInDays": 90,
+      "testerCount": 1
+    }
+  ],
+  "whatToTest": "Saved and read back",
+  "externalTesting": "No external group created or external beta review submitted",
+  "appStoreReview": "Existing 1.1 (20) left unchanged",
+  "installation": "No claim that the tester installed build 24"
+}

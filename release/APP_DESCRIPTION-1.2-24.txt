@@ -1,0 +1,20 @@
+Know what is in your kitchen—and what to use next.
+
+Food Shelfie helps you organize food in your fridge, freezer and pantry, track expiry dates and manage what you buy and use.
+
+• Add foods manually, look up product barcodes or read packaging dates with on-device text recognition.
+• Track quantities and units, record partial use, and repeat a purchase with new batch dates.
+• Leave unknown expiry dates blank and add several foods in a row with Save and add another.
+• Record opened-food dates and shelf life, and see what to use first.
+• Organize by location, category and owner; search and sort from the main pages.
+• Keep a shopping list, see low-stock suggestions, and add bought items to inventory after confirming their details.
+• Mark foods eaten or discarded, undo recent inventory actions, and review your history and Insights.
+• Choose a reminder time and warning window, and view upcoming expiries in Home Screen widgets.
+• Export and restore JSON backups, including your own food photos.
+• Keep inventory on your device by default, with optional private iCloud sync through your Apple account.
+• Choose English or Simplified Chinese, light or dark appearance, and optional device authentication.
+
+No Shelfie account, advertisements or tracking SDKs. Camera, Photos and notification permissions are optional; manual entry is always available. Barcode lookup uses Open Food Facts and requires an internet connection. Coverage varies by product. Barcode scanning fills text only; food photos are supplied by you. Review recognized dates before saving. Reminders are scheduled for dated foods and refreshed when you open the app or change inventory. The system controls delivery. Recorded dates help organize food; follow packaging instructions and use your own judgment about its condition.
+
+Product information: Open Food Facts contributors (ODbL / DbCL).
+Privacy policy: https://github.com/xiaotwu/food-shelfie/blob/main/PRIVACY.md

@@ -3,47 +3,32 @@ import SwiftData
 
 enum Persistence {
     static let cloudKitContainerID = "iCloud.com.xiaotwu.shelfie"
+    static let storeConfigurationName = "Shelfie"
 
     static let schema = Schema([
         CategoryRecord.self,
         LocationRecord.self,
         FoodItemRecord.self,
-        SearchHistoryRecord.self
+        SearchHistoryRecord.self,
+        ShoppingItemRecord.self
     ])
 
     static var iCloudSyncEnabled: Bool {
-        (UserDefaults(suiteName: AppGroup.identifier) ?? .standard).object(forKey: "iCloudSync") as? Bool ?? true
+        SettingsStore.iCloudSyncEnabled(
+            in: UserDefaults(suiteName: AppGroup.identifier) ?? .standard
+        )
     }
 
-    static let container: ModelContainer = {
-        makeContainer(iCloud: iCloudSyncEnabled)
-    }()
-
-    static func makeContainer(iCloud: Bool) -> ModelContainer {
-        if iCloud {
-            let cloud = ModelConfiguration(
-                schema: schema,
-                cloudKitDatabase: .private(cloudKitContainerID)
-            )
-            if let container = try? ModelContainer(for: schema, configurations: [cloud]) {
-                return container
-            }
-        }
-
-        let local = ModelConfiguration(
+    static func makeContainer(iCloud: Bool) throws -> ModelContainer {
+        let configuration = ModelConfiguration(
+            storeConfigurationName,
             schema: schema,
             url: AppGroup.storeURL,
-            cloudKitDatabase: .none
+            cloudKitDatabase: iCloud ? .private(cloudKitContainerID) : .none
         )
-        do {
-            return try ModelContainer(for: schema, configurations: [local])
-        } catch {
-            let memory = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-            do {
-                return try ModelContainer(for: schema, configurations: [memory])
-            } catch {
-                fatalError("Unable to create Shelfie store: \(error)")
-            }
-        }
+        return try ModelContainer(for: schema, configurations: [configuration])
     }
+
+    // Never replace a failed persistent store with a temporary, writable inventory.
+    // The app presents recovery UI and leaves the on-disk store untouched.
 }

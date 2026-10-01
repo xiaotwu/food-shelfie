@@ -1,0 +1,45 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "FF62A285-23F2-40CB-9F25-7ADFC7F285AD",
+        "deviceName" : "Shelfie Toolbar QA",
+        "modelName" : "iPhone 17",
+        "osBuildNumber" : "23F77",
+        "osVersion" : "26.5",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 0,
+      "passedTests" : 1,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "ShelfieLayout · Built with macOS 27.0.1",
+  "expectedFailures" : 0,
+  "failedTests" : 0,
+  "finishTime" : 1790812825.202,
+  "passedTests" : 1,
+  "result" : "Passed",
+  "runtimeWarnings" : [
+
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1790812763.884,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+
+  ],
+  "title" : "Test - ShelfieLayout",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 1
+}

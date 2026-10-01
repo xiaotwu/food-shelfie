@@ -15,9 +15,20 @@ final class CameraController: NSObject, ObservableObject {
     var onPhoto: ((UIImage) -> Void)?
     var barcodeEnabled = true
 
+    func resetBarcode() {
+        visionQueue.async { [weak self] in
+            self?.lastBarcode = ""
+            self?.lastBarcodeAt = .distantPast
+        }
+    }
+
     func configure() {
         sessionQueue.async { [weak self] in
             guard let self else { return }
+            if !self.session.inputs.isEmpty {
+                if !self.session.isRunning { self.session.startRunning() }
+                return
+            }
             self.session.beginConfiguration()
             self.session.sessionPreset = .photo
             guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),

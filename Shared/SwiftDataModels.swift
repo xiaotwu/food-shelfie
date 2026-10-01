@@ -3,10 +3,10 @@ import SwiftData
 
 @Model
 final class CategoryRecord {
-    var id: UUID
-    var name: String
-    var details: String
-    var createdAt: Date
+    var id: UUID = UUID()
+    var name: String = ""
+    var details: String = ""
+    var createdAt: Date = Date.now
 
     init(
         id: UUID = UUID(),
@@ -23,12 +23,12 @@ final class CategoryRecord {
 
 @Model
 final class LocationRecord {
-    var id: UUID
-    var name: String
+    var id: UUID = UUID()
+    var name: String = ""
     var builtInKey: String?
-    var symbolName: String
-    var sortOrder: Int
-    var createdAt: Date
+    var symbolName: String = "shippingbox"
+    var sortOrder: Int = 100
+    var createdAt: Date = Date.now
 
     init(
         id: UUID = UUID(),
@@ -56,21 +56,26 @@ final class LocationRecord {
 
 @Model
 final class FoodItemRecord {
-    var id: UUID
-    var name: String
-    var normalizedName: String
+    var id: UUID = UUID()
+    var name: String = ""
+    var normalizedName: String = ""
     var categoryId: UUID?
     var locationId: UUID?
-    var locationRaw: String
-    var purchaseDate: Date
+    var locationRaw: String = "fridge"
+    var purchaseDate: Date = Date.now
     var expiryDate: Date?
+    var openedDate: Date?
+    var openedShelfLifeDays: Int?
+    var lowStockThreshold: Double?
     var imageFileName: String?
     @Attribute(.externalStorage) var photoData: Data?
-    var notes: String
+    var notes: String = ""
     var owner: String?
-    var statusRaw: String
+    var quantity: Double = 1
+    var unitRaw: String = "piece"
+    var statusRaw: String = "active"
     var resolvedDate: Date?
-    var createdAt: Date
+    var createdAt: Date = Date.now
 
     init(
         id: UUID = UUID(),
@@ -84,6 +89,8 @@ final class FoodItemRecord {
         photoData: Data? = nil,
         notes: String = "",
         owner: String? = nil,
+        quantity: Double = 1,
+        unit: FoodUnit = .piece,
         status: FoodStatus = .active,
         resolvedDate: Date? = nil,
         createdAt: Date = .now
@@ -100,6 +107,8 @@ final class FoodItemRecord {
         self.photoData = photoData
         self.notes = notes
         self.owner = owner
+        self.quantity = quantity
+        self.unitRaw = unit.rawValue
         self.statusRaw = status.rawValue
         self.resolvedDate = resolvedDate
         self.createdAt = createdAt
@@ -115,16 +124,51 @@ final class FoodItemRecord {
         set { statusRaw = newValue.rawValue }
     }
 
+    var unit: FoodUnit {
+        get { FoodUnit(rawValue: unitRaw) ?? .piece }
+        set { unitRaw = newValue.rawValue }
+    }
+
+    func quantityLabel(locale: Locale) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 3
+        return "\(formatter.string(from: NSNumber(value: quantity)) ?? String(quantity)) \(unit.title(locale: locale))"
+    }
+
+    /// Changes the batch in memory; the caller must commit before showing success.
+    func consume(amount: Double, now: Date = .now) throws {
+        guard status == .active, FoodQuantity.isValid(amount),
+              FoodQuantity.isValid(quantity), amount <= quantity else {
+            throw FoodQuantity.Error.invalidAmount
+        }
+        quantity = max(0, ((quantity - amount) * 1_000).rounded() / 1_000)
+        if quantity < 0.000000001 {
+            quantity = 0
+            status = .consumed
+            resolvedDate = now
+        }
+    }
+
+    var openedExpiryDate: Date? {
+        guard let openedDate, let days = openedShelfLifeDays, days > 0 else { return nil }
+        return Calendar.current.date(byAdding: .day, value: days, to: openedDate)
+    }
+
+    var effectiveExpiryDate: Date? {
+        [expiryDate, openedExpiryDate].compactMap { $0 }.min()
+    }
+
     var remainingDays: Int? {
-        FreshnessRules.remainingDays(from: expiryDate)
+        FreshnessRules.remainingDays(from: effectiveExpiryDate)
     }
 
     var freshness: Freshness {
-        FreshnessRules.freshness(expiry: expiryDate)
+        FreshnessRules.freshness(expiry: effectiveExpiryDate)
     }
 
     var usedProgress: Double {
-        FreshnessRules.usedProgress(purchase: purchaseDate, expiry: expiryDate)
+        FreshnessRules.usedProgress(purchase: openedDate ?? purchaseDate, expiry: effectiveExpiryDate)
     }
 
     var imageURL: URL? {
@@ -159,11 +203,44 @@ final class FoodItemRecord {
 
 @Model
 final class SearchHistoryRecord {
-    var query: String
-    var timestamp: Date
+    var query: String = ""
+    var timestamp: Date = Date.now
 
     init(query: String, timestamp: Date = .now) {
         self.query = query
         self.timestamp = timestamp
+    }
+}
+
+@Model
+final class ShoppingItemRecord {
+    var id: UUID = UUID()
+    var name: String = ""
+    var quantity: Double = 1
+    var unitRaw: String = "piece"
+    var isCompleted: Bool = false
+    var createdAt: Date = Date.now
+    /// Purchase-cycle marker; retained even if the corresponding food is later deleted.
+    var inventoryFoodID: UUID? = nil
+
+    init(id: UUID = UUID(), name: String, quantity: Double = 1, unit: FoodUnit = .piece,
+         isCompleted: Bool = false, createdAt: Date = .now, inventoryFoodID: UUID? = nil) {
+        self.id = id
+        self.name = name
+        self.quantity = quantity
+        self.unitRaw = unit.rawValue
+        self.isCompleted = isCompleted
+        self.createdAt = createdAt
+        self.inventoryFoodID = inventoryFoodID
+    }
+    var unit: FoodUnit {
+        get { FoodUnit(rawValue: unitRaw) ?? .piece }
+        set { unitRaw = newValue.rawValue }
+    }
+    func quantityLabel(locale: Locale) -> String {
+        let formatter = NumberFormatter()
+        formatter.locale = locale
+        formatter.maximumFractionDigits = 3
+        return "\(formatter.string(from: NSNumber(value: quantity)) ?? String(quantity)) \(unit.title(locale: locale))"
     }
 }

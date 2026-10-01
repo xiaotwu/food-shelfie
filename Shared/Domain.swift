@@ -67,6 +67,21 @@ enum InventoryTab: String, CaseIterable, Identifiable, Sendable {
     }
 }
 
+enum FoodUnit: String, Codable, CaseIterable, Identifiable, Sendable {
+    case piece, pack, bottle, gram, kilogram, milliliter, liter
+    var id: String { rawValue }
+    func title(locale: Locale) -> String { locale.text("unit.\(rawValue)") }
+}
+
+enum FoodQuantity {
+    static func isValid(_ value: Double) -> Bool {
+        guard value.isFinite, value >= 0.001, value <= 1_000_000_000 else { return false }
+        let rounded = (value * 1_000).rounded() / 1_000
+        return abs(value - rounded) < 0.0000001
+    }
+    enum Error: Swift.Error { case invalidAmount }
+}
+
 enum FoodStatus: String, Codable, CaseIterable, Sendable {
     case active
     case wasted
@@ -264,6 +279,9 @@ enum RemainingDaysCopy {
 struct FoodDateScan: Equatable, Sendable {
     var productionDate: Date?
     var expiryDate: Date?
+    var rawText: String = ""
+    var expiryCandidates: [Date] = []
+    var requiresConfirmation: Bool = false
 }
 
 struct FreshnessRules {
@@ -314,6 +332,7 @@ struct BackupPayload: Codable, Equatable {
     var locations: [BackupLocation]?
     var foods: [BackupFood]
     var searchHistory: [BackupSearch]
+    var shoppingItems: [BackupShoppingItem]? = nil
 }
 
 struct BackupLocation: Codable, Equatable, Identifiable {
@@ -345,6 +364,12 @@ struct BackupFood: Codable, Equatable, Identifiable {
     var owner: String? = nil
     var status: FoodStatus
     var resolvedDate: Date?
+    // Optional for decoding backups made before quantity support.
+    var quantity: Double? = nil
+    var unit: FoodUnit? = nil
+    var openedDate: Date? = nil
+    var openedShelfLifeDays: Int? = nil
+    var lowStockThreshold: Double? = nil
 }
 
 struct BackupSearch: Codable, Equatable {
@@ -366,4 +391,14 @@ struct WidgetSnapshot: Codable, Equatable {
     var weeklyCounts: [Int]
     var foodsThisWeek: [WidgetFoodSnapshot]
     var updatedAt: Date
+}
+
+struct BackupShoppingItem: Codable, Equatable, Identifiable {
+    var id: UUID
+    var name: String
+    var quantity: Double
+    var unit: FoodUnit
+    var isCompleted: Bool
+    var createdAt: Date
+    var inventoryFoodID: UUID? = nil
 }

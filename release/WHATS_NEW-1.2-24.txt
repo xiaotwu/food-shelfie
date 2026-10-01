@@ -1,0 +1,5 @@
+English (U.S.)
+Track food quantities and partial use, repeat purchases with fresh dates, and undo recent inventory actions. Organize shopping lists and add bought items to your shelf. Record opened-food dates and low-stock levels, or leave an unknown expiry date blank. Add several foods in a row with Save and add another. Barcode scanning now fills text only; you choose your own food photos. Navigation, large-text layouts and save feedback are improved.
+
+Simplified Chinese
+支持食品数量与部分使用记录、再次购买和近期库存操作撤销。购物清单中已购买的食品可确认后加入库存。可记录开封日期与低库存阈值，未知到期日期可暂不填写。“保存并继续添加”让连续录入更方便。扫码仅填写文字，食品照片由你自行上传。改进导航、大字体布局及保存反馈。

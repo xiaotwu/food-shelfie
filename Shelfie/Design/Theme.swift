@@ -183,6 +183,7 @@ enum FreshnessPalette {
 }
 
 struct FreshnessRing: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var progress: Double
     var freshness: Freshness
     var lineWidth: CGFloat = 4.5
@@ -214,12 +215,12 @@ struct FreshnessRing: View {
         }
         .accessibilityHidden(true)
         .onAppear {
-            withAnimation(Motion.liquidSpring) {
+            withAnimation(reduceMotion ? nil : Motion.liquidSpring) {
                 animatedProgress = progress
             }
         }
         .onChange(of: progress) { _, newValue in
-            withAnimation(Motion.liquidSpring) {
+            withAnimation(reduceMotion ? nil : Motion.liquidSpring) {
                 animatedProgress = newValue
             }
         }
@@ -227,6 +228,7 @@ struct FreshnessRing: View {
 }
 
 struct EmptyShelfView: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var onAdd: () -> Void
     @Environment(\.locale) private var locale
     @State private var floatOrb = false
@@ -249,8 +251,8 @@ struct EmptyShelfView: View {
                             )
                     }
                     .shadow(color: Color.accentColor.opacity(0.18), radius: 20, y: 10)
-                    .scaleEffect(floatOrb ? 1.04 : 0.98)
-                    .offset(y: floatOrb ? -4 : 4)
+                    .scaleEffect(reduceMotion ? 1 : (floatOrb ? 1.04 : 0.98))
+                    .offset(y: reduceMotion ? 0 : (floatOrb ? -4 : 4))
 
                 Image("BrandMark")
                     .resizable()
@@ -260,7 +262,7 @@ struct EmptyShelfView: View {
                     .shadow(color: .black.opacity(0.12), radius: 8, y: 4)
             }
             .onAppear {
-                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
+                withAnimation(reduceMotion ? nil : .easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
                     floatOrb = true
                 }
             }
@@ -319,3 +321,29 @@ extension View {
     }
 }
 
+/// Decorative only: its parent control exposes the complete count to VoiceOver.
+struct InventoryCountBadge: View {
+    let count: Int
+    let style: InventoryBadgeStyle
+    @ScaledMetric(relativeTo: .caption2) private var textSize = 11.0
+
+    var body: some View {
+        Group {
+            if count > 0 && style != .off {
+                if style == .number {
+                    Text(count > 99 ? "99+" : String(count))
+                        .font(.system(size: min(textSize, 18), weight: .bold, design: .rounded))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .frame(minWidth: 18, minHeight: 18)
+                        .background(.red, in: Capsule())
+                } else {
+                    Circle().fill(.red).frame(width: 8, height: 8)
+                }
+            }
+        }
+        .accessibilityHidden(true)
+        .allowsHitTesting(false)
+    }
+}

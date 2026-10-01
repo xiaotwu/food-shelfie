@@ -32,52 +32,56 @@ enum Motion {
 }
 
 struct PressScaleButtonStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var pressedScale: CGFloat = 0.96
     var pressedOpacity: CGFloat = 0.92
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? pressedScale : 1)
+            .scaleEffect(!reduceMotion && configuration.isPressed ? pressedScale : 1)
             .opacity(configuration.isPressed ? pressedOpacity : 1)
-            .animation(Motion.snappy, value: configuration.isPressed)
+            .animation(reduceMotion ? nil : Motion.snappy, value: configuration.isPressed)
     }
 }
 
 struct BounceButtonStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.9 : 1)
-            .animation(Motion.bouncy, value: configuration.isPressed)
+            .scaleEffect(!reduceMotion && configuration.isPressed ? 0.9 : 1)
+            .animation(reduceMotion ? nil : Motion.bouncy, value: configuration.isPressed)
     }
 }
 
 struct LiquidGlassButtonStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var cornerRadius: CGFloat = Glass.pillRadius
     var tint: Color? = nil
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+            .scaleEffect(!reduceMotion && configuration.isPressed ? 0.95 : 1.0)
             .overlay {
                 if configuration.isPressed {
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .fill(.white.opacity(0.12))
                 }
             }
-            .animation(Motion.snappy, value: configuration.isPressed)
+            .animation(reduceMotion ? nil : Motion.snappy, value: configuration.isPressed)
     }
 }
 
 struct AppearUp: ViewModifier {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var shown = false
     var delay: Double = 0
 
     func body(content: Content) -> some View {
         content
             .opacity(shown ? 1 : 0)
-            .offset(y: shown ? 0 : 12)
+            .offset(y: reduceMotion || shown ? 0 : 12)
             .onAppear {
-                withAnimation(Motion.soft.delay(delay)) {
+                withAnimation(reduceMotion ? nil : Motion.soft.delay(delay)) {
                     shown = true
                 }
             }
@@ -90,16 +94,27 @@ extension View {
     }
 
     func shelfCardScrollTransition() -> some View {
-        scrollTransition { content, phase in
-            content
-                .scaleEffect(phase.isIdentity ? 1 : 0.96)
-                .opacity(phase.isIdentity ? 1 : 0.78)
-                .offset(y: phase.isIdentity ? 0 : 8)
+        modifier(ShelfScrollMotion())
+    }
+
+}
+
+private struct ShelfScrollMotion: ViewModifier {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @ViewBuilder func body(content: Content) -> some View {
+        if reduceMotion { content }
+        else {
+            content.scrollTransition { content, phase in
+                content.scaleEffect(phase.isIdentity ? 1 : 0.96)
+                    .opacity(phase.isIdentity ? 1 : 0.78)
+                    .offset(y: phase.isIdentity ? 0 : 8)
+            }
         }
     }
 }
 
 struct ScanningPulse: View {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     var isActive: Bool
 
     var body: some View {
@@ -115,13 +130,13 @@ struct ScanningPulse: View {
                 ),
                 lineWidth: isActive ? 3 : 2
             )
-            .scaleEffect(isActive ? 1.02 : 1)
+            .scaleEffect(!reduceMotion && isActive ? 1.02 : 1)
             .shadow(
                 color: Color.accentColor.opacity(isActive ? 0.4 : 0),
                 radius: 12,
                 x: 0,
                 y: 0
             )
-            .animation(isActive ? .easeInOut(duration: 1.05).repeatForever(autoreverses: true) : Motion.gentle, value: isActive)
+            .animation(reduceMotion ? nil : (isActive ? .easeInOut(duration: 1.05).repeatForever(autoreverses: true) : Motion.gentle), value: isActive)
     }
 }

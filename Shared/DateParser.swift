@@ -1,176 +1,115 @@
 import Foundation
 
+/// Packaging dates are suggestions for review, never an instruction to save a date.
 enum DateParser {
-    private static let expiryKeywords = [
-        "exp", "expiry", "expiration", "best before", "best by", "use by",
-        "bbe", "bbf", "best before date", "until"
-    ]
+    private static let expiryKeywords = ["best before date", "best before", "expiration", "expiry", "best by", "use by", "exp", "bbe", "bbf", "until", "有效期至", "有效日期", "保质期至", "保質期至", "到期日", "有效期", "截止日期", "赏味期限", "賞味期限", "食用期限"]
+    private static let productionKeywords = ["manufactured", "production", "packed on", "packed", "mfg", "mfd", "prod", "pdt", "生产日期", "生產日期", "制造日期", "製造日期", "包装日期", "包裝日期", "生产", "生產"]
 
-    private static let productionKeywords = [
-        "mfg", "mfd", "packed", "packed on", "manufactured",
-        "prod", "pdt", "production"
-    ]
-
-    private enum DateClassification {
-        case expiry
-        case production
+    private enum Classification { case expiry, production }
+    private struct Match {
+        let values: [Date]
+        let range: Range<String.Index>
     }
 
-    private enum DateFormatKind {
-        case yearMonthDay
-        case dayMonthYear
-        case dayMonthShortYear
-        case dayMonthNameYear
-        case monthNameDayYear
-    }
-
-    static func parseFoodDates(from rawText: String, now: Date = .now, calendar: Calendar = .current) -> FoodDateScan {
-        let text = rawText.lowercased()
-        let dates = extractDates(from: rawText, calendar: calendar)
-
+    static func parseFoodDates(from rawText: String, now: Date = .now, calendar: Calendar = .current, locale: Locale = .current) -> FoodDateScan {
+        let matches = extractDates(from: rawText, calendar: calendar)
         var production: Date?
-        var expiry: Date?
-
-        for date in dates {
-            switch classify(dateRange: date.range, in: text) {
-            case .expiry:
-                expiry = later(expiry, date.value)
+        var labelledExpiry: [Date] = []
+        var unlabelled: [Date] = []
+        for match in matches {
+            switch classify(dateRange: match.range, in: rawText) {
             case .production:
-                production = later(production, date.value)
-            case .none:
-                break
+                // An ambiguous production date must not be silently used as a purchase date.
+                if match.values.count == 1 { production = max(production ?? match.values[0], match.values[0]) }
+            case .expiry:
+                labelledExpiry.append(contentsOf: match.values)
+            case nil:
+                unlabelled.append(contentsOf: match.values)
             }
         }
-
-        if expiry == nil {
-            let future = dates.map(\.value).filter { calendar.startOfDay(for: $0) >= calendar.startOfDay(for: now) }
-            expiry = future.min()
+        var candidates = labelledExpiry
+        if candidates.isEmpty {
+            // Keep both interpretations of ambiguous dates, even if only one is in the future.
+            let future = unlabelled.filter { calendar.startOfDay(for: $0) >= calendar.startOfDay(for: now) }
+            candidates = future.isEmpty ? unlabelled : matches
+                .filter { classify(dateRange: $0.range, in: rawText) == nil && $0.values.contains(where: { future.contains($0) }) }
+                .flatMap(\.values)
         }
-
-        if expiry == nil, dates.count == 1 {
-            expiry = dates[0].value
-        }
-
-        return FoodDateScan(productionDate: production, expiryDate: expiry)
+        candidates = Array(Set(candidates)).sorted()
+        return FoodDateScan(
+            productionDate: production,
+            expiryDate: candidates.count == 1 ? candidates.first : nil,
+            rawText: rawText,
+            expiryCandidates: candidates,
+            requiresConfirmation: !candidates.isEmpty
+        )
     }
 
-    private static func later(_ current: Date?, _ candidate: Date) -> Date {
-        guard let current else { return candidate }
-        return candidate > current ? candidate : current
-    }
-
-    private static func classify(dateRange: Range<String.Index>, in text: String) -> DateClassification? {
-        let lower = text.index(dateRange.lowerBound, offsetBy: -24, limitedBy: text.startIndex) ?? text.startIndex
-        let prefixText = String(text[lower..<dateRange.lowerBound])
-
-        let upper = text.index(dateRange.upperBound, offsetBy: 12, limitedBy: text.endIndex) ?? text.endIndex
-        let suffixText = String(text[dateRange.upperBound..<upper])
-
-        var bestExpiryDistance: Int?
-        for kw in expiryKeywords {
-            if let range = prefixText.range(of: kw, options: .backwards) {
-                let dist = prefixText.distance(from: range.upperBound, to: prefixText.endIndex)
-                bestExpiryDistance = min(bestExpiryDistance ?? Int.max, dist)
-            }
-        }
-
-        var bestProductionDistance: Int?
-        for kw in productionKeywords {
-            if let range = prefixText.range(of: kw, options: .backwards) {
-                let dist = prefixText.distance(from: range.upperBound, to: prefixText.endIndex)
-                bestProductionDistance = min(bestProductionDistance ?? Int.max, dist)
-            }
-        }
-
-        if let expDist = bestExpiryDistance, let mfgDist = bestProductionDistance {
-            return expDist <= mfgDist ? .expiry : .production
-        } else if bestExpiryDistance != nil {
-            return .expiry
-        } else if bestProductionDistance != nil {
-            return .production
-        }
-
-        let hasExpirySuffix = expiryKeywords.contains(where: { suffixText.contains($0) })
-        let hasProductionSuffix = productionKeywords.contains(where: { suffixText.contains($0) })
-        if hasExpirySuffix && !hasProductionSuffix {
-            return .expiry
-        } else if hasProductionSuffix && !hasExpirySuffix {
-            return .production
-        }
-        return nil
-    }
-
-    private static func extractDates(from text: String, calendar: Calendar) -> [(value: Date, range: Range<String.Index>)] {
-        var found: [(Date, Range<String.Index>)] = []
-        let patterns: [(String, DateFormatKind)] = [
-            (#"\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})\b"#, .yearMonthDay),
-            (#"\b(\d{1,2})[-/.](\d{1,2})[-/.](\d{4})\b"#, .dayMonthYear),
-            (#"\b(\d{1,2})[-/.](\d{1,2})[-/.](\d{2})\b"#, .dayMonthShortYear),
-            (#"\b(\d{1,2})\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{4})\b"#, .dayMonthNameYear),
-            (#"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2}),?\s+(\d{4})\b"#, .monthNameDayYear)
-        ]
-
-        for (pattern, kind) in patterns {
-            guard let regex = try? NSRegularExpression(pattern: pattern, options: [.caseInsensitive]) else { continue }
-            let nsRange = NSRange(text.startIndex..., in: text)
-            regex.enumerateMatches(in: text, options: [], range: nsRange) { match, _, _ in
-                guard let match, let fullRange = Range(match.range, in: text) else { return }
-                if let date = date(from: match, in: text, kind: kind, calendar: calendar) {
-                    found.append((date, fullRange))
+    private static func classify(dateRange: Range<String.Index>, in text: String) -> Classification? {
+        let lineStart = text[..<dateRange.lowerBound].lastIndex(of: "\n").map { text.index(after: $0) } ?? text.startIndex
+        let prefix = String(text[lineStart..<dateRange.lowerBound].suffix(48))
+        func distance(_ keywords: [String]) -> Int? {
+            keywords.compactMap { keyword in
+                prefix.range(of: keyword, options: [.caseInsensitive, .backwards]).map {
+                    prefix.distance(from: $0.upperBound, to: prefix.endIndex)
                 }
+            }.min()
+        }
+        let expiryDistance = distance(expiryKeywords)
+        let productionDistance = distance(productionKeywords)
+        if let expiryDistance { return expiryDistance <= (productionDistance ?? Int.max) ? .expiry : .production }
+        if productionDistance != nil { return .production }
+        let lineEnd = text[dateRange.upperBound...].firstIndex(of: "\n") ?? text.endIndex
+        let suffix = String(text[dateRange.upperBound..<lineEnd].prefix(18))
+        let expiry = expiryKeywords.contains { suffix.range(of: $0, options: .caseInsensitive) != nil }
+        let production = productionKeywords.contains { suffix.range(of: $0, options: .caseInsensitive) != nil }
+        return expiry && !production ? .expiry : production && !expiry ? .production : nil
+    }
+
+    private static func extractDates(from text: String, calendar: Calendar) -> [Match] {
+        let patterns = [
+            (#"(?<!\d)(\d{4})[-/.年]\s*(\d{1,2})[-/.月]\s*(\d{1,2})日?(?!\d)"#, 0),
+            (#"(?<!\d)(\d{1,2})([-/.])(\d{1,2})\2(\d{4}|\d{2})(?!\d)"#, 1),
+            (#"\b(\d{1,2})\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{4})\b"#, 2),
+            (#"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+(\d{1,2}),?\s+(\d{4})\b"#, 3)
+        ]
+        var result: [Match] = []
+        for (pattern, kind) in patterns {
+            guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) else { continue }
+            for match in regex.matches(in: text, range: NSRange(text.startIndex..., in: text)) {
+                guard let range = Range(match.range, in: text), !result.contains(where: { $0.range.overlaps(range) }) else { continue }
+                func group(_ index: Int) -> String {
+                    Range(match.range(at: index), in: text).map { String(text[$0]) } ?? ""
+                }
+                func integer(_ index: Int) -> Int { Int(group(index)) ?? 0 }
+                var triples: [(Int, Int, Int)] = []
+                switch kind {
+                case 0: triples = [(integer(1), integer(2), integer(3))]
+                case 1:
+                    let yearValue = integer(4)
+                    let year = group(4).count == 2 ? (yearValue < 50 ? 2000 : 1900) + yearValue : yearValue
+                    triples = [(year, integer(3), integer(1))]
+                    // Slashes commonly mean either DD/MM or MM/DD. Never infer from locale.
+                    if group(2) == "/" { triples.append((year, integer(1), integer(3))) }
+                case 2: triples = [(integer(3), monthIndex(group(2)), integer(1))]
+                default: triples = [(integer(3), monthIndex(group(1)), integer(2))]
+                }
+                let values = Array(Set(triples.compactMap { strictDate(year: $0.0, month: $0.1, day: $0.2, calendar: calendar) })).sorted()
+                if !values.isEmpty { result.append(Match(values: values, range: range)) }
             }
         }
-        return found
+        return result.sorted { $0.range.lowerBound < $1.range.lowerBound }
     }
 
-    private static func date(from match: NSTextCheckingResult, in text: String, kind: DateFormatKind, calendar: Calendar) -> Date? {
-        func group(_ index: Int) -> String? {
-            guard match.numberOfRanges > index, let range = Range(match.range(at: index), in: text) else { return nil }
-            return String(text[range])
-        }
-
-        var year = 0
-        var month = 0
-        var day = 0
-
-        switch kind {
-        case .yearMonthDay:
-            year = Int(group(1) ?? "") ?? 0
-            month = Int(group(2) ?? "") ?? 0
-            day = Int(group(3) ?? "") ?? 0
-        case .dayMonthYear:
-            day = Int(group(1) ?? "") ?? 0
-            month = Int(group(2) ?? "") ?? 0
-            year = Int(group(3) ?? "") ?? 0
-        case .dayMonthShortYear:
-            day = Int(group(1) ?? "") ?? 0
-            month = Int(group(2) ?? "") ?? 0
-            let yy = Int(group(3) ?? "") ?? 0
-            year = yy < 50 ? 2000 + yy : 1900 + yy
-        case .dayMonthNameYear:
-            day = Int(group(1) ?? "") ?? 0
-            month = monthIndex(group(2) ?? "")
-            year = Int(group(3) ?? "") ?? 0
-        case .monthNameDayYear:
-            month = monthIndex(group(1) ?? "")
-            day = Int(group(2) ?? "") ?? 0
-            year = Int(group(3) ?? "") ?? 0
-        }
-
-        guard year > 1970, (1...12).contains(month), (1...31).contains(day) else { return nil }
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        components.day = day
-        return calendar.date(from: components)
+    private static func strictDate(year: Int, month: Int, day: Int, calendar: Calendar) -> Date? {
+        guard (1971...9999).contains(year), (1...12).contains(month), (1...31).contains(day),
+              let date = calendar.date(from: DateComponents(year: year, month: month, day: day)) else { return nil }
+        let roundTrip = calendar.dateComponents([.year, .month, .day], from: date)
+        guard roundTrip.year == year, roundTrip.month == month, roundTrip.day == day else { return nil }
+        return date
     }
 
-    private static func monthIndex(_ raw: String) -> Int {
-        let key = String(raw.prefix(3)).lowercased()
-        let map = [
-            "jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
-            "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12
-        ]
-        return map[key] ?? 0
+    private static func monthIndex(_ text: String) -> Int {
+        ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"].firstIndex(of: String(text.prefix(3)).lowercased()).map { $0 + 1 } ?? 0
     }
 }

@@ -7,21 +7,51 @@ struct Provider: TimelineProvider {
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SnapshotEntry) -> Void) {
-        completion(SnapshotEntry(date: .now, snapshot: loadSnapshot()))
+        completion(SnapshotEntry(date: .now, snapshot: aged(loadSnapshot(), at: .now)))
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SnapshotEntry>) -> Void) {
-        let entry = SnapshotEntry(date: .now, snapshot: loadSnapshot())
-        let next = Calendar.current.date(byAdding: .hour, value: 1, to: .now) ?? .now.addingTimeInterval(3600)
-        completion(Timeline(entries: [entry], policy: .after(next)))
+        let now = Date.now
+        let source = loadSnapshot()
+        var entries = [SnapshotEntry(date: now, snapshot: aged(source, at: now))]
+        for offset in 1...7 {
+            if let day = Calendar.current.date(byAdding: .day, value: offset, to: Calendar.current.startOfDay(for: now)) {
+                entries.append(SnapshotEntry(date: day, snapshot: aged(source, at: day)))
+            }
+        }
+        let next = Calendar.current.date(byAdding: .hour, value: 1, to: now) ?? now.addingTimeInterval(3600)
+        completion(Timeline(entries: entries, policy: .after(next)))
     }
 
     private func loadSnapshot() -> WidgetSnapshot {
         guard let data = try? Data(contentsOf: AppGroup.snapshotURL),
               let snapshot = try? JSONDecoder().decode(WidgetSnapshot.self, from: data) else {
-            return .placeholder
+            return WidgetSnapshot(expiredCount: 0, expiringSoonCount: 0, weeklyCounts: Array(repeating: 0, count: 7),
+                                  foodsThisWeek: [], updatedAt: .now)
         }
         return snapshot
+    }
+
+    private func aged(_ source: WidgetSnapshot, at date: Date) -> WidgetSnapshot {
+        let calendar = Calendar.current
+        let foods = source.foodsThisWeek.map { food in
+            var copy = food
+            copy.remainingDays = FreshnessRules.remainingDays(from: food.expiryDate, now: date, calendar: calendar) ?? 0
+            return copy
+        }
+        let today = calendar.startOfDay(for: date)
+        let weekday = calendar.component(.weekday, from: today)
+        let monday = calendar.date(byAdding: .day, value: -((weekday + 5) % 7), to: today) ?? today
+        let weekEnd = calendar.date(byAdding: .day, value: 7, to: monday) ?? monday
+        var counts = Array(repeating: 0, count: 7)
+        for food in foods where food.expiryDate >= monday && food.expiryDate < weekEnd {
+            let index = (calendar.component(.weekday, from: food.expiryDate) + 5) % 7
+            counts[index] += 1
+        }
+        return WidgetSnapshot(expiredCount: foods.filter { $0.remainingDays < 0 }.count,
+                              expiringSoonCount: foods.filter { (0...7).contains($0.remainingDays) }.count,
+                              weeklyCounts: counts, foodsThisWeek: foods.filter { $0.remainingDays <= 7 },
+                              updatedAt: source.updatedAt)
     }
 }
 
@@ -51,19 +81,35 @@ struct ExpiringWidgetView: View {
                 Spacer()
             } else {
                 ForEach(entry.snapshot.foodsThisWeek.prefix(family == .systemSmall ? 2 : 5)) { food in
-                    HStack {
-                        Text(food.name)
-                            .lineLimit(1)
-                        Spacer()
-                        Text(food.remainingDays == 0 ? locale.text("widget.today") : locale.format("widget.daysShort", food.remainingDays))
-                            .foregroundStyle(food.remainingDays <= 1 ? Color.red : Color.secondary)
+                    if family == .systemSmall {
+                        foodRow(food)
+                    } else {
+                        Link(destination: foodURL(food.id)) { foodRow(food) }
+                            .accessibilityLabel("\(food.name), \(dayLabel(food.remainingDays))")
                     }
-                    .font(.caption)
                 }
                 Spacer(minLength: 0)
             }
         }
         .containerBackground(.fill.tertiary, for: .widget)
+        .widgetURL(family == .systemSmall ? entry.snapshot.foodsThisWeek.first.map { foodURL($0.id) } ?? URL(string: "shelfie://shelf") : URL(string: "shelfie://shelf"))
+    }
+
+    private func foodURL(_ id: UUID) -> URL { URL(string: "shelfie://food/\(id.uuidString)")! }
+
+    private func dayLabel(_ days: Int) -> String {
+        if days < 0 { return locale.format("widget.overdueDays", -days) }
+        return days == 0 ? locale.text("widget.today") : locale.format("widget.daysShort", days)
+    }
+
+    private func foodRow(_ food: WidgetFoodSnapshot) -> some View {
+        HStack {
+            Text(food.name).lineLimit(1)
+            Spacer()
+            Text(dayLabel(food.remainingDays))
+                .foregroundStyle(food.remainingDays <= 1 ? Color.red : Color.secondary)
+        }
+        .font(.caption)
     }
 }
 
@@ -80,7 +126,7 @@ struct FreshnessWidgetView: View {
                     VStack {
                         Capsule()
                             .fill(Color.green.opacity(count == 0 ? 0.25 : 0.9))
-                            .frame(width: 10, height: CGFloat(max(count, 1)) * 14)
+                            .frame(width: 10, height: min(CGFloat(max(count, 1)) * 14, 64))
                         Text(weekday(index))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
@@ -97,6 +143,7 @@ struct FreshnessWidgetView: View {
             .foregroundStyle(.secondary)
         }
         .containerBackground(.fill.tertiary, for: .widget)
+        .widgetURL(URL(string: "shelfie://shelf"))
     }
 
     private func weekday(_ index: Int) -> String {

@@ -1,0 +1,19 @@
+Hello App Review,
+
+We have prepared version 1.1 (19) and provide the requested information below. The same details are included in App Review Notes.
+
+1. Physical-device recording: the attached 2 min 35 sec video was captured on iPhone 15 Pro running iOS 27.0. It starts with app launch and shows camera permission settings, real barcode scanning with product-name/photo autofill, editing and saving food, search/filter/sort, marking eaten, Insights and reminder settings. The complete operation sequence is retained in the H.264 MP4. There is no registration, login, paid content, subscription, advertising or public user-generated content.
+
+2. Tested devices: iPhone 15 Pro / iOS 27.0 (physical, final build 19); iPhone 17 Pro Max Simulator / iOS 26.5; iPhone 18 Pro Simulator / iOS 27.0; iPhone Air Simulator / iOS 26.5. Fifteen automated tests passed on iOS 26.5 and 27.0 during release preparation, with reminder and backup checks rerun on iPhone Air. The final barcode-to-entry flow was verified on the physical phone. Cross-device iCloud sync has not been tested.
+
+3. Function and audience: Food Shelfie helps households organize fridge, freezer and pantry food, track expiry dates, decide what to use soon, reduce waste and review eaten/discarded history. It includes search, sorting, categories, locations, owners, reminders, widgets, backup and optional private iCloud sync.
+
+4. Setup: no account, credentials or sample files are needed. Launch with an empty shelf, tap + / Add Food, enter the food name and dates and save. Search/filter items, open an item to edit or mark eaten/discarded, then view Insights. Settings includes reminders, language, appearance, categories/locations, JSON export/import, optional sync and device authentication. Camera/photos/notifications are optional and manual entry is available. To try date OCR, select Expiry date in Scan and capture a packaging date or select a photo; review the recognized date before saving.
+
+5. External services: Open Food Facts supplies barcode product names, categories and images; lookup sends the barcode and image retrieval contacts its image servers. Apple CloudKit provides optional private sync using the user’s Apple account. SwiftData, Vision, WidgetKit, UserNotifications and device authentication are Apple frameworks. There is no external AI, payment processor, advertising SDK or authentication backend.
+
+6. Regions: the feature implementation is the same across regions. English and Simplified Chinese affect interface language. Open Food Facts coverage/network access can vary; manual entry works offline.
+
+7. Materials and authorization: this is a household organization app, not a regulated medical or financial service. Open Food Facts is used under ODbL/DbCL for data and CC BY-SA for images, with attribution and license links in the app and product description. Terms: https://world.openfoodfacts.org/terms-of-use. No other protected third-party content is bundled.
+
+Build 19 also fixes scanner-to-entry presentation, backup replacement, persistent-store recovery and per-date reminders. The CloudKit model schema has been deployed to Production. Thank you.

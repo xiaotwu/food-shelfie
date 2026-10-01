@@ -1,0 +1,422 @@
+Confirm Deployment
+
+Review container schema changes to deploy to the Production environment.
+
+Changes
+Diff View
+---
+ PRODUCTION version - dd8e7100-bc63-11f1-b20a-89f03077653d - 2026-09-30 12:14 AM
++++
+ DEVELOPMENT version - 22f325d0-bd11-11f1-a76b-5fb549c129c0 - 2026-09-30 08:54 PM
+
+
+ @@ -1,114 +1,143 @@
+
+
+  DEFINE SCHEMA
+
+
+
+
+
+      RECORD TYPE CD_CategoryRecord (
+
+
+          CD_createdAt           TIMESTAMP QUERYABLE SORTABLE,
+
+
+          CD_details             STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_details_ckAsset     ASSET,
+
+
+          CD_entityName          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_id                  STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_moveReceipt         BYTES QUERYABLE SORTABLE,
+
+
+          CD_moveReceipt_ckAsset ASSET,
+
+
+          CD_name                STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_name_ckAsset        ASSET,
+
+
+          "___createTime"        TIMESTAMP,
+
+
+          "___createdBy"         REFERENCE,
+
+
+          "___etag"              STRING,
+
+
+          "___modTime"           TIMESTAMP,
+
+
+          "___modifiedBy"        REFERENCE,
+
+
+          "___recordID"          REFERENCE,
+
+
+          GRANT WRITE TO "_creator",
+
+
+          GRANT CREATE TO "_icloud",
+
+
+          GRANT READ TO "_world"
+
+
+      );
+
+
+
+
+
+      RECORD TYPE CD_FoodItemRecord (
+
+
+          CD_categoryId             STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_createdAt              TIMESTAMP QUERYABLE SORTABLE,
+
+
+          CD_entityName             STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_expiryDate             TIMESTAMP QUERYABLE SORTABLE,
+
+
+          CD_id                     STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_imageFileName          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_imageFileName_ckAsset  ASSET,
+
+
+          CD_locationId             STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_locationRaw            STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_locationRaw_ckAsset    ASSET,
+
++
+          CD_lowStockThreshold      DOUBLE QUERYABLE SORTABLE,
+
+
+          CD_moveReceipt            BYTES QUERYABLE SORTABLE,
+
+
+          CD_moveReceipt_ckAsset    ASSET,
+
+
+          CD_name                   STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_name_ckAsset           ASSET,
+
+
+          CD_normalizedName         STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_normalizedName_ckAsset ASSET,
+
+
+          CD_notes                  STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_notes_ckAsset          ASSET,
+
++
+          CD_openedDate             TIMESTAMP QUERYABLE SORTABLE,
++
+          CD_openedShelfLifeDays    INT64 QUERYABLE SORTABLE,
+
+
+          CD_owner                  STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_owner_ckAsset          ASSET,
+
+
+          CD_photoData              BYTES QUERYABLE SORTABLE,
+
+
+          CD_photoData_ckAsset      ASSET,
+
+
+          CD_purchaseDate           TIMESTAMP QUERYABLE SORTABLE,
+
++
+          CD_quantity               DOUBLE QUERYABLE SORTABLE,
+
+
+          CD_resolvedDate           TIMESTAMP QUERYABLE SORTABLE,
+
+
+          CD_statusRaw              STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_statusRaw_ckAsset      ASSET,
+
++
+          CD_unitRaw                STRING QUERYABLE SEARCHABLE SORTABLE,
++
+          CD_unitRaw_ckAsset        ASSET,
+
+
+          "___createTime"           TIMESTAMP,
+
+
+          "___createdBy"            REFERENCE,
+
+
+          "___etag"                 STRING,
+
+
+          "___modTime"              TIMESTAMP,
+
+
+          "___modifiedBy"           REFERENCE,
+
+
+          "___recordID"             REFERENCE,
+
+
+          GRANT WRITE TO "_creator",
+
+
+          GRANT CREATE TO "_icloud",
+
+
+          GRANT READ TO "_world"
+
+
+      );
+
+
+
+
+
+      RECORD TYPE CD_LocationRecord (
+
+
+          CD_builtInKey          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_builtInKey_ckAsset  ASSET,
+
+
+          CD_createdAt           TIMESTAMP QUERYABLE SORTABLE,
+
+
+          CD_entityName          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_id                  STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_moveReceipt         BYTES QUERYABLE SORTABLE,
+
+
+          CD_moveReceipt_ckAsset ASSET,
+
+
+          CD_name                STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_name_ckAsset        ASSET,
+
+
+          CD_sortOrder           INT64 QUERYABLE SORTABLE,
+
+
+          CD_symbolName          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_symbolName_ckAsset  ASSET,
+
+
+          "___createTime"        TIMESTAMP,
+
+
+          "___createdBy"         REFERENCE,
+
+
+          "___etag"              STRING,
+
+
+          "___modTime"           TIMESTAMP,
+
+
+          "___modifiedBy"        REFERENCE,
+
+
+          "___recordID"          REFERENCE,
+
+
+          GRANT WRITE TO "_creator",
+
+
+          GRANT CREATE TO "_icloud",
+
+
+          GRANT READ TO "_world"
+
+
+      );
+
+
+
+
+
+      RECORD TYPE CD_SearchHistoryRecord (
+
+
+          CD_entityName          STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_moveReceipt         BYTES QUERYABLE SORTABLE,
+
+
+          CD_moveReceipt_ckAsset ASSET,
+
+
+          CD_query               STRING QUERYABLE SEARCHABLE SORTABLE,
+
+
+          CD_query_ckAsset       ASSET,
+
+
+          CD_timestamp           TIMESTAMP QUERYABLE SORTABLE,
+
+
+          "___createTime"        TIMESTAMP,
+
+
+          "___createdBy"         REFERENCE,
+
+
+          "___etag"              STRING,
+
+
+          "___modTime"           TIMESTAMP,
+
+
+          "___modifiedBy"        REFERENCE,
+
+
+          "___recordID"          REFERENCE,
+
+
+          GRANT WRITE TO "_creator",
+
+
+          GRANT CREATE TO "_icloud",
+
+
+          GRANT READ TO "_world"
+
+
+      );
+
+
+
+
++
+      RECORD TYPE CD_ShoppingItemRecord (
++
+          CD_createdAt           TIMESTAMP QUERYABLE SORTABLE,
++
+          CD_entityName          STRING QUERYABLE SEARCHABLE SORTABLE,
++
+          CD_id                  STRING QUERYABLE SEARCHABLE SORTABLE,
++
+          CD_isCompleted         INT64 QUERYABLE SORTABLE,
++
+          CD_moveReceipt         BYTES QUERYABLE SORTABLE,
++
+          CD_moveReceipt_ckAsset ASSET,
++
+          CD_name                STRING QUERYABLE SEARCHABLE SORTABLE,
++
+          CD_name_ckAsset        ASSET,
++
+          CD_quantity            DOUBLE QUERYABLE SORTABLE,
++
+          CD_unitRaw             STRING QUERYABLE SEARCHABLE SORTABLE,
++
+          CD_unitRaw_ckAsset     ASSET,
++
+          "___createTime"        TIMESTAMP,
++
+          "___createdBy"         REFERENCE,
++
+          "___etag"              STRING,
++
+          "___modTime"           TIMESTAMP,
++
+          "___modifiedBy"        REFERENCE,
++
+          "___recordID"          REFERENCE,
++
+          GRANT WRITE TO "_creator",
++
+          GRANT CREATE TO "_icloud",
++
+          GRANT READ TO "_world"
++
+      );
++
+
+
+
+      RECORD TYPE Users (
+
+
+          "___createTime" TIMESTAMP,
+
+
+          "___createdBy"  REFERENCE,
+
+
+          "___etag"       STRING,
+
+
+          "___modTime"    TIMESTAMP,
+
+
+          "___modifiedBy" REFERENCE,
+
+
+          "___recordID"   REFERENCE,
+
+
+          roles           LIST<INT64>,
+
+
+          GRANT WRITE TO "_creator",
+
+
+          GRANT READ TO "_world"
+
+
+      );
+
+Cancel
+Copy To Clipboard
+Deploy

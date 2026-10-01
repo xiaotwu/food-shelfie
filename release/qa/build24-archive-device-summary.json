@@ -1,0 +1,19 @@
+{
+  "version": "1.2",
+  "build": "24",
+  "recordedAt": "2026-09-30T23:56:29.724117+00:00",
+  "archiveSucceeded": true,
+  "archiveWarnings": 0,
+  "appPrivacyManifest": true,
+  "widgetPrivacyManifest": true,
+  "physicalDevice": "iPhone 15 Pro / iOS 27.0",
+  "debugBuildSucceeded": true,
+  "debugWarnings": 0,
+  "installSucceeded": true,
+  "normalLaunchSucceeded": true,
+  "runningProcessObserved": true,
+  "inventoryEdited": false,
+  "scope": "Release archive plus single-device Debug installation/launch; not a full hardware flow acceptance test.",
+  "toolbarImplementation": "UIHostingConfiguration, no child view controller",
+  "containerAccessibilityIdentifier": "Assigned to the 60/172-point UIKit host, after final product-source change."
+}

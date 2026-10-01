@@ -33,7 +33,18 @@ struct SearchView: View {
     @State private var query = ""
     @State private var selectedScope: SearchScope = .all
     @State private var detailFood: FoodItemRecord?
-    @State private var editingFood: FoodItemRecord?
+    @State private var entryPresentation: EntryPresentation?
+    @State private var pendingDetailEntry: EntryPresentation?
+    @State private var lastAction: [FoodActionSnapshot] = []
+    @State private var lastActionResult: [FoodActionSnapshot] = []
+    @State private var errorMessageKey = "error.saveMessage"
+    @State private var showSaveError = false
+
+    private struct EntryPresentation: Identifiable {
+        let id = UUID()
+        var existing: FoodItemRecord?
+        var draft: FoodEntryDraft?
+    }
     @FocusState private var isSearchFocused: Bool
     @Namespace private var scopeNamespace
 
@@ -78,42 +89,46 @@ struct SearchView: View {
         .onDisappear {
             settings.isTabBarHidden = false
         }
-        .sheet(item: $detailFood) { food in
+        .safeAreaInset(edge: .bottom) {
+            if !lastAction.isEmpty {
+                InventoryUndoBanner(undo: undoLastAction, close: { lastAction = [] })
+            }
+        }
+        .alert(locale.text("error.saveTitle"), isPresented: $showSaveError) {
+            Button(locale.text("common.ok"), role: .cancel) { }
+        } message: { Text(locale.text(errorMessageKey)) }
+        .sheet(item: $detailFood, onDismiss: {
+            if let presentation = pendingDetailEntry {
+                pendingDetailEntry = nil
+                entryPresentation = presentation
+            }
+        }) { food in
             FoodDetailSheet(
                 food: food,
                 categoryName: categories.first(where: { $0.id == food.categoryId })?.displayName(locale: locale),
                 locationTitle: food.resolvedLocation(in: locations)?.displayName(locale: locale) ?? food.location.title(locale: locale),
                 locationSymbol: food.resolvedLocation(in: locations)?.symbolName ?? food.location.symbolName,
                 onEdit: {
-                    let target = food
-                    detailFood = nil
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-                        editingFood = target
-                    }
-                },
-                onConsumed: {
-                    food.status = .consumed
-                    food.resolvedDate = .now
-                    try? modelContext.save()
-                    WidgetSnapshotWriter.refresh(context: modelContext)
-                    Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+                    pendingDetailEntry = EntryPresentation(existing: food)
                     detailFood = nil
                 },
-                onWasted: {
-                    food.status = .wasted
-                    food.resolvedDate = .now
-                    try? modelContext.save()
-                    WidgetSnapshotWriter.refresh(context: modelContext)
-                    Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+                onConsumed: { resolve(food, as: .consumed) },
+                onWasted: { resolve(food, as: .wasted) },
+                onPartialConsumption: { consume(food, amount: $0) },
+                onRepeatPurchase: {
+                    pendingDetailEntry = EntryPresentation(draft: .repeatPurchase(from: food))
                     detailFood = nil
+                },
+                onShopping: {
+                    do { try ShoppingListOperations.add(food: food, context: modelContext); return true }
+                    catch { return false }
                 }
             )
         }
-        .sheet(item: $editingFood) { food in
-            FoodEntryView(existing: food) {
-                editingFood = nil
-                WidgetSnapshotWriter.refresh(context: modelContext)
-                Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+        .sheet(item: $entryPresentation) { presentation in
+            FoodEntryView(existing: presentation.existing, draft: presentation.draft) {
+                lastAction = []
+                refreshInventory()
             }
         }
     }
@@ -214,12 +229,9 @@ struct SearchView: View {
                         Spacer()
 
                         Button(locale.text("search.clear")) {
-                            withAnimation(Motion.snappy) {
-                                for item in history {
-                                    modelContext.delete(item)
-                                }
-                                try? modelContext.save()
-                            }
+                            for item in history { modelContext.delete(item) }
+                            do { try modelContext.save() }
+                            catch { modelContext.rollback(); errorMessageKey = "error.saveMessage"; showSaveError = true }
                         }
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
@@ -340,8 +352,7 @@ struct SearchView: View {
             ForEach(results, id: \.id) { food in
                 Button {
                     Motion.hapticSelection()
-                    remember(query)
-                    detailFood = food
+                    if remember(query) { detailFood = food }
                 } label: {
                     HStack(spacing: 12) {
                         // Freshness status dot
@@ -356,6 +367,8 @@ struct SearchView: View {
                                 .foregroundStyle(.primary)
 
                             HStack(spacing: 6) {
+                                Text(food.quantityLabel(locale: locale))
+                                Text("·")
                                 // Storage location
                                 Text(food.resolvedLocation(in: locations)?.displayName(locale: locale)
                                      ?? food.location.title(locale: locale))
@@ -377,6 +390,9 @@ struct SearchView: View {
                             }
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                            Text(locale.text("detail.boughtOn") + " " + food.purchaseDate.localizedDate(locale, date: .abbreviated))
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
                         }
 
                         Spacer()
@@ -482,16 +498,83 @@ struct SearchView: View {
         return Array(Set(raw)).sorted()
     }
 
-    private func remember(_ raw: String) {
+    @discardableResult
+    private func remember(_ raw: String) -> Bool {
         let value = raw.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !value.isEmpty else { return }
+        guard !value.isEmpty else { return true }
         if let existing = history.first(where: { $0.query.compare(value, options: .caseInsensitive) == .orderedSame }) {
             existing.timestamp = .now
         } else {
             modelContext.insert(SearchHistoryRecord(query: value))
         }
-        try? modelContext.save()
+        do { try modelContext.save(); return true }
+        catch { modelContext.rollback(); errorMessageKey = "error.saveMessage"; showSaveError = true; return false }
     }
+
+    private func resolve(_ food: FoodItemRecord, as status: FoodStatus) -> Bool {
+        guard food.modelContext != nil, !food.isDeleted, food.status == .active else { return false }
+        let snapshot = FoodActionSnapshot(food)
+        food.status = status
+        food.resolvedDate = .now
+        do {
+            try modelContext.save()
+            lastAction = [snapshot]
+            lastActionResult = [FoodActionSnapshot(food)]
+            detailFood = nil
+            Motion.hapticNotification(status == .consumed ? .success : .warning)
+            refreshInventory()
+            return true
+        } catch {
+            snapshot.restore()
+            return false
+        }
+    }
+
+    private func consume(_ food: FoodItemRecord, amount: Double) -> Bool {
+        guard food.modelContext != nil, !food.isDeleted, food.status == .active else { return false }
+        let snapshot = FoodActionSnapshot(food)
+        do {
+            try food.consume(amount: amount)
+            try modelContext.save()
+            lastAction = [snapshot]
+            lastActionResult = [FoodActionSnapshot(food)]
+            detailFood = nil
+            Motion.hapticNotification(.success)
+            refreshInventory()
+            return true
+        } catch {
+            snapshot.restore()
+            return false
+        }
+    }
+
+    private func undoLastAction() {
+        guard !lastAction.isEmpty, lastActionResult.count == lastAction.count,
+              lastActionResult.allSatisfy({ $0.matchesCurrent }) else {
+            lastAction = []
+            errorMessageKey = "action.undoUnavailable"
+            showSaveError = true
+            return
+        }
+        let current = lastAction.map { FoodActionSnapshot($0.food) }
+        lastAction.forEach { $0.restore() }
+        do {
+            try modelContext.save()
+            lastAction = []
+            Motion.hapticNotification(.success)
+            refreshInventory()
+        } catch {
+            current.forEach { $0.restore() }
+            errorMessageKey = "error.saveMessage"
+            showSaveError = true
+        }
+    }
+
+    private func refreshInventory() {
+        WidgetSnapshotWriter.refresh(context: modelContext)
+        Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+    }
+
 }
 
 // Flow layout for dynamic tags
@@ -503,19 +586,21 @@ struct FlowLayout: Layout {
         var currentX: CGFloat = 0
         var currentY: CGFloat = 0
         var lineHeight: CGFloat = 0
+        var widestRow: CGFloat = 0
 
         for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
+            let size = subview.sizeThatFits(width.isFinite ? ProposedViewSize(width: width, height: nil) : .unspecified)
             if currentX + size.width > width, currentX > 0 {
                 currentX = 0
                 currentY += lineHeight + spacing
                 lineHeight = 0
             }
             currentX += size.width + spacing
+            widestRow = max(widestRow, currentX - spacing)
             lineHeight = max(lineHeight, size.height)
         }
 
-        return CGSize(width: width, height: currentY + lineHeight)
+        return CGSize(width: width.isFinite ? width : widestRow, height: currentY + lineHeight)
     }
 
     func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
@@ -524,13 +609,13 @@ struct FlowLayout: Layout {
         var lineHeight: CGFloat = 0
 
         for subview in subviews {
-            let size = subview.sizeThatFits(.unspecified)
+            let size = subview.sizeThatFits(ProposedViewSize(width: bounds.width, height: nil))
             if currentX + size.width > bounds.maxX, currentX > bounds.minX {
                 currentX = bounds.minX
                 currentY += lineHeight + spacing
                 lineHeight = 0
             }
-            subview.place(at: CGPoint(x: currentX, y: currentY), proposal: .unspecified)
+            subview.place(at: CGPoint(x: currentX, y: currentY), proposal: ProposedViewSize(size))
             currentX += size.width + spacing
             lineHeight = max(lineHeight, size.height)
         }

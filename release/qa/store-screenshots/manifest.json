@@ -1,0 +1,84 @@
+{
+  "version": "1.2",
+  "build": "24",
+  "recordedAtUTC": "2026-10-01T00:18:11.434907+00:00",
+  "runtime": "iOS 26.5 Simulator",
+  "devices": [
+    "Shelfie Store Screenshots 6.9 — iPhone 17 Pro Max",
+    "Shelfie Store Screenshots 13 — iPad Pro 13-inch (M5)"
+  ],
+  "appBinarySHA256": "d55c5e96fcbfbacd7a01b31fadc3018288de5d83e662df9494f1b273217c6bde",
+  "demoFile": "demo-v5.json",
+  "demoSHA256": "5f3cf4f81769b4bde2c2523746cf2c5c5c645c222ab9a4fc23d0755f20cddeb6",
+  "importMethod": "Input JSON staged as a document in each isolated simulator Files local storage; selected in normal Settings > Data > Import backup system picker and explicitly confirmed. No direct Shelfie database edits.",
+  "observedImportResult": "Backup restored; Shelf 7 food batches; Shopping has 3 to-buy items and 1 bought item.",
+  "personalDataUsed": false,
+  "imageResizing": false,
+  "captureMethods": [
+    "simctl native PNG screenshot",
+    "standard XCTest XCUIScreen native PNG screenshot"
+  ],
+  "captures": [
+    {
+      "file": "iphone-6.9/01-shelf.png",
+      "width": 1320,
+      "height": 2868,
+      "sha256": "41eab415657ebb1a7c10313d1289ec4835a5055a86121167000cfbbdf2fb31a7"
+    },
+    {
+      "file": "iphone-6.9/02-opening-and-quantity.png",
+      "width": 1320,
+      "height": 2868,
+      "sha256": "a5d0035620d443313d5329c831da6bd225b02673bdbb0c757ad7c067c378faa5"
+    },
+    {
+      "file": "iphone-6.9/03-shopping.png",
+      "width": 1320,
+      "height": 2868,
+      "sha256": "1af022c145ec854792ad2d78da9cbc5718b0d564e2dc0b005ef12719baf2ae32"
+    },
+    {
+      "file": "iphone-6.9/04-insights.png",
+      "width": 1320,
+      "height": 2868,
+      "sha256": "1cf8ce6cc75ae1f27bfda2b56b20734db312f54d89b8b51f1bdef20cbc207398"
+    },
+    {
+      "file": "iphone-6.9/05-settings.png",
+      "width": 1320,
+      "height": 2868,
+      "sha256": "c158a88c4d4eed497796ffb8594a31317a6cf792ccbe9d7db7ae598b52c0565f"
+    },
+    {
+      "file": "ipad-13/01-shelf.png",
+      "width": 2064,
+      "height": 2752,
+      "sha256": "180b95cefddd763cb910690169afe262ea86869f2d2623f4c38b3740a956cc88"
+    },
+    {
+      "file": "ipad-13/02-opening-and-quantity.png",
+      "width": 2064,
+      "height": 2752,
+      "sha256": "b3e8eb61f18f528afdf66ffb4686fa1a07bbbfa6b1b65084a5a47f3ef3bebd6d"
+    },
+    {
+      "file": "ipad-13/03-shopping.png",
+      "width": 2064,
+      "height": 2752,
+      "sha256": "e041a6d9b9e5af75be66024b63a79a91ba95f8d4ffc1182e96c37e693eed5fbc"
+    },
+    {
+      "file": "ipad-13/04-insights.png",
+      "width": 2064,
+      "height": 2752,
+      "sha256": "59911352b2848767d3ec51f9b12d1de37a7e4a0db4245c1bdf2920b60486976c"
+    },
+    {
+      "file": "ipad-13/05-settings.png",
+      "width": 2064,
+      "height": 2752,
+      "sha256": "a404c45f4798756356ae4a0eea852ffb6296d878fc356de5c20daca717b1f70a"
+    }
+  ],
+  "scope": "Store screenshots of actual build 24 UI using fictional inventory; not full hardware acceptance or proof of App Store publication."
+}

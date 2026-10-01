@@ -1,0 +1,52 @@
+{
+  "devicesAndConfigurations" : [
+    {
+      "device" : {
+        "architecture" : "arm64",
+        "deviceId" : "FF62A285-23F2-40CB-9F25-7ADFC7F285AD",
+        "deviceName" : "Shelfie Toolbar QA",
+        "modelName" : "iPhone 17",
+        "osBuildNumber" : "23F77",
+        "osVersion" : "26.5",
+        "platform" : "iOS Simulator"
+      },
+      "expectedFailures" : 0,
+      "failedTests" : 1,
+      "passedTests" : 1,
+      "skippedTests" : 0,
+      "testPlanConfiguration" : {
+        "configurationId" : "1",
+        "configurationName" : "Test Scheme Action"
+      }
+    }
+  ],
+  "environmentDescription" : "ShelfieLayout · Built with macOS 27.0.1",
+  "expectedFailures" : 0,
+  "failedTests" : 1,
+  "finishTime" : 1790812710.929,
+  "passedTests" : 1,
+  "result" : "Failed",
+  "runtimeWarnings" : [
+
+  ],
+  "skippedTests" : 0,
+  "startTime" : 1790812636.744,
+  "statistics" : [
+
+  ],
+  "testFailures" : [
+    {
+      "failureText" : "XCTAssertEqualWithAccuracy failed: (\"36.5\") is not equal to (\"201.0\") +/- (\"2.0\") - Every page title must be centered in the screen, independent of action widths.",
+      "targetName" : "ShelfieUITests",
+      "testIdentifier" : 2,
+      "testIdentifierString" : "LayoutFlowTests/testAdaptiveToolbarKeepsLongTitleAndRoutesCollapsedActions()",
+      "testIdentifierURL" : "test://com.apple.xcode/Shelfie/ShelfieUITests/LayoutFlowTests/testAdaptiveToolbarKeepsLongTitleAndRoutesCollapsedActions",
+      "testName" : "testAdaptiveToolbarKeepsLongTitleAndRoutesCollapsedActions()"
+    }
+  ],
+  "title" : "Test - ShelfieLayout",
+  "topInsights" : [
+
+  ],
+  "totalTestCount" : 2
+}

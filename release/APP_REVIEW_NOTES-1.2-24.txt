@@ -1,0 +1,18 @@
+Hello App Review,
+
+Food Shelfie 1.2 (24) is a household food inventory and expiry reminder app. No app account, login, paid content, subscriptions, advertising or public user-generated content is required. Camera, Photos and notifications are optional; manual entry is available offline.
+
+New in 1.2: quantity and unit tracking, partial consumption, repeat purchases with fresh batch dates, undo for inventory actions, shopping lists with confirmed conversion to inventory, opened-food dates, low-stock suggestions, a “use first” section, and faster entry with optional expiry dates and Save and add another. Optional details are collapsed until needed. Search, sorting and adding are available from the main pages; the navigation layout adapts to large text. Settings includes English/Simplified Chinese, reminders, private iCloud sync, backup/restore and device authentication.
+
+Review steps:
+1. Launch and add a food from + / Add item. Enter a name and quantity. Expiry starts as “not entered” and may be left blank; enabling Set an expiry date allows an explicit date. Save, or use Save and add another to keep entering foods.
+2. Open the food to edit it, record partial consumption, mark eaten/discarded, repeat a purchase, or undo a recent inventory action. Check Food history and Insights. Repeated purchases require an explicit date or confirmation that no expiry is available.
+3. Open Shopping list, add an item and mark it bought. Use its Add to shelf action, confirm the draft and save; conversion completes only after a successful save and prevents adding the same source twice.
+4. In Scan, a product barcode looks up product text and category hints from Open Food Facts. It does not download or attach product photos. Food photos are supplied by the user in the entry form. The date-recognition mode may capture/select packaging images for on-device recognition, but those images are not stored as food photos. Review and explicitly confirm recognized dates; ambiguous dates show alternatives. A production date is not used as the purchase date. Failed lookups offer retry and manual entry.
+5. Settings lets the reviewer enable expiry reminders and optional iCloud sync; no credentials are needed beyond the user's existing Apple account for CloudKit. JSON backup/restore and categories/locations are in Data settings.
+
+The previously supplied physical-device video is from version 1.1 build 19 on iPhone 15 Pro / iOS 27.0. It demonstrates the earlier core flow and is not a recording of build 24. In particular, 1.1 downloaded barcode product photos; 1.2 fills text only. Local 1.2 development builds were installed and launched on that physical iPhone, and simulator tests covered form, shopping, inventory and adaptive navigation flows. Final build 24 validation is recorded separately in the release evidence; we do not claim that the old video demonstrates every new feature. Only one physical device was available, so two-device iCloud synchronization has not been acceptance-tested. The updated CloudKit schema has been deployed to Production.
+
+Open Food Facts receives the scanned barcode for lookup. Vision date recognition runs on-device. Optional sync uses Apple's private CloudKit database. There is no external AI service, analytics/tracking SDK or authentication backend. Open Food Facts data attribution and license links are in the app. Privacy policy: https://github.com/xiaotwu/food-shelfie/blob/main/PRIVACY.md
+
+Thank you.

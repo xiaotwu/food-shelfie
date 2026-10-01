@@ -1,0 +1,23 @@
+{
+  "simulator": "10D4A587-B93A-4931-93A6-FB6333055804",
+  "database": "/Users/xiaotwu/Library/Developer/CoreSimulator/Devices/10D4A587-B93A-4931-93A6-FB6333055804/data/Containers/Data/Application/49E42AE9-DA7E-412B-A0C6-C55BE34A8DA5/Library/Application Support/Shelfie.sqlite",
+  "foodRows": [
+    [
+      "Milk",
+      1.0,
+      "active",
+      813099807.597129,
+      812495007.597198,
+      3
+    ]
+  ],
+  "shoppingRows": [
+    [
+      "Milk",
+      1.0,
+      1
+    ]
+  ],
+  "qaFoodRowsRemaining": 0,
+  "qaShoppingRowsRemaining": 0
+}

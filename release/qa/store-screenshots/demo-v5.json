@@ -1,0 +1,284 @@
+{
+  "version": 5,
+  "exportedAt": "2026-09-30T19:00:00Z",
+  "categories": [
+    {
+      "id": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "name": "Produce",
+      "details": ""
+    },
+    {
+      "id": "17B9BDA7-A7AA-51C4-A632-A3AA6F924E3B",
+      "name": "Dairy",
+      "details": ""
+    },
+    {
+      "id": "6EEE4EE9-63C6-5CE2-8E6A-F53DDFDD63A9",
+      "name": "Staples",
+      "details": ""
+    },
+    {
+      "id": "67C9933B-A9F0-54AD-A329-2434F80AED3C",
+      "name": "Seafood",
+      "details": ""
+    }
+  ],
+  "locations": [
+    {
+      "id": "5E1F0001-0000-4000-8000-000000000001",
+      "name": "Fridge",
+      "builtInKey": "fridge",
+      "symbolName": "refrigerator",
+      "sortOrder": 0
+    },
+    {
+      "id": "5E1F0001-0000-4000-8000-000000000002",
+      "name": "Freezer",
+      "builtInKey": "freezer",
+      "symbolName": "snowflake",
+      "sortOrder": 1
+    },
+    {
+      "id": "5E1F0001-0000-4000-8000-000000000003",
+      "name": "Pantry",
+      "builtInKey": "pantry",
+      "symbolName": "cabinet",
+      "sortOrder": 2
+    },
+    {
+      "id": "5E1F0001-0000-4000-8000-000000000004",
+      "name": "Other",
+      "builtInKey": "other",
+      "symbolName": "shippingbox",
+      "sortOrder": 3
+    }
+  ],
+  "foods": [
+    {
+      "id": "53BEC229-6C49-55D5-A1E5-589398BA38E5",
+      "name": "Oat milk",
+      "categoryId": "17B9BDA7-A7AA-51C4-A632-A3AA6F924E3B",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 0.75,
+      "unit": "liter",
+      "expiryDate": "2026-10-12T19:00:00Z",
+      "openedDate": "2026-09-29T19:00:00Z",
+      "openedShelfLifeDays": 3,
+      "lowStockThreshold": 0.5
+    },
+    {
+      "id": "5D70A197-10E2-5289-9D78-691FA5ADE01E",
+      "name": "Avocados",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 2,
+      "unit": "piece",
+      "expiryDate": "2026-10-01T19:00:00Z"
+    },
+    {
+      "id": "11E1AD74-2541-5376-AC54-353B28DB7997",
+      "name": "Baby spinach",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-10-02T19:00:00Z"
+    },
+    {
+      "id": "0205CEB0-AC53-50F6-BA6A-F6956D9ACF8A",
+      "name": "Strawberries",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-10-05T19:00:00Z"
+    },
+    {
+      "id": "DE86BC5C-F7E0-52B0-8B4E-8BCF023EB1CB",
+      "name": "Free-range eggs",
+      "categoryId": "17B9BDA7-A7AA-51C4-A632-A3AA6F924E3B",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 6,
+      "unit": "piece",
+      "expiryDate": "2026-10-12T19:00:00Z",
+      "lowStockThreshold": 4
+    },
+    {
+      "id": "FB05B26D-67D7-5098-829A-2F4FC5E53FD0",
+      "name": "Salmon fillets",
+      "categoryId": "67C9933B-A9F0-54AD-A329-2434F80AED3C",
+      "location": "freezer",
+      "locationId": "5E1F0001-0000-4000-8000-000000000002",
+      "locationName": "Freezer",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 2,
+      "unit": "piece",
+      "expiryDate": "2026-10-21T19:00:00Z"
+    },
+    {
+      "id": "757C648F-88AA-5030-A6DA-7672D96E182D",
+      "name": "Brown rice",
+      "categoryId": "6EEE4EE9-63C6-5CE2-8E6A-F53DDFDD63A9",
+      "location": "pantry",
+      "locationId": "5E1F0001-0000-4000-8000-000000000003",
+      "locationName": "Pantry",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "active",
+      "quantity": 1,
+      "unit": "kilogram"
+    },
+    {
+      "id": "D2E768B8-708A-5AF4-9787-3B66A8C3E10E",
+      "name": "Greek yogurt",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "consumed",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-09-29T19:00:00Z",
+      "resolvedDate": "2026-09-29T19:00:00Z"
+    },
+    {
+      "id": "0958852F-9CFE-5F84-B098-20502FDF09F0",
+      "name": "Sweet potatoes",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "consumed",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-09-28T19:00:00Z",
+      "resolvedDate": "2026-09-28T19:00:00Z"
+    },
+    {
+      "id": "096D20A0-CBC3-569A-80CB-8BC2332BC328",
+      "name": "Blueberries",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "consumed",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-09-27T19:00:00Z",
+      "resolvedDate": "2026-09-27T19:00:00Z"
+    },
+    {
+      "id": "3AD0F29E-19C5-55A2-AC18-D5CE8426C1E4",
+      "name": "Wholegrain bread",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "consumed",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-09-26T19:00:00Z",
+      "resolvedDate": "2026-09-26T19:00:00Z"
+    },
+    {
+      "id": "5DD5363D-17A4-50CA-9EE7-DD31F47C9006",
+      "name": "Cherry tomatoes",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "consumed",
+      "quantity": 1,
+      "unit": "pack",
+      "expiryDate": "2026-09-25T19:00:00Z",
+      "resolvedDate": "2026-09-25T19:00:00Z"
+    },
+    {
+      "id": "39000172-371B-525C-903D-BBCE19632EC6",
+      "name": "Lettuce",
+      "categoryId": "72E1E1D0-06C5-5248-9C50-1B4CCB31179E",
+      "location": "fridge",
+      "locationId": "5E1F0001-0000-4000-8000-000000000001",
+      "locationName": "Fridge",
+      "purchaseDate": "2026-09-26T19:00:00Z",
+      "notes": "",
+      "status": "wasted",
+      "quantity": 1,
+      "unit": "piece",
+      "expiryDate": "2026-09-28T19:00:00Z",
+      "resolvedDate": "2026-09-28T19:00:00Z"
+    }
+  ],
+  "searchHistory": [],
+  "shoppingItems": [
+    {
+      "id": "274399A5-97DC-5A2B-8302-B716BE7485AB",
+      "name": "Bananas",
+      "quantity": 6,
+      "unit": "piece",
+      "isCompleted": false,
+      "createdAt": "2026-09-29T19:00:00Z"
+    },
+    {
+      "id": "56D7B53E-4501-5246-BCB9-0C6FB36DE57D",
+      "name": "Greek yogurt",
+      "quantity": 2,
+      "unit": "pack",
+      "isCompleted": false,
+      "createdAt": "2026-09-29T19:00:00Z"
+    },
+    {
+      "id": "82539439-123B-5D21-9509-23F9B9F0A4B3",
+      "name": "Wholegrain bread",
+      "quantity": 1,
+      "unit": "pack",
+      "isCompleted": false,
+      "createdAt": "2026-09-29T19:00:00Z"
+    },
+    {
+      "id": "A947C7C3-734E-5A0C-B23D-E19FBDE51B8C",
+      "name": "Oat milk",
+      "quantity": 1,
+      "unit": "bottle",
+      "isCompleted": true,
+      "createdAt": "2026-09-29T19:00:00Z"
+    }
+  ]
+}

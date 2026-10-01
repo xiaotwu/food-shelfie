@@ -1,4 +1,5 @@
 import AVFoundation
+import ImageIO
 import PhotosUI
 import SwiftData
 import SwiftUI
@@ -20,6 +21,8 @@ struct ScannerView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.dismiss) private var dismiss
     @Environment(\.locale) private var locale
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Query(sort: \CategoryRecord.name) private var categories: [CategoryRecord]
     @StateObject private var camera = CameraController()
 
@@ -32,6 +35,13 @@ struct ScannerView: View {
     @State private var showPolicy = false
     @State private var cameraAuthorized = false
     @State private var capturePulse = false
+    @State private var operation: Task<Void, Never>?
+    @State private var failedBarcode: String?
+    @State private var showManualBarcode = false
+    @State private var manualBarcode = ""
+    @State private var pendingScan: FoodDateScan?
+    @State private var selectedExpiry: Date?
+    @State private var showDateReview = false
 
     @Namespace private var scannerModeNamespace
 
@@ -42,13 +52,14 @@ struct ScannerView: View {
                 if cameraAuthorized {
                     CameraPreview(session: camera.session)
                         .ignoresSafeArea()
-                        .transition(.opacity)
+                        .transition(reduceMotion ? .identity : .opacity)
                 }
                 VStack {
                     Spacer()
                     ScanningPulse(isActive: isBusy || mode == .barcode)
                         .frame(width: 260, height: mode == .barcode ? 140 : 220)
-                        .animation(Motion.snappy, value: mode)
+                        .animation(reduceMotion ? nil : Motion.snappy, value: mode)
+                        .accessibilityHidden(true)
                     Spacer()
                     controls
                 }
@@ -61,28 +72,42 @@ struct ScannerView: View {
                             RoundedRectangle(cornerRadius: 18, style: .continuous)
                                 .strokeBorder(.white.opacity(0.3), lineWidth: 0.8)
                         }
-                        .transition(.scale.combined(with: .opacity))
+                        .transition(reduceMotion ? .identity : .scale.combined(with: .opacity))
                 }
             }
-            .animation(Motion.soft, value: isBusy)
+            .animation(reduceMotion ? nil : Motion.soft, value: isBusy)
             .navigationTitle(locale.text("scanner.title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(locale.text("scanner.close")) { dismiss() }
+                    Button(locale.text("scanner.close")) { operation?.cancel(); dismiss() }
                         .foregroundStyle(.white)
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         camera.toggleTorch()
                     } label: {
-                        Image(systemName: "flashlight.on.fill")
-                            .symbolEffect(.bounce, value: cameraAuthorized)
+                        if reduceMotion {
+                            Image(systemName: "flashlight.on.fill")
+                        } else {
+                            Image(systemName: "flashlight.on.fill")
+                                .symbolEffect(.bounce, value: cameraAuthorized)
+                        }
                     }
                     .foregroundStyle(.white)
+                    .disabled(!cameraAuthorized)
+                    .accessibilityLabel(locale.text("scanner.torch"))
                 }
             }
             .onAppear {
+#if DEBUG
+                // Exercise the real lookup and presentation flow without a camera in QA.
+                let arguments = ProcessInfo.processInfo.arguments
+                if let index = arguments.firstIndex(of: "--qa-barcode"), arguments.indices.contains(index + 1) {
+                    startBarcode(arguments[index + 1])
+                    return
+                }
+#endif
                 if !settings.cameraPolicyAccepted {
                     showPolicy = true
                 } else {
@@ -90,12 +115,33 @@ struct ScannerView: View {
                 }
             }
             .onChange(of: mode) { _, newMode in
+                operation?.cancel()
+                isBusy = false
+                failedBarcode = nil
+                camera.resetBarcode()
                 camera.barcodeEnabled = newMode == .barcode
-                withAnimation(Motion.snappy) { status = "" }
+                withAnimation(reduceMotion ? nil : Motion.snappy) { status = "" }
             }
             .onChange(of: pickerItem) { _, item in
-                Task { await handlePicked(item) }
+                operation?.cancel()
+                isBusy = false
+                operation = Task { await handlePicked(item) }
             }
+            .onDisappear {
+                operation?.cancel()
+                camera.barcodeEnabled = false
+                camera.stop()
+            }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active && settings.cameraPolicyAccepted && !cameraAuthorized {
+                    Task { await prepareCamera() }
+                }
+            }
+            .sheet(isPresented: $showManualBarcode) { manualBarcodeSheet }
+            .sheet(isPresented: $showDateReview, onDismiss: {
+                camera.resetBarcode()
+                camera.barcodeEnabled = mode == .barcode
+            }) { dateReviewSheet }
             .alert(locale.text("scanner.cameraPolicyTitle"), isPresented: $showPolicy) {
                 Button(locale.text("scanner.continue")) {
                     settings.cameraPolicyAccepted = true
@@ -110,6 +156,12 @@ struct ScannerView: View {
             }
         }
         .preferredColorScheme(.dark)
+        .transaction { transaction in
+            if reduceMotion {
+                transaction.animation = nil
+                transaction.disablesAnimations = true
+            }
+        }
     }
 
     private var controls: some View {
@@ -124,8 +176,42 @@ struct ScannerView: View {
                         Capsule().strokeBorder(.white.opacity(0.3), lineWidth: 0.5)
                     }
                     .foregroundStyle(.white)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                    .transition(reduceMotion ? .identity : .move(edge: .bottom).combined(with: .opacity))
             }
+
+            if !cameraAuthorized, !showPolicy {
+                Button(locale.text("scanner.openSettings")) {
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    UIApplication.shared.open(url)
+                }
+                .buttonStyle(.bordered)
+            }
+            if let failedBarcode {
+                Button(locale.text("scanner.retry")) { startBarcode(failedBarcode) }
+                    .buttonStyle(.borderedProminent)
+                    .disabled(isBusy)
+            }
+            if isBusy {
+                Button(locale.text("scanner.cancelRequest")) {
+                    operation?.cancel()
+                    isBusy = false
+                    camera.resetBarcode()
+                    camera.barcodeEnabled = mode == .barcode
+                }
+            }
+            HStack {
+                Button(locale.text("scanner.enterBarcode")) {
+                    camera.barcodeEnabled = false
+                    showManualBarcode = true
+                }
+                Button(locale.text("scanner.addManually")) {
+                    operation?.cancel()
+                    camera.stop()
+                    onComplete(FoodEntryDraft(lookupNotice: failedBarcode == nil ? nil : status))
+                }
+            }
+            .font(.subheadline)
+            .disabled(isBusy)
 
             // Liquid glass mode segmented switcher
             HStack(spacing: 6) {
@@ -133,7 +219,7 @@ struct ScannerView: View {
                     let isSelected = mode == item
                     Button {
                         Motion.hapticSelection()
-                        withAnimation(Motion.liquidSpring) {
+                        withAnimation(reduceMotion ? nil : Motion.liquidSpring) {
                             mode = item
                         }
                     } label: {
@@ -173,11 +259,13 @@ struct ScannerView: View {
                             Circle().strokeBorder(.white.opacity(0.3), lineWidth: 0.5)
                         }
                 }
+                .disabled(isBusy)
+                .accessibilityLabel(locale.text("scanner.choosePhoto"))
 
                 Button {
                     if mode == .date {
                         Motion.hapticImpact(.medium)
-                        capturePulse.toggle()
+                        if !reduceMotion { capturePulse.toggle() }
                         camera.capturePhoto()
                     }
                 } label: {
@@ -189,11 +277,12 @@ struct ScannerView: View {
                             .strokeBorder(.white.opacity(0.45), lineWidth: 5)
                             .frame(width: 82, height: 82)
                     }
-                    .scaleEffect(capturePulse ? 0.92 : 1)
-                    .animation(Motion.bouncy, value: capturePulse)
+                    .scaleEffect(reduceMotion ? 1 : (capturePulse ? 0.92 : 1))
+                    .animation(reduceMotion ? nil : Motion.bouncy, value: capturePulse)
                 }
                 .opacity(mode == .date ? 1 : 0.35)
-                .disabled(mode != .date)
+                .disabled(mode != .date || !cameraAuthorized || isBusy)
+                .accessibilityLabel(locale.text("scanner.captureDate"))
 
                 Color.clear.frame(width: 50, height: 50)
             }
@@ -202,7 +291,7 @@ struct ScannerView: View {
                 .font(.footnote)
                 .foregroundStyle(.white.opacity(0.85))
                 .padding(.bottom, 24)
-                .animation(Motion.gentle, value: mode)
+                .animation(reduceMotion ? nil : Motion.gentle, value: mode)
         }
         .padding()
         .background(
@@ -210,19 +299,101 @@ struct ScannerView: View {
         )
     }
 
+    private var manualBarcodeSheet: some View {
+        NavigationStack {
+            Form {
+                TextField(locale.text("scanner.barcodeDigits"), text: $manualBarcode)
+                    .keyboardType(.numberPad)
+                    .accessibilityIdentifier("scanner.manualBarcode")
+                if !manualBarcode.isEmpty && OpenFoodFactsClient.normalizedBarcode(manualBarcode) == nil {
+                    Text(locale.text("scanner.invalidBarcode")).foregroundStyle(.red)
+                }
+                Text(locale.text("scanner.manualBarcodeHelp"))
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                Button(locale.text("scanner.lookup")) {
+                    let code = manualBarcode
+                    showManualBarcode = false
+                    startBarcode(code)
+                }
+                .disabled(OpenFoodFactsClient.normalizedBarcode(manualBarcode) == nil || isBusy)
+            }
+            .navigationTitle(locale.text("scanner.enterBarcode"))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.text("scanner.cancel")) {
+                        showManualBarcode = false
+                        camera.resetBarcode()
+                        camera.barcodeEnabled = mode == .barcode
+                    }
+                }
+            }
+        }
+        .onDisappear {
+            if !isBusy { camera.barcodeEnabled = mode == .barcode }
+        }
+    }
+
+    private var dateReviewSheet: some View {
+        NavigationStack {
+            Form {
+                Section(locale.text("scanner.recognizedText")) {
+                    Text(pendingScan?.rawText ?? "")
+                        .textSelection(.enabled)
+                }
+                Section(locale.text("scanner.confirmDate")) {
+                    if (pendingScan?.expiryCandidates.count ?? 0) > 1 {
+                        Text(locale.text("scanner.ambiguousDate"))
+                    }
+                    ForEach(pendingScan?.expiryCandidates ?? [], id: \.self) { candidate in
+                        Button {
+                            selectedExpiry = candidate
+                        } label: {
+                            HStack {
+                                Text(candidate.formatted(.dateTime.year().month(.wide).day().locale(locale)))
+                                Spacer()
+                                if selectedExpiry == candidate { Image(systemName: "checkmark") }
+                            }
+                        }
+                    }
+                    DatePicker(locale.text("scanner.correctDate"), selection: Binding(
+                        get: { selectedExpiry ?? .now },
+                        set: { selectedExpiry = $0 }
+                    ), displayedComponents: .date)
+                    .environment(\.locale, locale)
+                    .environment(\.calendar, locale.gregorianCalendar)
+                }
+                Button(locale.text("scanner.useConfirmedDate")) {
+                    guard let selectedExpiry else { return }
+                    camera.stop()
+                    // Review prepares an editable draft. The food is saved only by the entry form.
+                    onComplete(FoodEntryDraft.confirmedDateScan(expiryDate: selectedExpiry))
+                }
+                .disabled(selectedExpiry == nil)
+            }
+            .navigationTitle(locale.text("scanner.confirmDate"))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.text("scanner.cancel")) { showDateReview = false }
+                }
+            }
+        }
+    }
+
     private func prepareCamera() async {
         let granted = await AVCaptureDevice.requestAccess(for: .video)
         await MainActor.run {
-            withAnimation(Motion.soft) { cameraAuthorized = granted }
+            withAnimation(reduceMotion ? nil : Motion.soft) { cameraAuthorized = granted }
             guard granted else {
                 status = locale.text("scanner.cameraOff")
                 return
             }
             camera.onBarcode = { code in
-                Task { await handleBarcode(code) }
+                startBarcode(code)
             }
             camera.onPhoto = { image in
-                Task { await handleDateImage(image) }
+                operation?.cancel()
+                operation = Task { await handleDateImage(image) }
             }
             camera.barcodeEnabled = mode == .barcode
             camera.configure()
@@ -230,31 +401,44 @@ struct ScannerView: View {
     }
 
     @MainActor
+    private func startBarcode(_ code: String) {
+        guard !isBusy else { return }
+        operation?.cancel()
+        operation = Task { await handleBarcode(code) }
+    }
+
+    @MainActor
     private func handleBarcode(_ code: String) async {
-        guard mode == .barcode, !isBusy else { return }
+        guard !isBusy else { return }
+        guard let code = OpenFoodFactsClient.normalizedBarcode(code) else {
+            status = locale.text("scanner.invalidBarcode")
+            camera.resetBarcode()
+            return
+        }
         isBusy = true
+        camera.barcodeEnabled = false
+        failedBarcode = code
         status = locale.format("scanner.lookingUp", code)
         do {
             if let product = try await OpenFoodFactsClient.fetch(barcode: code) {
-                var image: UIImage?
-                if let url = product.imageURL {
-                    let (data, _) = try await URLSession.shared.data(from: url)
-                    image = UIImage(data: data)
-                }
+                try Task.checkCancellation()
+                failedBarcode = nil
                 let draft = FoodEntryDraft(
                     name: product.name,
-                    image: image,
                     categoryID: CategoryMapper.match(hints: product.categoryHints + [product.name], categories: categories)
                 )
                 camera.stop()
                 onComplete(draft)
             } else {
+                try Task.checkCancellation()
                 status = locale.text("scanner.notFound")
-                camera.stop()
-                onComplete(FoodEntryDraft(name: code))
+                // A barcode is not a food name. Keep an explicit retry and manual fallback.
+                camera.resetBarcode()
             }
         } catch {
+            guard !Task.isCancelled else { return }
             status = locale.text("scanner.lookupFailed")
+            camera.resetBarcode()
         }
         isBusy = false
     }
@@ -265,33 +449,75 @@ struct ScannerView: View {
         isBusy = true
         status = locale.text("scanner.readingDate")
         let text = await recognizeText(in: image)
-        let scan = DateParser.parseFoodDates(from: text)
-        if let expiry = scan.expiryDate {
-            camera.stop()
-            onComplete(FoodEntryDraft(expiryDate: expiry, purchaseDate: scan.productionDate ?? .now, image: image))
+        guard !Task.isCancelled else { return }
+        let scan = DateParser.parseFoodDates(from: text, calendar: locale.gregorianCalendar, locale: locale)
+        if !scan.expiryCandidates.isEmpty {
+            pendingScan = scan
+            selectedExpiry = scan.expiryCandidates.count == 1 ? scan.expiryCandidates.first : nil
+            camera.barcodeEnabled = false
+            showDateReview = true
         } else {
             status = locale.text("scanner.noDate")
         }
         isBusy = false
     }
 
+    @MainActor
     private func handlePicked(_ item: PhotosPickerItem?) async {
-        guard let item, let data = try? await item.loadTransferable(type: Data.self), let image = UIImage(data: data) else { return }
-        await handleDateImage(image)
+        guard let item else { return }
+        isBusy = true
+        camera.barcodeEnabled = false
+        do {
+            guard let data = try await item.loadTransferable(type: Data.self), let image = UIImage(data: data) else {
+                isBusy = false
+                status = locale.text("scanner.photoLoadFailed")
+                camera.barcodeEnabled = mode == .barcode
+                return
+            }
+            try Task.checkCancellation()
+            isBusy = false
+            await handleDateImage(image)
+        } catch {
+            guard !Task.isCancelled else { return }
+            isBusy = false
+            status = locale.text("scanner.photoLoadFailed")
+            camera.resetBarcode()
+            camera.barcodeEnabled = mode == .barcode
+        }
     }
 
     private func recognizeText(in image: UIImage) async -> String {
         guard let cgImage = image.cgImage else { return "" }
+        let orientation: CGImagePropertyOrientation
+        switch image.imageOrientation {
+        case .up: orientation = .up
+        case .down: orientation = .down
+        case .left: orientation = .left
+        case .right: orientation = .right
+        case .upMirrored: orientation = .upMirrored
+        case .downMirrored: orientation = .downMirrored
+        case .leftMirrored: orientation = .leftMirrored
+        case .rightMirrored: orientation = .rightMirrored
+        @unknown default: orientation = .up
+        }
         return await withCheckedContinuation { continuation in
-            let request = VNRecognizeTextRequest { request, _ in
-                let text = (request.results as? [VNRecognizedTextObservation])?
-                    .compactMap { $0.topCandidates(1).first?.string }
-                    .joined(separator: "\n") ?? ""
+            DispatchQueue.global(qos: .userInitiated).async {
+                let request = VNRecognizeTextRequest()
+                request.recognitionLevel = .accurate
+                request.usesLanguageCorrection = true
+                request.recognitionLanguages = ["en-US", "zh-Hans", "zh-Hant"]
+                let text: String
+                do {
+                    try VNImageRequestHandler(cgImage: cgImage, orientation: orientation, options: [:]).perform([request])
+                    text = request.results?
+                        .compactMap { $0.topCandidates(1).first?.string }
+                        .joined(separator: "\n") ?? ""
+                } catch {
+                    text = ""
+                }
+                // One completion path, even if Vision reports an error.
                 continuation.resume(returning: text)
             }
-            request.recognitionLevel = .accurate
-            request.usesLanguageCorrection = true
-            try? VNImageRequestHandler(cgImage: cgImage, options: [:]).perform([request])
         }
     }
 }

@@ -1,0 +1,527 @@
+[
+  {
+    "device": "phone",
+    "page": "about-shelfie",
+    "title_frame": [
+      147.3,
+      74.0,
+      107.3,
+      20.3
+    ],
+    "title_center_error": -0.05,
+    "host_frame": [
+      322.0,
+      62.0,
+      60.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        330.0,
+        62.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "phone",
+    "page": "appearance",
+    "title_frame": [
+      152.7,
+      74.0,
+      96.3,
+      20.3
+    ],
+    "title_center_error": -0.15,
+    "host_frame": [
+      322.0,
+      62.0,
+      60.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        330.0,
+        62.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "phone",
+    "page": "data",
+    "title_frame": [
+      182.3,
+      74.0,
+      37.3,
+      20.3
+    ],
+    "title_center_error": -0.05,
+    "host_frame": [
+      322.0,
+      62.0,
+      60.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        330.0,
+        62.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "phone",
+    "page": "more",
+    "title_frame": [
+      180.3,
+      74.0,
+      41.0,
+      20.3
+    ],
+    "title_center_error": -0.2,
+    "host_frame": [
+      322.0,
+      62.0,
+      60.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        330.0,
+        62.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "phone",
+    "page": "notifications",
+    "title_frame": [
+      150.3,
+      74.0,
+      101.3,
+      20.3
+    ],
+    "title_center_error": -0.05,
+    "host_frame": [
+      322.0,
+      62.0,
+      60.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        330.0,
+        62.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-maxfont",
+    "page": "about-shelfie",
+    "title_frame": [
+      349.5,
+      41.0,
+      135.0,
+      26.5
+    ],
+    "title_center_error": 0.0,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-maxfont",
+    "page": "appearance",
+    "title_frame": [
+      356.0,
+      41.0,
+      121.5,
+      26.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-maxfont",
+    "page": "data",
+    "title_frame": [
+      393.5,
+      41.0,
+      47.0,
+      26.5
+    ],
+    "title_center_error": 0.0,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-maxfont",
+    "page": "more",
+    "title_frame": [
+      391.0,
+      41.0,
+      51.5,
+      26.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-maxfont",
+    "page": "notifications",
+    "title_frame": [
+      353.0,
+      41.0,
+      127.5,
+      26.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-normalfont",
+    "page": "about-shelfie",
+    "title_frame": [
+      363.0,
+      44.0,
+      107.5,
+      20.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-normalfont",
+    "page": "appearance",
+    "title_frame": [
+      368.5,
+      44.0,
+      96.5,
+      20.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-normalfont",
+    "page": "data",
+    "title_frame": [
+      398.0,
+      44.0,
+      37.5,
+      20.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-normalfont",
+    "page": "more",
+    "title_frame": [
+      396.5,
+      44.0,
+      41.0,
+      20.5
+    ],
+    "title_center_error": 0.0,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  },
+  {
+    "device": "ipad-normalfont",
+    "page": "notifications",
+    "title_frame": [
+      366.0,
+      44.0,
+      101.5,
+      20.5
+    ],
+    "title_center_error": -0.25,
+    "host_frame": [
+      648.0,
+      32.0,
+      172.0,
+      44.0
+    ],
+    "control_frames": [
+      [
+        656.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        712.0,
+        32.0,
+        44.0,
+        44.0
+      ],
+      [
+        768.0,
+        32.0,
+        44.0,
+        44.0
+      ]
+    ],
+    "leading_inset": 8.0,
+    "trailing_inset": 8.0
+  }
+]

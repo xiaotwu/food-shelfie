@@ -1,6 +1,7 @@
 import SwiftData
 import SwiftUI
 import UniformTypeIdentifiers
+import UserNotifications
 
 struct SettingsHomeView: View {
     @Environment(SettingsStore.self) private var settings
@@ -13,7 +14,7 @@ struct SettingsHomeView: View {
                     // Group 1: Core preferences
                     VStack(spacing: 2) {
                         NavigationLink {
-                            AppearanceSettingsView()
+                            AppearanceSettingsView().globalShelfToolbar(title: locale.text("settings.appearance"), hasBackButton: true, centersTitle: true)
                         } label: {
                             liquidSettingsRow(
                                 symbol: "paintpalette.fill",
@@ -24,7 +25,7 @@ struct SettingsHomeView: View {
                         Divider().padding(.leading, 52).opacity(0.4)
 
                         NavigationLink {
-                            NotificationSettingsView()
+                            NotificationSettingsView().globalShelfToolbar(title: locale.text("settings.notifications"), hasBackButton: true, centersTitle: true)
                         } label: {
                             liquidSettingsRow(
                                 symbol: "bell.badge.fill",
@@ -35,7 +36,7 @@ struct SettingsHomeView: View {
                         Divider().padding(.leading, 52).opacity(0.4)
 
                         NavigationLink {
-                            DataSettingsView()
+                            DataSettingsView().globalShelfToolbar(title: locale.text("settings.data"), hasBackButton: true, centersTitle: true)
                         } label: {
                             liquidSettingsRow(
                                 symbol: "externaldrive.fill",
@@ -46,7 +47,7 @@ struct SettingsHomeView: View {
                         Divider().padding(.leading, 52).opacity(0.4)
 
                         NavigationLink {
-                            OtherSettingsView()
+                            OtherSettingsView().globalShelfToolbar(title: locale.text("settings.more"), hasBackButton: true, centersTitle: true)
                         } label: {
                             liquidSettingsRow(
                                 symbol: "slider.horizontal.3",
@@ -61,7 +62,7 @@ struct SettingsHomeView: View {
                     // Group 2: About & legal
                     VStack(spacing: 2) {
                         NavigationLink {
-                            AboutSettingsView()
+                            AboutSettingsView().globalShelfToolbar(title: locale.text("settings.about"), hasBackButton: true, centersTitle: true)
                         } label: {
                             liquidSettingsRow(
                                 symbol: "info.circle.fill",
@@ -77,6 +78,8 @@ struct SettingsHomeView: View {
                 .floatingDockClearance()
             }
             .navigationTitle(locale.text("settings.title"))
+            .navigationBarTitleDisplayMode(.inline)
+            .globalShelfToolbar(title: locale.text("settings.title"), centersTitle: true)
         }
     }
 
@@ -87,7 +90,8 @@ struct SettingsHomeView: View {
     ) -> some View {
         HStack(spacing: 14) {
             Image(systemName: symbol)
-                .font(.body.weight(.semibold))
+                .font(.system(size: 20, weight: .semibold))
+                .accessibilityHidden(true)
                 .foregroundStyle(settings.tint)
                 .frame(width: 32, height: 32)
                 .background(settings.tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
@@ -95,8 +99,9 @@ struct SettingsHomeView: View {
             Text(title)
                 .font(.body.weight(.medium))
                 .foregroundStyle(.primary)
-
-            Spacer()
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .layoutPriority(1)
 
             accessory()
 
@@ -113,7 +118,12 @@ struct SettingsHomeView: View {
 struct AppearanceSettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.locale) private var locale
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Namespace private var themeNamespace
+
+    private var themeLayout: AnyLayout {
+        dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(spacing: 8)) : AnyLayout(HStackLayout(spacing: 8))
+    }
 
     var body: some View {
         @Bindable var settings = settings
@@ -128,7 +138,7 @@ struct AppearanceSettingsView: View {
                             .font(.headline)
                             .foregroundStyle(.primary)
 
-                        HStack(spacing: 8) {
+                        themeLayout {
                             ForEach(ThemeMode.allCases) { mode in
                                 let isSelected = settings.themeMode == mode
                                 Button {
@@ -162,6 +172,22 @@ struct AppearanceSettingsView: View {
                     }
                     .padding(18)
                     .liquidCard(cornerRadius: 22)
+
+                    VStack(alignment: .leading, spacing: 14) {
+                        Text(locale.text("settings.inventoryBadge.title")).font(.headline)
+                        Picker(locale.text("settings.inventoryBadge.title"), selection: $settings.inventoryBadgeStyle) {
+                            ForEach(InventoryBadgeStyle.allCases) { style in
+                                Text(style.title(locale: locale)).tag(style)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .accessibilityIdentifier("settings.inventoryBadge")
+                        Text(locale.text("settings.inventoryBadge.hint"))
+                            .font(.subheadline).foregroundStyle(.secondary)
+                    }
+                    .padding(18)
+                    .liquidCard(cornerRadius: 22)
+                    .onChange(of: settings.inventoryBadgeStyle) { _, _ in settings.persist() }
 
                     // Accent seed color grid
                     VStack(alignment: .leading, spacing: 14) {
@@ -220,31 +246,64 @@ struct NotificationSettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.modelContext) private var modelContext
     @Environment(\.locale) private var locale
+    @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.openURL) private var openURL
+    @Query private var foods: [FoodItemRecord]
+    @State private var permission: UNAuthorizationStatus = .notDetermined
+    @State private var scheduleError: String?
 
     var body: some View {
         @Bindable var settings = settings
         Form {
-            Toggle(locale.text("settings.expiryReminders"), isOn: $settings.notificationsEnabled)
-            Toggle(locale.text("settings.weeklySummary"), isOn: $settings.weeklyReportEnabled)
-            DatePicker(
-                locale.text("settings.dailyReminder"),
-                selection: $settings.reminderDate,
-                displayedComponents: .hourAndMinute
-            )
-            DayStepperField(
-                title: locale.text("settings.warnDaysShort"),
-                value: $settings.warningDays,
-                range: 0...14
-            )
-            DayStepperField(
-                title: locale.text("settings.autoDeleteShort"),
-                value: $settings.autoDeleteConsumedAfterDays,
-                range: 0...90
-            )
+            Section {
+                LabeledContent(locale.text("settings.notificationPermission"), value: permissionLabel)
+                if permission == .denied {
+                    Button(locale.text("settings.openSystemSettings")) {
+                        if let url = URL(string: UIApplication.openSettingsURLString) { openURL(url) }
+                    }
+                } else if permission == .notDetermined {
+                    Button(locale.text("settings.allowNotifications")) {
+                        Task {
+                            _ = await NotificationScheduler.requestAuthorization()
+                            await refreshPermissionAndSchedule()
+                        }
+                    }
+                }
+            } footer: {
+                Text(locale.text("settings.notificationPermissionFootnote"))
+            }
+            Section {
+                Toggle(locale.text("settings.expiryReminders"), isOn: $settings.notificationsEnabled)
+                Toggle(locale.text("settings.weeklySummary"), isOn: $settings.weeklyReportEnabled)
+                DatePicker(locale.text("settings.dailyReminder"), selection: $settings.reminderDate, displayedComponents: .hourAndMinute)
+                DayStepperField(title: locale.text("settings.warnDaysShort"), value: $settings.warningDays, range: 0...14)
+            } footer: {
+                Text(locale.text("settings.reminderScheduleFootnote"))
+            }
+            Section {
+                Text(coverageDescription)
+                    .font(.footnote)
+                if let scheduleError {
+                    Text(scheduleError).foregroundStyle(.red)
+                }
+            }
+            Section {
+                DayStepperField(title: locale.text("settings.autoDeleteShort"), value: $settings.autoDeleteConsumedAfterDays, range: 0...90)
+            }
         }
         .safeAreaPadding(.bottom, LayoutConstants.floatingDockClearance)
         .navigationTitle(locale.text("settings.notifications"))
-        .onChange(of: settings.notificationsEnabled) { _, _ in persistAndSchedule() }
+        .task { await refreshPermissionAndSchedule() }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { Task { await refreshPermissionAndSchedule() } }
+        }
+        .onChange(of: settings.notificationsEnabled) { _, enabled in
+            settings.persist()
+            Task {
+                if enabled, permission == .notDetermined { _ = await NotificationScheduler.requestAuthorization() }
+                await refreshPermissionAndSchedule()
+            }
+        }
         .onChange(of: settings.weeklyReportEnabled) { _, _ in persistAndSchedule() }
         .onChange(of: settings.warningDays) { _, _ in persistAndSchedule() }
         .onChange(of: settings.autoDeleteConsumedAfterDays) { _, _ in persistAndSchedule() }
@@ -252,9 +311,38 @@ struct NotificationSettingsView: View {
         .onChange(of: settings.reminderMinute) { _, _ in persistAndSchedule() }
     }
 
+    private var permissionLabel: String {
+        switch permission {
+        case .authorized: locale.text("settings.permissionAllowed")
+        case .provisional, .ephemeral: locale.text("settings.permissionQuiet")
+        case .denied: locale.text("settings.permissionDenied")
+        default: locale.text("settings.permissionNotRequested")
+        }
+    }
+
+    private var coverageDescription: String {
+        guard settings.notificationsEnabled, [.authorized, .provisional, .ephemeral].contains(permission) else {
+            return locale.text("settings.remindersInactive")
+        }
+        let plans = NotificationScheduler.plannedReminders(foods: foods, warningDays: settings.warningDays,
+                                                           hour: settings.reminderHour, minute: settings.reminderMinute,
+                                                           weeklyEnabled: settings.weeklyReportEnabled, locale: locale,
+                                                           calendar: settings.calendar)
+        let covered = Set(plans.compactMap(\.foodID)).count
+        let dated = foods.filter { $0.status == .active && $0.effectiveExpiryDate != nil }.count
+        return locale.format("settings.reminderCoverage", plans.count, covered, dated)
+    }
+
+    @MainActor
+    private func refreshPermissionAndSchedule() async {
+        permission = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+        await NotificationScheduler.reschedule(settings: settings, context: modelContext)
+        scheduleError = NotificationScheduler.schedulingError
+    }
+
     private func persistAndSchedule() {
         settings.persist()
-        Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+        Task { await refreshPermissionAndSchedule() }
     }
 }
 
@@ -324,28 +412,31 @@ struct DataSettingsView: View {
     @State private var exportURL: URL?
     @State private var showImporter = false
     @State private var showDeleteConfirm = false
+    @State private var importURL: URL?
     @State private var message: String?
+    @State private var actionError: String?
 
     var body: some View {
         @Bindable var settings = settings
         Form {
             Section {
                 Toggle(locale.text("settings.iCloud"), isOn: $settings.iCloudSyncEnabled)
-                    .onChange(of: settings.iCloudSyncEnabled) { _, _ in settings.persist() }
             } footer: {
                 Text(locale.text("settings.iCloudFootnote"))
             }
 
             Section {
                 Button(locale.text("settings.export")) {
+                    message = nil
                     do {
                         let payload = try BackupService.exportPayload(context: modelContext)
                         exportURL = try BackupService.writeJSON(from: payload)
                     } catch {
-                        message = error.localizedDescription
+                        actionError = BackupService.errorMessage(error, locale: locale)
                     }
                 }
                 Button(locale.text("settings.import")) {
+                    message = nil
                     showImporter = true
                 }
             }
@@ -371,16 +462,38 @@ struct DataSettingsView: View {
             document: exportURL.map { FileDocumentWrapper(url: $0) },
             contentType: .json,
             defaultFilename: "shelfie-backup"
-        ) { _ in
+        ) { result in
             exportURL = nil
+            if case .failure(let error) = result,
+               (error as NSError).code != NSUserCancelledError {
+                actionError = BackupService.errorMessage(error, locale: locale)
+            }
         }
         .fileImporter(isPresented: $showImporter, allowedContentTypes: [.json]) { result in
-            if case .success(let url) = result {
+            switch result {
+            case .success(let url):
+                importURL = url
+            case .failure(let error):
+                if (error as NSError).code != NSUserCancelledError {
+                    actionError = BackupService.errorMessage(error, locale: locale)
+                }
+            }
+        }
+        .confirmationDialog(
+            locale.text("settings.importConfirm"),
+            isPresented: Binding(get: { importURL != nil }, set: { if !$0 { importURL = nil } }),
+            titleVisibility: .visible
+        ) {
+            Button(locale.text("settings.import"), role: .destructive) {
+                guard let url = importURL else { return }
+                defer { importURL = nil }
+                message = nil
                 do {
                     try BackupService.importJSON(from: url, context: modelContext)
                     message = locale.text("settings.backupRestored")
+                    Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
                 } catch {
-                    message = error.localizedDescription
+                    actionError = BackupService.errorMessage(error, locale: locale)
                 }
             }
         }
@@ -390,11 +503,23 @@ struct DataSettingsView: View {
             titleVisibility: .visible
         ) {
             Button(locale.text("settings.deleteAll"), role: .destructive) {
-                try? BackupService.deleteAll(context: modelContext)
-                SeedData.ensureDefaultCategories(context: modelContext)
-                SeedData.ensureDefaultLocations(context: modelContext)
-                message = locale.text("settings.allDeleted")
+                message = nil
+                do {
+                    try BackupService.deleteAll(context: modelContext)
+                    message = locale.text("settings.allDeleted")
+                    Task { await NotificationScheduler.reschedule(settings: settings, context: modelContext) }
+                } catch {
+                    actionError = BackupService.errorMessage(error, locale: locale)
+                }
             }
+        }
+        .alert(
+            locale.text("operation.errorTitle"),
+            isPresented: Binding(get: { actionError != nil }, set: { if !$0 { actionError = nil } })
+        ) {
+            Button(locale.text("common.ok"), role: .cancel) { actionError = nil }
+        } message: {
+            Text(actionError ?? "")
         }
     }
 }
@@ -423,6 +548,11 @@ struct OtherSettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.locale) private var locale
 
+    @State private var lockAuthorization: Task<Void, Never>?
+    @State private var isEnablingLock = false
+    @State private var lockError: String?
+    @State private var didResetGettingStarted = false
+
     var body: some View {
         @Bindable var settings = settings
         Form {
@@ -434,35 +564,69 @@ struct OtherSettingsView: View {
             .pickerStyle(.menu)
             .onChange(of: settings.language) { _, _ in settings.persist() }
 
-            Toggle(locale.text("settings.lock"), isOn: $settings.biometricLockEnabled)
-                .onChange(of: settings.biometricLockEnabled) { _, enabled in
-                    if enabled {
-                        Task {
-                            let ok = await BiometricAuth.unlock(reason: locale.text("settings.enableLock"))
-                            await MainActor.run {
-                                withAnimation(Motion.snappy) {
-                                    settings.biometricLockEnabled = ok
-                                    settings.isUnlocked = true
-                                }
-                                settings.persist()
-                            }
-                        }
-                    } else {
-                        settings.persist()
-                    }
+            Toggle(isOn: Binding(
+                get: { settings.biometricLockEnabled },
+                set: setAppLock
+            )) {
+                HStack {
+                    Text(locale.text("settings.lock"))
+                    if isEnablingLock { ProgressView() }
                 }
+            }
+            .disabled(isEnablingLock)
 
             Toggle(locale.text("settings.groupByCategory"), isOn: $settings.groupByCategory)
                 .onChange(of: settings.groupByCategory) { _, _ in settings.persist() }
+
+            Section {
+                Button {
+                    settings.resetGettingStarted()
+                    didResetGettingStarted = true
+                } label: {
+                    Label(locale.text("settings.showGettingStarted"), systemImage: "lightbulb")
+                        .frame(minHeight: 44, alignment: .leading)
+                }
+                .accessibilityIdentifier("settings.showGettingStarted")
+            } footer: {
+                Text(locale.text(didResetGettingStarted && !settings.hasDismissedGettingStarted ? "gettingStarted.restored" : "settings.gettingStartedFootnote"))
+            }
         }
         .safeAreaPadding(.bottom, LayoutConstants.floatingDockClearance)
         .navigationTitle(locale.text("settings.more"))
+        .onDisappear { lockAuthorization?.cancel() }
+        .alert(locale.text("operation.errorTitle"), isPresented: Binding(
+            get: { lockError != nil }, set: { if !$0 { lockError = nil } }
+        )) {
+            Button(locale.text("common.ok"), role: .cancel) { lockError = nil }
+        } message: {
+            Text(lockError ?? "")
+        }
+    }
+
+    private func setAppLock(_ enabled: Bool) {
+        lockAuthorization?.cancel()
+        guard enabled else {
+            settings.biometricLockEnabled = false
+            settings.isUnlocked = true
+            settings.persist()
+            return
+        }
+        isEnablingLock = true
+        lockAuthorization = Task { @MainActor in
+            let authorized = await settings.enableAppLock {
+                await BiometricAuth.unlock(reason: locale.text("settings.enableLock"))
+            }
+            isEnablingLock = false
+            guard !Task.isCancelled else { return }
+            if !authorized { lockError = locale.text("settings.lockEnableFailed") }
+        }
     }
 }
 
 struct AboutSettingsView: View {
     @Environment(SettingsStore.self) private var settings
     @Environment(\.locale) private var locale
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     private let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     private let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
     @State private var floatingLogo = false
@@ -481,13 +645,11 @@ struct AboutSettingsView: View {
                             .frame(width: 76, height: 76)
                             .clipShape(RoundedRectangle(cornerRadius: 17, style: .continuous))
                             .shadow(color: settings.tint.opacity(0.32), radius: 14, y: 6)
-                            .scaleEffect(floatingLogo ? 1.03 : 0.98)
-                            .offset(y: floatingLogo ? -3 : 3)
-                            .onAppear {
-                                withAnimation(.easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
-                                    floatingLogo = true
-                                }
-                            }
+                            .scaleEffect(reduceMotion ? 1 : (floatingLogo ? 1.03 : 0.98))
+                            .offset(y: reduceMotion ? 0 : (floatingLogo ? -3 : 3))
+                            .accessibilityHidden(true)
+                            .onAppear(perform: updateLogoMotion)
+                            .onChange(of: reduceMotion) { _, _ in updateLogoMotion() }
 
                         Text("Shelfie")
                             .font(.system(.title2, design: .rounded).bold())
@@ -518,6 +680,16 @@ struct AboutSettingsView: View {
                     .padding(.vertical, 4)
                     .liquidCard(cornerRadius: 22)
 
+                    VStack(alignment: .leading, spacing: 12) {
+                        Link(locale.text("settings.privacy"), destination: URL(string: "https://github.com/xiaotwu/food-shelfie/blob/main/PRIVACY.md")!)
+                        Link("Open Food Facts · ODbL / DbCL / CC BY-SA", destination: URL(string: "https://world.openfoodfacts.org/terms-of-use")!)
+                        Link(locale.text("about.support"), destination: URL(string: "https://github.com/xiaotwu/food-shelfie/issues")!)
+                    }
+                    .font(.footnote)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                    .liquidCard(cornerRadius: 22)
+
                     // Minimal footer
                     Text("© 2026 Shelfie")
                         .font(.caption2)
@@ -530,12 +702,25 @@ struct AboutSettingsView: View {
         }
         .navigationTitle(locale.text("settings.about"))
         .navigationBarTitleDisplayMode(.inline)
+        .transaction { transaction in
+            if reduceMotion {
+                transaction.animation = nil
+                transaction.disablesAnimations = true
+            }
+        }
+    }
+
+    private func updateLogoMotion() {
+        withAnimation(reduceMotion ? nil : .easeInOut(duration: 2.4).repeatForever(autoreverses: true)) {
+            floatingLogo = !reduceMotion
+        }
     }
 
     private func aboutRow(icon: String, title: String, detail: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.subheadline.weight(.semibold))
+                .accessibilityHidden(true)
                 .foregroundStyle(settings.tint)
                 .frame(width: 28, height: 28)
                 .background(settings.tint.opacity(0.12), in: RoundedRectangle(cornerRadius: 8, style: .continuous))

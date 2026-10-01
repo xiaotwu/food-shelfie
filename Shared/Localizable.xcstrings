@@ -133,18 +133,17 @@
       }
     },
     "about.privacyRow": {
-      "extractionState": "manual",
       "localizations": {
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "100% On-Device · Zero Tracking"
+            "value": "Stored on your device by default. Optional iCloud sync uses your Apple account. Barcode lookup sends the barcode to Open Food Facts and downloads product photos. No ads or tracking."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "100% 本地运行 · 零数据追踪"
+            "value": "默认保存在设备上。可选 iCloud 同步使用你的 Apple 账户。条码查询会将条码发送至 Open Food Facts 并下载商品照片。无广告或追踪。"
           }
         }
       }
@@ -400,6 +399,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "琥珀"
+          }
+        }
+      }
+    },
+    "common.ok": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
           }
         }
       }
@@ -1209,13 +1225,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keep consumption on schedule to reduce kitchen waste"
+            "value": "Eaten batches ÷ eaten and discarded batches in this period. This does not measure food weight or savings."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "合理安排保质期消耗，减少厨房浪费"
+            "value": "本期吃完批次 ÷ 吃完与丢弃批次总数，不代表实际重量或节省金额。"
           }
         }
       }
@@ -1226,13 +1242,13 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Efficiency & Anti-Waste Index"
+            "value": "Recorded batches eaten"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "食材利用率与防浪费指数"
+            "value": "已记录批次的吃完比例"
           }
         }
       }
@@ -2552,13 +2568,47 @@
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Keeps your shelf in iCloud when you are signed in. Changes apply the next time you open Shelfie."
+            "value": "Off by default. When on, shelf items and photos sync through your iCloud account. Turning it off keeps data on this device only."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "登录 iCloud 后，货架数据会在设备间同步。重新打开 App 后生效。"
+            "value": "默认关闭。开启后，货架数据和照片会通过你的 iCloud 账号在设备间同步。关闭后数据只留在本机。"
+          }
+        }
+      }
+    },
+    "settings.iCloudErrorTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn’t enable iCloud Sync"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法开启 iCloud 同步"
+          }
+        }
+      }
+    },
+    "settings.iCloudError": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check that you are signed in to iCloud on this device, then try again."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请确认这台设备已登录 iCloud，然后重试。"
           }
         }
       }
@@ -2717,18 +2767,17 @@
       }
     },
     "settings.privacyBody": {
-      "extractionState": "manual",
       "localizations": {
         "en-US": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your shelf stays on this iPhone. The camera is used only for barcodes and expiry dates. Open Food Facts is contacted only when you scan a barcode."
+            "value": "Inventory and photos stay on your device unless you enable iCloud sync. Barcode lookup sends barcodes to Open Food Facts; product images are downloaded from its image provider. Camera and photo OCR run on device. No ads, analytics, or tracking."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "货架数据保存在本机。相机仅用于识别条码和到期日。仅在扫描条码时才会访问 Open Food Facts。"
+            "value": "库存与照片默认保存在设备上，启用 iCloud 后通过 Apple 账户同步。条码会发送至 Open Food Facts，商品图片从其图片服务下载。相机与照片文字识别在设备上运行。无广告、分析或追踪。"
           }
         }
       }
@@ -2923,16 +2972,16 @@
     "shelf.delete": {
       "extractionState": "manual",
       "localizations": {
-        "en-US": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete"
-          }
-        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
             "value": "删除"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete"
           }
         }
       }
@@ -3549,6 +3598,2557 @@
           "stringUnit": {
             "state": "translated",
             "value": "归属人姓名（选填）"
+          }
+        }
+      }
+    },
+    "storage.errorTitle": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your inventory could not be opened"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法打开食品库存"
+          }
+        }
+      }
+    },
+    "storage.errorBody": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your saved data has not been deleted. Try again, or contact support if the problem continues."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已保存的数据未被删除。请重试；若问题持续，请联系支持。"
+          }
+        }
+      }
+    },
+    "storage.retry": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重试"
+          }
+        }
+      }
+    },
+    "settings.importConfirm": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Replace your inventory with this backup? This replaces all current food, categories, locations, and search history."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用此备份替换库存？当前食品、分类、位置与搜索历史将被替换。"
+          }
+        }
+      }
+    },
+    "about.support": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Help & Feedback"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帮助与反馈"
+          }
+        }
+      }
+    },
+    "detail.quantity": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "剩余数量"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remaining quantity"
+          }
+        }
+      }
+    },
+    "detail.consumePartial": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用一部分"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use some"
+          }
+        }
+      }
+    },
+    "detail.consumeAmount": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用数量"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Amount used"
+          }
+        }
+      }
+    },
+    "detail.consumeHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入大于零且不超过剩余数量的数值。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter an amount greater than zero and no more than the remaining quantity."
+          }
+        }
+      }
+    },
+    "detail.repeatPurchase": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次购买"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buy again"
+          }
+        }
+      }
+    },
+    "action.undo": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "撤销"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Undo"
+          }
+        }
+      }
+    },
+    "action.updated": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "库存已更新"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inventory updated"
+          }
+        }
+      }
+    },
+    "error.saveTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法保存"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not save"
+          }
+        }
+      }
+    },
+    "error.saveMessage": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "修改未保存，请重试。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your changes were not saved. Please try again."
+          }
+        }
+      }
+    },
+    "operation.errorTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "操作未完成"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn’t complete the action"
+          }
+        }
+      }
+    },
+    "unit.piece": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pcs"
+          }
+        }
+      }
+    },
+    "unit.pack": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "packs"
+          }
+        }
+      }
+    },
+    "unit.bottle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "瓶"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "bottles"
+          }
+        }
+      }
+    },
+    "unit.gram": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "克"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "g"
+          }
+        }
+      }
+    },
+    "unit.kilogram": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "千克"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kg"
+          }
+        }
+      }
+    },
+    "unit.milliliter": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "毫升"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "mL"
+          }
+        }
+      }
+    },
+    "unit.liter": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "升"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L"
+          }
+        }
+      }
+    },
+    "shelf.deleteConfirmation": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "删除选中的食品？此操作无法撤销。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete selected foods? This cannot be undone."
+          }
+        }
+      }
+    },
+    "entry.saveErrorTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法保存"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not save"
+          }
+        }
+      }
+    },
+    "entry.ok": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OK"
+          }
+        }
+      }
+    },
+    "entry.quantity": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "数量"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantity"
+          }
+        }
+      }
+    },
+    "entry.unit": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "单位"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unit"
+          }
+        }
+      }
+    },
+    "entry.quantityInvalid": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入 0.001 至 1,000,000,000 之间的数量，最多保留 3 位小数。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a quantity from 0.001 to 1,000,000,000, with up to 3 decimal places."
+          }
+        }
+      }
+    },
+    "entry.repeatExpiryNotice": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请核对本次购买的保质期。上一次购买的日期不会沿用。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the expiry date on this new purchase. The previous batch’s date has not been copied."
+          }
+        }
+      }
+    },
+    "entry.confirmExpiry": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我已确认本次保质期"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I have confirmed this expiry date"
+          }
+        }
+      }
+    },
+    "entry.locationSaveError": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存放位置未保存，请重试。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The storage location was not saved. Try adding it again."
+          }
+        }
+      }
+    },
+    "entry.categorySaveError": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "分类未保存，请重试。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The category was not saved. Try adding it again."
+          }
+        }
+      }
+    },
+    "entry.missingFoodError": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "该食品记录已不存在，已保留你的输入。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This food no longer exists. Your input has been kept."
+          }
+        }
+      }
+    },
+    "entry.photoSaveError": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "照片无法保存，已保留你的输入，请重试。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The photo could not be saved. Your input has been kept; please try again."
+          }
+        }
+      }
+    },
+    "entry.saveError": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "修改未保存，已保留你的输入，请重试。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your changes were not saved. Your input has been kept; please try again."
+          }
+        }
+      }
+    },
+    "action.undoUnavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此食品在操作后已被修改，无法再撤销。"
+          }
+        },
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This item changed after the action. Undo is no longer available."
+          }
+        }
+      }
+    },
+    "shelf.useFirst": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use first"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "优先食用"
+          }
+        }
+      }
+    },
+    "shelf.useFirstHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a food to see its expiry and update its quantity."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择食品查看期限并更新数量。"
+          }
+        }
+      }
+    },
+    "history.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Food history"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "处理记录"
+          }
+        }
+      }
+    },
+    "history.restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore to shelf"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复到库存"
+          }
+        }
+      }
+    },
+    "history.restoreQuantity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantity to restore"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复数量"
+          }
+        }
+      }
+    },
+    "history.restoreHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restoring keeps this batch’s dates. Use Buy again for a new purchase."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复会保留本批次日期，新购食品请使用再次购买。"
+          }
+        }
+      }
+    },
+    "history.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No processed foods yet"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚无处理记录"
+          }
+        }
+      }
+    },
+    "history.eaten": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eaten"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已吃完"
+          }
+        }
+      }
+    },
+    "history.discarded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discarded"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已丢弃"
+          }
+        }
+      }
+    },
+    "shopping.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shopping list"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "购物清单"
+          }
+        }
+      }
+    },
+    "shopping.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your shopping list is empty"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "购物清单为空"
+          }
+        }
+      }
+    },
+    "shopping.lowStock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Running low"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "库存不足"
+          }
+        }
+      }
+    },
+    "shopping.add": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add to shopping list"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入购物清单"
+          }
+        }
+      }
+    },
+    "shopping.added": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On shopping list"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已加入购物清单"
+          }
+        }
+      }
+    },
+    "shopping.name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Item name"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "商品名称"
+          }
+        }
+      }
+    },
+    "shopping.quantity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quantity to buy"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "购买数量"
+          }
+        }
+      }
+    },
+    "shopping.remaining": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remaining"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "剩余"
+          }
+        }
+      }
+    },
+    "shopping.bought": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bought"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已购买"
+          }
+        }
+      }
+    },
+    "entry.opened": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opened"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已开封"
+          }
+        }
+      }
+    },
+    "entry.openedDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date opened"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开封日期"
+          }
+        }
+      }
+    },
+    "entry.openedDays": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use within days after opening"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开封后食用天数"
+          }
+        }
+      }
+    },
+    "entry.openedHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The earlier of the package expiry and opened shelf life drives reminders. Check the label; this is your own estimate."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提醒按包装期限与开封后期限中的较早日期计算，请查看标签，此处期限由你填写。"
+          }
+        }
+      }
+    },
+    "entry.openedInvalid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose an opening date between purchase and today, and 1–365 days."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开封日期需介于购买日期和今天之间，天数需为 1–365。"
+          }
+        }
+      }
+    },
+    "entry.lowStock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Track low stock"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跟踪低库存"
+          }
+        }
+      }
+    },
+    "entry.lowStockThreshold": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Low stock threshold"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "低库存阈值"
+          }
+        }
+      }
+    },
+    "entry.lowStockHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Items at or below this quantity appear in Running low. Add them to your shopping list when needed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "剩余数量达到或低于此值时显示在库存不足中，可按需加入购物清单。"
+          }
+        }
+      }
+    },
+    "entry.lowStockInvalid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter zero or a positive quantity, up to three decimal places."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入零或正数量，最多三位小数。"
+          }
+        }
+      }
+    },
+    "entry.batchHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Each entry is one purchase batch. Keep different expiry dates as separate entries."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每条记录代表一个购买批次，不同到期日请分开记录。"
+          }
+        }
+      }
+    },
+    "detail.packageExpiry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Package expiry"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "包装到期日"
+          }
+        }
+      }
+    },
+    "detail.openedExpiry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "After opening, use by"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开封后期限"
+          }
+        }
+      }
+    },
+    "detail.effectiveExpiry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminder date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提醒期限"
+          }
+        }
+      }
+    },
+    "history.restoreInvalid": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a positive quantity, up to three decimal places."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入正数量，最多三位小数。"
+          }
+        }
+      }
+    },
+    "food.eaten": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark eaten"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "标记吃完"
+          }
+        }
+      }
+    },
+    "food.discarded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark discarded"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "标记丢弃"
+          }
+        }
+      }
+    },
+    "widget.overdueDays": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d d overdue"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已过期 %d 天"
+          }
+        }
+      }
+    },
+    "settings.notificationPermission": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System permission"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统权限"
+          }
+        }
+      }
+    },
+    "settings.openSystemSettings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open system settings"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开系统设置"
+          }
+        }
+      }
+    },
+    "settings.allowNotifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow notifications"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "允许通知"
+          }
+        }
+      }
+    },
+    "settings.notificationPermissionFootnote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System permission is separate from Shelfie’s reminder switch. Focus and system notification settings may silence delivery."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "系统通知权限与 Shelfie 的提醒开关分别控制。专注模式和系统通知设置可能让提醒静音。"
+          }
+        }
+      }
+    },
+    "settings.permissionAllowed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allowed"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已允许"
+          }
+        }
+      }
+    },
+    "settings.permissionQuiet": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quiet delivery"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "静默送达"
+          }
+        }
+      }
+    },
+    "settings.permissionDenied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denied"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已拒绝"
+          }
+        }
+      }
+    },
+    "settings.permissionNotRequested": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not requested"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尚未请求"
+          }
+        }
+      }
+    },
+    "settings.reminderScheduleFootnote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dated foods receive a warning and an expiry reminder at your selected local time. There are no daily check-in reminders for an empty shelf. Weekly summaries are scheduled only around dated foods."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "有日期的食品会在所选本地时间收到临期提醒和到期提醒。空库存不会收到每日检查提醒。周报仅在有日期食品的相关时间安排。"
+          }
+        }
+      }
+    },
+    "settings.remindersInactive": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reminders are inactive. Enable reminders and allow system notifications to schedule them."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "提醒尚未启用。请开启提醒并允许系统通知后安排提醒。"
+          }
+        }
+      }
+    },
+    "settings.reminderCoverage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Planned: %d requests covering %d of %d dated batches. Shelfie keeps at most 60 requests, prioritizing the earliest dates. Reopen Shelfie after handling foods to refresh coverage."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已计划 %d 条通知，覆盖 %d / %d 批有日期食品。Shelfie 最多保留 60 条通知，优先安排较近日期。处理食品后重新打开应用可更新覆盖范围。"
+          }
+        }
+      }
+    },
+    "notif.missingFood": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This food no longer exists. Open your shelf to check the latest inventory."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此食品已不存在。请打开库存查看最新记录。"
+          }
+        }
+      }
+    },
+    "scanner.openSettings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Camera Settings"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "打开相机设置"
+          }
+        }
+      }
+    },
+    "scanner.retry": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try this barcode again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重试此条码"
+          }
+        }
+      }
+    },
+    "scanner.cancelRequest": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel lookup"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消查询"
+          }
+        }
+      }
+    },
+    "scanner.enterBarcode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter barcode"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入条码"
+          }
+        }
+      }
+    },
+    "scanner.addManually": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add food manually"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "手动添加食品"
+          }
+        }
+      }
+    },
+    "scanner.invalidBarcode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a valid 8, 12, 13 or 14-digit retail barcode, including its check digit."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入包含校验位的有效 8、12、13 或 14 位商品条码。"
+          }
+        }
+      }
+    },
+    "scanner.barcodeDigits": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode digits"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条码数字"
+          }
+        }
+      }
+    },
+    "scanner.manualBarcodeHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type the digits printed below the barcode. Spaces are allowed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入条码下方的数字，可以包含空格。"
+          }
+        }
+      }
+    },
+    "scanner.lookup": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Look up product"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查询商品"
+          }
+        }
+      }
+    },
+    "scanner.recognizedText": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recognized packaging text"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "识别到的包装文字"
+          }
+        }
+      }
+    },
+    "scanner.confirmDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm expiry date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认保质期"
+          }
+        }
+      }
+    },
+    "scanner.ambiguousDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More than one date is possible. Check the packaging and choose the correct expiry date."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "日期存在多种解释，请核对包装并选择正确的保质期。"
+          }
+        }
+      }
+    },
+    "scanner.correctDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Correct date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "调整日期"
+          }
+        }
+      }
+    },
+    "scanner.useConfirmedDate": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use confirmed date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用已确认的日期"
+          }
+        }
+      }
+    },
+    "insights.efficiency.empty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No processed batches in this period yet."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "本期暂无已处理批次。"
+          }
+        }
+      }
+    },
+    "settings.inventoryBadge.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inventory badges"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "库存气泡提示"
+          }
+        }
+      }
+    },
+    "settings.inventoryBadge.number": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show numbers"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示数字"
+          }
+        }
+      }
+    },
+    "settings.inventoryBadge.dot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Red dot only"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅显示红点"
+          }
+        }
+      }
+    },
+    "settings.inventoryBadge.off": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Off"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭提示"
+          }
+        }
+      }
+    },
+    "settings.inventoryBadge.hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show the number of active food batches on All, storage areas and the Shelf tab. Empty areas have no badge."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在 All、放置区域和底部 Shelf 导航显示当前库存批次数量；空区域不显示提示。"
+          }
+        }
+      }
+    },
+    "shelf.badge.items": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "food batches"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个食品批次"
+          }
+        }
+      }
+    },
+    "settings.lockEnableFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Authentication was not completed. App lock remains off. Try again."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "身份验证未完成，应用锁仍关闭，请重试。"
+          }
+        }
+      }
+    },
+    "scanner.photoLoadFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This photo could not be opened. Try another photo or add food manually."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法打开此照片，请重选照片或手动添加食品。"
+          }
+        }
+      }
+    },
+    "backup.error.unsupportedVersion": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unsupported backup version. Your inventory was not changed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不支持此备份版本。库存未发生变化。"
+          }
+        }
+      }
+    },
+    "backup.error.duplicateIDs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This backup contains duplicate records. Your inventory was not changed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "备份中存在重复记录。库存未发生变化。"
+          }
+        }
+      }
+    },
+    "backup.error.invalidImage": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A food photo is invalid. No incomplete backup will be exported or restored."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食品照片无效，无法导出或恢复不完整的备份。"
+          }
+        }
+      }
+    },
+    "backup.error.invalidQuantity": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A quantity is invalid. Check your food and shopping quantities before exporting or restoring."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "存在无效数量。请检查食品和购物清单的数量后再导出或恢复。"
+          }
+        }
+      }
+    },
+    "backup.error.invalidReference": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A food refers to a missing category or location. No backup was exported or restored."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食品引用的分类或位置不存在。备份未导出或恢复。"
+          }
+        }
+      }
+    },
+    "backup.error.invalidOpening": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opening dates or stock thresholds are invalid. Check them before exporting or restoring."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开封日期、开封保质期或低库存阈值无效，请检查后再导出或恢复。"
+          }
+        }
+      }
+    },
+    "backup.error.tooLarge": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Backups support up to 100 MB, 10,000 foods and 10,000 shopping items. Photos support up to 10 MB each and 50 MB in total. No backup was exported or restored."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "备份最多支持 100 MB、10,000 条食品和 10,000 条购物记录。每张照片最多 10 MB，照片总计最多 50 MB。备份未导出或恢复。"
+          }
+        }
+      }
+    },
+    "backup.error.imageWriteFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A backup photo could not be saved. Your inventory was not changed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "备份照片无法保存。库存未发生变化。"
+          }
+        }
+      }
+    },
+    "backup.error.imageReadFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A food photo could not be read. No incomplete backup was created."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "食品照片无法读取，未生成不完整的备份。"
+          }
+        }
+      }
+    },
+    "backup.error.invalidFile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This file is not a valid Shelfie backup. Select an original Shelfie JSON backup. Your inventory was not changed."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "文件不是有效的 Shelfie 备份。请选择原始 Shelfie JSON 备份文件。库存未发生变化。"
+          }
+        }
+      }
+    },
+    "shopping.markBought": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark %@ as bought"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将 %@ 标记为已购买"
+          }
+        }
+      }
+    },
+    "shopping.markPending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark %@ as to buy"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "将 %@ 标记为待购买"
+          }
+        }
+      }
+    },
+    "shopping.pending": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To buy"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "待购买"
+          }
+        }
+      }
+    },
+    "shelf.selectedCount": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d selected food batches"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已选择 %d 个食品批次"
+          }
+        }
+      }
+    },
+    "scanner.torch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toggle flashlight"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "切换手电筒"
+          }
+        }
+      }
+    },
+    "scanner.choosePhoto": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a packaging photo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择包装照片"
+          }
+        }
+      }
+    },
+    "shelf.badge.item": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "food batch"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "个食品批次"
+          }
+        }
+      }
+    },
+    "entry.moreInformation": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More information"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多信息"
+          }
+        }
+      }
+    },
+    "entry.saveAndContinue": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and add another"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存并继续添加"
+          }
+        }
+      }
+    },
+    "entry.hasExpiry": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Set an expiry date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "填写到期日期"
+          }
+        }
+      }
+    },
+    "entry.expiryNotSet": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No expiry date entered. You can add one later."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "到期日期未填写，可稍后补充。"
+          }
+        }
+      }
+    },
+    "entry.repeatExpiryChoice": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose this batch’s expiry date, or confirm that no date is available."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请选择这一批次的到期日期，或确认暂时没有日期。"
+          }
+        }
+      }
+    },
+    "entry.confirmNoExpiry": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm without an expiry date"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认暂不填写到期日期"
+          }
+        }
+      }
+    },
+    "entry.shoppingSourceMissing": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This shopping item no longer exists. Close this form and add the food from your shelf."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这条购物记录已不存在。请关闭表单，再从库存添加食品。"
+          }
+        }
+      }
+    },
+    "entry.shoppingAlreadyAdded": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This shopping item has already been added to inventory. Close this form to avoid adding it twice."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这条购物记录已加入库存。请关闭表单，避免重复添加。"
+          }
+        }
+      }
+    },
+    "shelf.foodActions": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions for %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 的操作"
+          }
+        }
+      }
+    },
+    "shelf.selected": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selected"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已选择"
+          }
+        }
+      }
+    },
+    "shopping.purchasePrompt": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bought. Add to your shelf?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已购买，是否加入库存？"
+          }
+        }
+      }
+    },
+    "shopping.addInventory": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add to shelf"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "加入库存"
+          }
+        }
+      }
+    },
+    "shopping.boughtOnly": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark as bought only"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "仅标记为已购买"
+          }
+        }
+      }
+    },
+    "shopping.inventoryAdded": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Already added to shelf"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已加入库存"
+          }
+        }
+      }
+    },
+    "shopping.itemActions": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Actions for %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 的操作"
+          }
+        }
+      }
+    },
+    "shelf.gettingStarted": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your first item"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "从第一件食品开始"
+          }
+        }
+      }
+    },
+    "shelf.gettingStartedSteps": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add food → enter the date if known → enable expiry reminders."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加食品 → 填写已知日期 → 开启到期提醒。"
+          }
+        }
+      }
+    },
+    "shelf.gettingStartedAdd": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your first item"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加第一件食品"
+          }
+        }
+      }
+    },
+    "shelf.gettingStartedSkip": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Later"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以后再说"
+          }
+        }
+      }
+    },
+    "settings.showGettingStarted": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show usage tips again"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新显示使用提示"
+          }
+        }
+      }
+    },
+    "settings.gettingStartedFootnote": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tips are optional. Skip them whenever you like, and restore them here."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用提示可随时跳过，也可在这里重新开启。"
+          }
+        }
+      }
+    },
+    "gettingStarted.restored": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tips are enabled again. Return to the Shelf to see the next relevant tip."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已重新开启提示。返回库存页查看适用的提示。"
+          }
+        }
+      }
+    },
+    "gettingStarted.addFirst": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add one food and its expiry date; Shelfie will help you decide what to use first."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加一件食品和到期日，Shelfie 会帮助你知道先吃什么。"
+          }
+        }
+      }
+    },
+    "gettingStarted.addAction": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add your first food"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "添加首件食品"
+          }
+        }
+      }
+    },
+    "gettingStarted.later": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maybe later"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以后再说"
+          }
+        }
+      }
+    },
+    "gettingStarted.useTip": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use part of a batch from its details; the rest stays on your shelf."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在食品详情中使用一部分，剩余数量会继续保留在库存中。"
+          }
+        }
+      }
+    },
+    "gettingStarted.showFood": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try using a food"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "试试使用食品"
+          }
+        }
+      }
+    },
+    "gettingStarted.dismiss": {
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Got it"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "知道了"
+          }
+        }
+      }
+    },
+    "global.moreActions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en-US": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More actions"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多操作"
           }
         }
       }
