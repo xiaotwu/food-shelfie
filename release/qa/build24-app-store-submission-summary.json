@@ -1,0 +1,59 @@
+{
+  "app": "Food Shelfie",
+  "appID": "6806936881",
+  "version": "1.2",
+  "build": "24",
+  "buildID": "cbf8585a-a53c-4fa8-b30d-844b33d80514",
+  "submissionID": "4a80b4cb-d20f-4ac9-9412-0497d6ee5494",
+  "submittedAtDisplayed": "Sep 30, 2026 at 5:26 PM",
+  "timezone": "America/Los_Angeles",
+  "status": "Waiting for Review",
+  "approved": false,
+  "live": false,
+  "releaseMode": "Automatically release this version",
+  "releaseModeVerifiedAfterSaveAndReload": true,
+  "previousSubmissionID": "48dbf8cb-156b-4b1e-bd98-52eaad3dac13",
+  "previousBuild": "1.1 (20)",
+  "previousSubmissionCanceled": true,
+  "localizations": [
+    "en-US"
+  ],
+  "otherLocalizationsUseFallback": true,
+  "screenshots": {
+    "iphone6.9": {
+      "count": 5,
+      "pixels": [
+        1320,
+        2868
+      ]
+    },
+    "ipad13": {
+      "count": 5,
+      "pixels": [
+        2064,
+        2752
+      ]
+    },
+    "order": [
+      "01-shelf.png",
+      "02-opening-and-quantity.png",
+      "03-shopping.png",
+      "04-insights.png",
+      "05-settings.png"
+    ],
+    "previousScreenshotsRemoved": true,
+    "otherDisplaySizesUseUpdatedFallback": true
+  },
+  "descriptionUpdated": true,
+  "reviewNotesUpdated": true,
+  "reviewAttachment": "Shelfie-AppReview-1.1-19.mp4",
+  "reviewNotesDiscloseOldVideoVersion": true,
+  "signInRequired": false,
+  "testFlightInternalGroups": {
+    "internal-group": "Testing",
+    "phone-test": "Testing"
+  },
+  "rawProofLocation": "Local only, excluded from public repository",
+  "publicProof": "build24-app-store-submission.png",
+  "previousSubmissionFinalStatus": "Removed"
+}

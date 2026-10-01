@@ -82,3 +82,6 @@ playground.xcworkspace
 !/release/qa/build24-ipad-maxfont-centered-settings-more.png
 !/release/qa/build24-ipad-normalfont-centered-settings-notifications.png
 !/release/qa/build24-phone-adaptive-notifications-landscape-expanded.png
+
+!/release/qa/build24-app-store-submission-summary.json
+!/release/qa/build24-app-store-submission.png

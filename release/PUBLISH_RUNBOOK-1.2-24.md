@@ -22,3 +22,9 @@ After build-ready signal:
 8. Save official submission result and current TestFlight status, with screenshots/logs. Waiting for Review is not approval or public availability. Record any validation/authentication blocker exactly.
 
 Known validation boundary: one physical device only; two-device CloudKit sync acceptance remains pending. Local production schema deployment has succeeded. Final build 24 test/device/archive/upload evidence is supplied by Root when ready.
+
+## Execution completed — September 30, 2026
+
+All preparation gates were satisfied before replacing the old submission. Build 24 uploaded and processed; both existing internal groups are Testing. The unlocked editor exposed the 6.9-inch slot and accepted five 1320×2868 screenshots, while the 13-inch slot accepted five 2064×2752 screenshots. Both ordered sets and fallback previews were read back after saving. The first unreleased version exposes no What's New field; the draft release notes are retained but are not claimed as saved to such a field. Only en-US was localized, preserving the existing fallback for other languages.
+
+Version 1.2, build 24, description, review notes, no-login review setting and automatic release after approval were verified after saving/reloading. Official submission succeeded at 17:26 PDT, ID `4a80b4cb-d20f-4ac9-9412-0497d6ee5494`, status **Waiting for Review**. The old submission is Removed. See [submission evidence](qa/build24-app-store-submission-summary.json). Apple approval and public availability are pending.

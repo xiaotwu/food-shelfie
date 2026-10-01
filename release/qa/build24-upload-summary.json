@@ -7,6 +7,6 @@
   "uploadChannel": "Xcode app-store-connect automatic signing",
   "firstAttempt": "Failed: Xcode had no signed-in App Store Connect account. User completed login; retry succeeded.",
   "processingState": "Complete: version 1.2 build 24 selectable in App Store Connect.",
-  "appStoreSubmissionState": "Existing 1.1(20) pending review retained until final screenshots and processing verification.",
+  "appStoreSubmissionState": "1.2 (24) Waiting for Review, submitted September 30, 2026 at 17:26 PDT; automatic release after approval verified. Previous 1.1 (20) submission Removed.",
   "testFlightState": "Testing in both existing internal groups; What to Test saved. No tester installation of 24 is claimed."
 }

@@ -1,6 +1,6 @@
 # Shelfie 1.2（24）发行收尾交接
 
-当前发行候选为 **1.2（24）**。用户已经明确恢复本次界面修复、项目整理、GitHub/Xcode 更新及 TestFlight/App Store 发行收尾。最新构建验证与外部发布状态见[发行状态](RELEASE_STATUS.md)，项目清理见[整理记录](PROJECT_CLEANUP.zh-CN.md)。构建 23 的自适应顶部导航见[改动与验证记录](ADAPTIVE_TOOLBAR.zh-CN.md)。以下保留构建 22 的原交接证据，不能将它们直接写成构建 24 的验证结果。
+当前送审版本为 **1.2（24）**，已于 2026-09-30 17:26 PDT 提交，状态为 Waiting for Review；审核通过后自动发布。用户已经明确恢复本次界面修复、项目整理、GitHub/Xcode 更新及 TestFlight/App Store 发行收尾。最新构建验证与外部发布状态见[发行状态](RELEASE_STATUS.md)，项目清理见[整理记录](PROJECT_CLEANUP.zh-CN.md)。构建 23 的自适应顶部导航见[改动与验证记录](ADAPTIVE_TOOLBAR.zh-CN.md)。以下保留构建 22 的原交接证据，不能将它们直接写成构建 24 的验证结果。
 
 ## 构建 24 的最终验证
 
